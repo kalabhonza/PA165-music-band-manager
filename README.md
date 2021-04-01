@@ -4,7 +4,9 @@ Team members can login to the system and see the offers made by the band manager
 
 
 Use Case Diagram
-![Use case diagram](diagrams/UseCaseDiagram.jpg)
+
+![](diagrams/UseCaseDiagram.jpg)
 
 Class diagram
-![Class diagram](diagrams/ClassDiagram.jpg)
+
+![](diagrams/ClassDiagram.jpg)
