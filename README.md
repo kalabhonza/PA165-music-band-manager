@@ -3,4 +3,8 @@ The web application allows one music band to manage their activities. Managers c
 Team members can login to the system and see the offers made by the band managers. They can accept or reject to be part of a band. After they are part of a band, they can see all the activities that are planned and the profiles of the other band members.
 
 
-![Class diagram](ClassDiagram.JPG)
+Use Case Diagram
+![Use case diagram](diagrams/UseCaseDiagram.jpg)
+
+Class diagram
+![Class diagram](diagrams/ClassDiagram.jpg)
