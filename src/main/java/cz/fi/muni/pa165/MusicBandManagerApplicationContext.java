@@ -1,6 +1,8 @@
 package cz.fi.muni.pa165;
 
-import cz.fi.muni.pa165.entities.Band;
+import cz.fi.muni.pa165.entities.*;
+import cz.fi.muni.pa165.persistance.Impl.BandDAOImpl;
+import cz.fi.muni.pa165.persistance.interfaces.*;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +22,10 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan(basePackageClasses = {Band.class}, basePackages = "cz.fi.muni.pa165")
+@ComponentScan(basePackageClasses = {Band.class, Album.class, Concert.class, Manager.class, Musician.class, Song.class, Tour.class,
+        AlbumDAO.class, BandDAO.class, ConcertDAO.class, ManagerDAO.class, MusicianDAO.class, SongDAO.class, TourDAO.class
+}, basePackages = "cz.fi.muni.pa165")
+
 public class MusicBandManagerApplicationContext {
 
     /**
