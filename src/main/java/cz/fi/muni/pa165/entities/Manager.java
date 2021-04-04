@@ -6,11 +6,11 @@ import javax.persistence.*;
 /**
  * @author Jan Kaláb
  */
-@Entity
+@Entity(name = "managers")
 public class Manager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long managerID;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -24,19 +24,19 @@ public class Manager {
     @OneToOne
     private Band band;
 
-    public Manager(Long managerID, String name, String userName, String password) {
-        this.managerID = managerID;
+    public Manager(Long id, String name, String userName, String password) {
+        this.id = id;
         this.name = name;
         this.userName = userName;
         this.password = password;
     }
 
-    public Long getManagerID() {
-        return managerID;
+    public Long getId() {
+        return id;
     }
 
-    public void setManagerID(Long managerID) {
-        this.managerID = managerID;
+    public void setId(Long managerID) {
+        this.id = managerID;
     }
 
     public String getName() {
@@ -76,7 +76,7 @@ public class Manager {
         if (this == o) return true;
         if (!(o instanceof Manager)) return false;
         Manager manager = (Manager) o;
-        return getManagerID().equals(manager.getManagerID()) &&
+        return getId().equals(manager.getId()) &&
                 getName().equals(manager.getName()) &&
                 getUserName().equals(manager.getUserName()) &&
                 getPassword().equals(manager.getPassword()) &&
@@ -85,6 +85,6 @@ public class Manager {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getManagerID(), getName(), getUserName(), getPassword(), getBand());
+        return Objects.hash(getId(), getName(), getUserName(), getPassword(), getBand());
     }
 }

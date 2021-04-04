@@ -1,7 +1,6 @@
 package cz.fi.muni.pa165.persistance.interfaces;
 
 import cz.fi.muni.pa165.entities.Manager;
-
 import java.util.List;
 
 /**
@@ -10,7 +9,6 @@ import java.util.List;
  * @author Jan Kaláb
  */
 public interface ManagerDAO {
-
     /**
      * Find Manager by its id
      *
