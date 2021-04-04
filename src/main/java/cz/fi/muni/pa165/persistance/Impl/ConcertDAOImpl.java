@@ -1,7 +1,56 @@
 package cz.fi.muni.pa165.persistance.Impl;
 
+import cz.fi.muni.pa165.entities.Band;
+import cz.fi.muni.pa165.entities.Concert;
+import cz.fi.muni.pa165.persistance.interfaces.ConcertDAO;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
+import java.util.List;
+
 /**
  * @author Aleš Paroulek
  */
-public class ConcertDAOImpl {
+@Repository
+@Transactional
+public class ConcertDAOImpl implements ConcertDAO {
+
+    @PersistenceContext
+    private EntityManager em;
+
+    public Concert findById(long id) {
+        return em.find(Concert.class, id);
+    }
+
+    public List<Concert> findAll() {
+        return em.createQuery("select c from Concert c", Concert.class).getResultList();
+    }
+
+    public List<Concert> findAllByBand(Band band) {
+        return em.createQuery("select c from Concert c where band = :band", Concert.class)
+                .setParameter("band", band)
+                .getResultList();
+    }
+
+    public List<Concert> findAllByDate(LocalDate date) {
+        return em.createQuery("select c from Concert c where date = :date", Concert.class)
+                .setParameter("date", date)
+                .getResultList();
+    }
+
+    public void create(Concert concert) {
+        em.persist(concert);
+    }
+
+    public void update(Concert concert) {
+        em.merge(concert);
+    }
+
+    public void remove(Concert concert) {
+        em.remove(concert);
+    }
 }
+
