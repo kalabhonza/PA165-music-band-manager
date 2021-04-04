@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.persistance.Impl;
 import cz.fi.muni.pa165.entities.Album;
 import cz.fi.muni.pa165.persistance.interfaces.AlbumDAO;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 
 @Repository
+@Transactional
 public class AlbumDAOImpl implements AlbumDAO {
 
     @PersistenceContext
@@ -25,7 +27,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 
     @Override
     public List<Album> getAllAlbums() {
-        return entityManager.createQuery("SELECT a FROM Album a", Album.class).getResultList();
+        return entityManager.createQuery("select a from album a", Album.class).getResultList();
     }
 
     @Override
@@ -46,7 +48,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 
     @Override
     public List<Album> getAlbumsByName(String name) {
-        return entityManager.createQuery("SELECT a FROM Album a WHERE a.name = :name",Album.class).setParameter("name", name).getResultList();
+        return entityManager.createQuery("select a from album a where a.name = :name",Album.class).setParameter("name", name).getResultList();
 
     }
 }

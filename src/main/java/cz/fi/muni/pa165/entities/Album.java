@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * @author Albert Sukaný
  */
-@Entity
+@Entity(name = "album")
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class Album {
     @OneToOne
     private Band band;
 
-    @OneToMany
+    @OneToMany(mappedBy = "songs")
     private List<Song> songs;
 
     public Album(Long id,String name, Band band, List<Song> songs) {

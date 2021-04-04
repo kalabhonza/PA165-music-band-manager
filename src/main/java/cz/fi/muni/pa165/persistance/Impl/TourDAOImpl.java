@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.persistance.Impl;
 import cz.fi.muni.pa165.entities.Tour;
 import cz.fi.muni.pa165.persistance.interfaces.TourDAO;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 
 @Repository
-
+@Transactional
 public class TourDAOImpl implements TourDAO {
 
     @PersistenceContext
@@ -26,7 +27,7 @@ public class TourDAOImpl implements TourDAO {
 
     @Override
     public List<Tour> getAllTours() {
-        return entityManager.createQuery("SELECT t from Tour t", Tour.class).getResultList();
+        return entityManager.createQuery("select t from tour t", Tour.class).getResultList();
     }
 
     @Override
@@ -47,6 +48,6 @@ public class TourDAOImpl implements TourDAO {
 
     @Override
     public List<Tour> getByName(String name) {
-        return entityManager.createQuery("SELECT t from Tour t where t.name = :name",Tour.class).setParameter("name",name).getResultList();
+        return entityManager.createQuery("select t from tour t where t.name = :name",Tour.class).setParameter("name",name).getResultList();
     }
 }
