@@ -31,6 +31,8 @@ public class Manager {
         this.password = password;
     }
 
+    public Manager() {}
+
     public Long getId() {
         return id;
     }
@@ -74,17 +76,24 @@ public class Manager {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Manager)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Manager manager = (Manager) o;
-        return getId().equals(manager.getId()) &&
-                getName().equals(manager.getName()) &&
-                getUserName().equals(manager.getUserName()) &&
-                getPassword().equals(manager.getPassword()) &&
-                Objects.equals(getBand(), manager.getBand());
+        return name.equals(manager.name) && userName.equals(manager.userName) && password.equals(manager.password) && band.equals(manager.band);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getUserName(), getPassword(), getBand());
+        return Objects.hash(name, userName, password, band);
+    }
+
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", band=" + band +
+                '}';
     }
 }

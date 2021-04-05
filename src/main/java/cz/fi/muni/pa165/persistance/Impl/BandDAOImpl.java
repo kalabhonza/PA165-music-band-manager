@@ -37,14 +37,14 @@ public class BandDAOImpl implements BandDAO {
 
     @Override
     public Band findBandByName(String name) {
-        return em.createQuery("select b from Band b where b.name = :name", Band.class)
+        return em.createQuery("select b from bands b where b.name = :name", Band.class)
                 .setParameter("name", name)
                 .getSingleResult();
     }
 
     @Override
     public Band findBandByManager(Manager manager) {
-        return em.createQuery("select b from Band b where b.manager = :manager", Band.class)
+        return em.createQuery("select b from bands b where b.manager = :manager", Band.class)
                 .setParameter("manager", manager)
                 .getSingleResult();
     }
@@ -56,6 +56,7 @@ public class BandDAOImpl implements BandDAO {
 
     @Override
     public void deleteBand(Band band) {
-
+        band = em.merge(band);
+        em.remove(band);
     }
 }

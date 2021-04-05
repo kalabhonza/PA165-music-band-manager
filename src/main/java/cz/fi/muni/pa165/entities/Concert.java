@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * @author Aleš Paroulek
  */
-@Entity
+@Entity(name = "concerts")
 public class Concert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -93,4 +93,14 @@ public class Concert {
         return Objects.hash(getName(), getDate(), getBand(), getTour());
     }
 
+    @Override
+    public String toString() {
+        return "Concert{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", band=" + band +
+                ", tour=" + tour +
+                '}';
+    }
 }

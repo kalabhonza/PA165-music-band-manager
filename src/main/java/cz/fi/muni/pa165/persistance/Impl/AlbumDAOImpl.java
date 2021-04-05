@@ -27,7 +27,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 
     @Override
     public List<Album> getAllAlbums() {
-        return entityManager.createQuery("select a from album a", Album.class).getResultList();
+        return entityManager.createQuery("select a from albums a", Album.class).getResultList();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 
     @Override
     public List<Album> getAlbumsByName(String name) {
-        return entityManager.createQuery("select a from album a where a.name = :name",Album.class).setParameter("name", name).getResultList();
+        return entityManager.createQuery("select a from albums a where a.name = :name",Album.class).setParameter("name", name).getResultList();
 
     }
 }

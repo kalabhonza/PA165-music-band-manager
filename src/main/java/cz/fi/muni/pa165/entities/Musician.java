@@ -1,16 +1,17 @@
 package cz.fi.muni.pa165.entities;
 
-import cz.fi.muni.pa165.enums.Instruments;
+import cz.fi.muni.pa165.enums.Instrument;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 /**
  * @author Aleš Paroulek
  */
-@Entity
+@Entity(name = "musicians")
 public class Musician {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +26,8 @@ public class Musician {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany
-    private Set<Instruments> instruments = new HashSet<>();
+    @ElementCollection
+    private List<Instrument> instruments;
 
     @ManyToMany
     private Set<Band> offers = new HashSet<>();
@@ -36,7 +37,7 @@ public class Musician {
 
     public Musician() {}
 
-    public Musician(Long id, String name, String username, String password, Set<Instruments> instruments, Set<Band> offers, Tour tour) {
+    public Musician(Long id, String name, String username, String password, List<Instrument> instruments, Set<Band> offers, Tour tour) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -87,11 +88,11 @@ public class Musician {
         this.password = password;
     }
 
-    public Set<Instruments> getInstruments() {
+    public List<Instrument> getInstruments() {
         return instruments;
     }
 
-    public void setInstruments(Set<Instruments> instruments) {
+    public void setInstruments(List<Instrument> instruments) {
         this.instruments = instruments;
     }
 
@@ -123,5 +124,18 @@ public class Musician {
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getUsername(), getBand());
+    }
+
+    @Override
+    public String toString() {
+        return "Musician{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", instruments=" + instruments +
+                ", offers=" + offers +
+                ", band=" + band +
+                '}';
     }
 }

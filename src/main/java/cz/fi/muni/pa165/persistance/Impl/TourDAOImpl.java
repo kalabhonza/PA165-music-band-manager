@@ -27,7 +27,7 @@ public class TourDAOImpl implements TourDAO {
 
     @Override
     public List<Tour> getAllTours() {
-        return entityManager.createQuery("select t from tour t", Tour.class).getResultList();
+        return entityManager.createQuery("select t from tours t", Tour.class).getResultList();
     }
 
     @Override
@@ -48,6 +48,6 @@ public class TourDAOImpl implements TourDAO {
 
     @Override
     public List<Tour> getByName(String name) {
-        return entityManager.createQuery("select t from tour t where t.name = :name",Tour.class).setParameter("name",name).getResultList();
+        return entityManager.createQuery("select t from tours t where t.name = :name",Tour.class).setParameter("name",name).getResultList();
     }
 }

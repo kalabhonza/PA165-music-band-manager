@@ -26,17 +26,17 @@ public class ConcertDAOImpl implements ConcertDAO {
     }
 
     public List<Concert> findAll() {
-        return em.createQuery("select c from Concert c", Concert.class).getResultList();
+        return em.createQuery("select c from concerts c", Concert.class).getResultList();
     }
 
     public List<Concert> findAllByBand(Band band) {
-        return em.createQuery("select c from Concert c where band = :band", Concert.class)
+        return em.createQuery("select c from concerts c where band = :band", Concert.class)
                 .setParameter("band", band)
                 .getResultList();
     }
 
     public List<Concert> findAllByDate(LocalDate date) {
-        return em.createQuery("select c from Concert c where date = :date", Concert.class)
+        return em.createQuery("select c from concerts c where date = :date", Concert.class)
                 .setParameter("date", date)
                 .getResultList();
     }

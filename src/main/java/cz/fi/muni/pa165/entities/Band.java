@@ -1,9 +1,10 @@
 package cz.fi.muni.pa165.entities;
 
 import com.sun.istack.NotNull;
-import cz.fi.muni.pa165.enums.Styles;
+import cz.fi.muni.pa165.enums.Style;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -11,7 +12,7 @@ import java.util.Set;
 /**
  * @author Igor Ignác
  */
-@Entity
+@Entity(name = "bands")
 public class Band {
 
     @Id
@@ -26,15 +27,15 @@ public class Band {
     private byte[] logo;
 
     @Column(nullable = false)
-    private Styles style;
+    private Style style;
 
-    @OneToMany(mappedBy = "musician")
+    @OneToMany
     private Set<Musician> members = new HashSet<>();
 
-    @OneToMany(mappedBy = "album")
+    @OneToMany
     private Set<Album> albums = new HashSet<>();
 
-    @OneToMany(mappedBy = "tour")
+    @OneToMany
     private Set<Tour> tours = new HashSet<>();
 
     @OneToOne
@@ -64,11 +65,11 @@ public class Band {
         this.logo = logo;
     }
 
-    public Styles getStyle() {
+    public Style getStyle() {
         return style;
     }
 
-    public void setStyle(Styles style) {
+    public void setStyle(Style style) {
         this.style = style;
     }
 
@@ -104,19 +105,33 @@ public class Band {
         this.manager = manager;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Band)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Band band = (Band) o;
-
-        if (!getName().equals(band.getName())) return false;
-        if (!getManager().equals(band.getManager())) return false;
-        return getStyle().equals(band.getStyle());
+        return name.equals(band.name) && Arrays.equals(logo, band.logo) && style == band.style && members.equals(band.members) && albums.equals(band.albums) && tours.equals(band.tours) && manager.equals(band.manager);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        int result = Objects.hash(name, style, members, albums, tours, manager);
+        result = 31 * result + Arrays.hashCode(logo);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Band{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", logo=" + Arrays.toString(logo) +
+                ", style=" + style +
+                ", members=" + members +
+                ", albums=" + albums +
+                ", tours=" + tours +
+                ", manager=" + manager +
+                '}';
     }
 }
