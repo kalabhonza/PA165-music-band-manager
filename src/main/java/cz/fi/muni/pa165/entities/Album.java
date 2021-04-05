@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * @author Albert Sukaný
  */
-@Entity(name = "album")
+@Entity(name = "albums")
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,18 +16,16 @@ public class Album {
     @Column(nullable = false)
     private String name;
 
-    @OneToOne
-    private Band band;
-
-    @OneToMany(mappedBy = "songs")
+    @OneToMany
     private List<Song> songs;
 
     public Album(Long id,String name, Band band, List<Song> songs) {
         this.id = id;
         this.name = name;
-        this.band = band;
         this.songs = songs;
     }
+
+    public Album() {}
 
     public Long getId() {
         return id;
@@ -45,14 +43,6 @@ public class Album {
         this.name = name;
     }
 
-    public Band getBand() {
-        return band;
-    }
-
-    public void setBand(Band band) {
-        this.band = band;
-    }
-
     public List<Song> getSongs() {
         return songs;
     }
@@ -66,16 +56,12 @@ public class Album {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Album album = (Album) o;
-        return Objects.equals(id, album.id) &&
-                Objects.equals(name, album.name) &&
-                Objects.equals(band, album.band) &&
-                Objects.equals(songs, album.songs);
+        return name.equals(album.name) && songs.equals(album.songs);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, name, band, songs);
+        return Objects.hash(name, songs);
     }
 
     @Override
@@ -83,7 +69,6 @@ public class Album {
         return "Album{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", band=" + band +
                 ", songs=" + songs +
                 '}';
     }

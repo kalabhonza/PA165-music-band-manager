@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * @author Albert Sukaný
  */
-@Entity(name = "tour")
+@Entity(name = "tours")
 public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class Tour {
     @OneToOne
     private Band band;
 
-    @OneToMany(mappedBy = "concerts")
+    @OneToMany
     private List<Concert> concerts;
 
     public Tour(Long id,String name, Band band, List<Concert> concerts) {
@@ -28,6 +28,8 @@ public class Tour {
         this.band = band;
         this.concerts = concerts;
     }
+
+    public Tour() { }
 
     public Long getId() {
         return id;
@@ -66,16 +68,12 @@ public class Tour {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tour tour = (Tour) o;
-        return Objects.equals(id, tour.id) &&
-                Objects.equals(name, tour.name) &&
-                Objects.equals(band, tour.band) &&
-                Objects.equals(concerts, tour.concerts);
+        return name.equals(tour.name) && band.equals(tour.band) && concerts.equals(tour.concerts);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, name, band, concerts);
+        return Objects.hash(name, band, concerts);
     }
 
     @Override

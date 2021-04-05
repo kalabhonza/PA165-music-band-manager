@@ -1,15 +1,13 @@
 package cz.fi.muni.pa165.entities;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Time;
 import java.util.Objects;
 
 /**
  * @author Igor Ignác
  */
+@Entity(name = "songs")
 public class Song {
 
     @Id
@@ -20,10 +18,9 @@ public class Song {
     private String name;
 
     @Column(nullable = false)
-    private Band band;
-
-    @Column(nullable = false)
     private Time duration;
+
+    public Song() {}
 
     public Long getId() {
         return id;
@@ -41,14 +38,6 @@ public class Song {
         this.name = name;
     }
 
-    public Band getBand() {
-        return band;
-    }
-
-    public void setBand(Band band) {
-        this.band = band;
-    }
-
     public Time getDuration() {
         return duration;
     }
@@ -62,11 +51,20 @@ public class Song {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Song song = (Song) o;
-        return name.equals(song.name) && band.equals(song.band);
+        return name.equals(song.name) && duration.equals(song.duration);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getBand());
+        return Objects.hash(name, duration);
+    }
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", duration=" + duration +
+                '}';
     }
 }

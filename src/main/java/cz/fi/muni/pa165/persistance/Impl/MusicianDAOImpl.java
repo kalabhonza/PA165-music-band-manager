@@ -25,17 +25,17 @@ public class MusicianDAOImpl implements MusicianDAO {
     }
 
     public Musician findByUserName(String username) {
-        return em.createQuery("select m from Musician m where username = :username", Musician.class)
+        return em.createQuery("select m from musicians m where username = :username", Musician.class)
                 .setParameter("username", username)
                 .getSingleResult();
     }
 
     public List<Musician> findAll() {
-        return em.createQuery("select m from Musician m", Musician.class).getResultList();
+        return em.createQuery("select m from musicians m", Musician.class).getResultList();
     }
 
     public List<Musician> findAllByBand(Band band) {
-        return em.createQuery("select m from Musician m where band = :band", Musician.class)
+        return em.createQuery("select m from musicians m where band = :band", Musician.class)
                 .setParameter("band", band)
                 .getResultList();
     }

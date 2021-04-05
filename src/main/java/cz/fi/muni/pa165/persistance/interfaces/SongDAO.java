@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.persistance.interfaces;
 
-import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Song;
 
 import java.util.List;
@@ -35,13 +34,6 @@ public interface SongDAO {
      * @return found song or null
      */
     Song findSongByName(String name);
-
-    /**
-     * Search database for song matching given Band
-     * @param band song's band
-     * @return found song or null
-     */
-    Song findSongByBand(Band band);
 
     /**
      * Returns all songs in database
