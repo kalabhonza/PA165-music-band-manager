@@ -5,7 +5,10 @@ import cz.fi.muni.pa165.entities.Song;
 import cz.fi.muni.pa165.persistance.interfaces.SongDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -16,18 +19,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
+import java.sql.Time;
 import java.util.List;
 
 /**
  * @author Aleš Paroulek
  */
 @ContextConfiguration(classes = MusicBandManagerApplicationContext.class)
+@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@Transactional
 public class SongDAOTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private SongDAO songDAO;
-
-    @PersistenceUnit
-    private EntityManagerFactory emf;
 
     @PersistenceContext
     private EntityManager em;
@@ -38,38 +41,27 @@ public class SongDAOTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void beforeTest() {
-        EntityManager em = null;
+        songA = new Song();
+        songA.setName("A");
+        songA.setDuration(new Time(60));
+        em.persist(songA);
 
-        try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+        songB = new Song();
+        songB.setName("B");
+        songB.setDuration(new Time(60));
+        em.persist(songB);
 
-            songA = new Song();
-            songA.setName("A");
-            songA.setId(1L);
-            em.persist(songA);
-
-            songB = new Song();
-            songB.setName("B");
-            songB.setId(2L);
-            em.persist(songB);
-
-            songC = new Song();
-            songC.setName("A");
-            songC.setId(3L);
-            em.persist(songC);
-
-            em.getTransaction().commit();
-        } finally {
-            if (em != null) em.close();
-        }
+        songC = new Song();
+        songC.setName("C");
+        songC.setDuration(new Time(60));
+        em.persist(songC);
     }
 
     @Test
     public void findSongById() {
-        Song resultA = songDAO.findSongById(1L);
-        Song resultB = songDAO.findSongById(2L);
-        Song resultC = songDAO.findSongById(3L);
+        Song resultA = songDAO.findSongById(songA.getId());
+        Song resultB = songDAO.findSongById(songB.getId());
+        Song resultC = songDAO.findSongById(songC.getId());
 
         Assert.assertEquals(resultA.getName(), songA.getName());
         Assert.assertEquals(resultB.getName(), songB.getName());
@@ -86,11 +78,11 @@ public class SongDAOTest extends AbstractTestNGSpringContextTests {
     public void createSong() {
         Song songD = new Song();
         songD.setName("D");
-        songD.setId(4L);
+        songD.setDuration(new Time(60));
 
         songDAO.create(songD);
 
-        Song resultD = songDAO.findSongById(4L);
+        Song resultD = songDAO.findSongById(songD.getId());
         Assert.assertEquals(songD.getName(), resultD.getName());
     }
 
@@ -99,7 +91,7 @@ public class SongDAOTest extends AbstractTestNGSpringContextTests {
         songB.setName("Z");
         songDAO.update(songB);
 
-        Song resultB = songDAO.findSongById(2L);
+        Song resultB = songDAO.findSongById(songB.getId());
         Assert.assertEquals(songB.getName(), resultB.getName());
     }
 
@@ -112,26 +104,17 @@ public class SongDAOTest extends AbstractTestNGSpringContextTests {
         Assert.assertTrue(beforeDeleteCount > afterDeleteCount);
     }
 
-//    @Test
-//    public void findSongByName() {
-//        Song resultA = songDAO.findSongByName("A");
-//        Assert.assertEquals(resultA.getId(), songA.getId());
-//
-//    }
+    @Test
+    public void findSongByName() {
+        songA.setName("test");
+        songB.setName("test");
+        List<Song> sameNameSongs = songDAO.findSongByName("test");
+        Assert.assertEquals(sameNameSongs.size(), 2);
+    }
 
     @AfterMethod
     public void afterTest() {
-        EntityManager em = null;
-        try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
-            em.createQuery("delete from songs").executeUpdate();
-            em.getTransaction().commit();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
+        em.createQuery("delete from songs").executeUpdate();
     }
 
 
