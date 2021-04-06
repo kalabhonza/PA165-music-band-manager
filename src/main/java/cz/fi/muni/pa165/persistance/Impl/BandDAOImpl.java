@@ -50,7 +50,7 @@ public class BandDAOImpl implements BandDAO {
 
     @Override
     public List<Band> findAll() {
-        return null;
+        return em.createQuery("select b from bands b", Band.class).getResultList();
     }
 
     @Override
