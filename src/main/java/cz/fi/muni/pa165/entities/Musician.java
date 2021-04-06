@@ -52,6 +52,10 @@ public class Musician {
         }
     }
 
+    public void setBand(Band band) {
+        this.band = band;
+    }
+
     public void declineOffer(Band band) {
         offers.remove(band);
     }

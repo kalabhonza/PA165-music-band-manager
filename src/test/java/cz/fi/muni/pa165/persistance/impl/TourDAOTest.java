@@ -6,7 +6,9 @@ import cz.fi.muni.pa165.entities.Tour;
 import cz.fi.muni.pa165.persistance.interfaces.TourDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -25,7 +27,7 @@ import java.util.Set;
  * @author Jan Kaláb
  */
 @ContextConfiguration(classes = MusicBandManagerApplicationContext.class)
-//@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class TourDAOTest extends AbstractTestNGSpringContextTests {
 
@@ -35,30 +37,11 @@ public class TourDAOTest extends AbstractTestNGSpringContextTests {
     @PersistenceContext
     private EntityManager em;
 
-    @PersistenceUnit
-    private EntityManagerFactory emf;
-
-    @AfterMethod
-    public void afterTest() {
-        EntityManager em = null;
-        try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
-            em.createQuery("delete from tours").executeUpdate();
-            em.createQuery("delete from concerts").executeUpdate();
-            em.getTransaction().commit();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
     @Test
     public void createTourTest(){
         Tour tour1 = createAcdcTour();
         tourDAO.create(tour1);
-        Tour results = findTourById(tour1.getId());
+        Tour results = tourDAO.findById(tour1.getId());
         Assert.assertNotNull(results);
         Assert.assertEquals(tour1.getName(), results.getName());
         Assert.assertEquals(tour1.getConcerts().size(), results.getConcerts().size());
@@ -105,7 +88,7 @@ public class TourDAOTest extends AbstractTestNGSpringContextTests {
         tourDAO.create(tour1);
         tour1.setName("ACDC last tour Europe 2022");
         tourDAO.update(tour1);
-        Tour results = findTourById(tour1.getId());
+        Tour results = tourDAO.findById(tour1.getId());
         Assert.assertNotNull(results);
         Assert.assertEquals(tour1.getName(), results.getName());
         Assert.assertEquals(tour1.getConcerts().size(), results.getConcerts().size());
@@ -121,24 +104,6 @@ public class TourDAOTest extends AbstractTestNGSpringContextTests {
         Assert.assertNull(results);
     }
 
-    private Tour findTourById(Long id) {
-        EntityManager em = null;
-        try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
-
-            Tour tour = em.find(Tour.class, id);
-            em.getTransaction().commit();
-            em.close();
-            return tour;
-        } finally {
-            if (em != null) em.close();
-        }
-    }
-
-
-
-
     private Tour createAcdcTour(){
         Tour acdcTour = new Tour();
         acdcTour.setName("ACDC tour Europe 2022");
@@ -147,7 +112,6 @@ public class TourDAOTest extends AbstractTestNGSpringContextTests {
         concertSet.add(createAcdcConcert2());
         concertSet.add(createAcdcConcert3());
         concertSet.add(createAcdcConcert4());
-
         acdcTour.setConcerts(concertSet);
         return acdcTour;
     }
@@ -156,6 +120,7 @@ public class TourDAOTest extends AbstractTestNGSpringContextTests {
         Concert acdcConcert1 = new Concert();
         acdcConcert1.setName("Prague - O2 Arena");
         acdcConcert1.setDate(LocalDate.of(2022, 1, 20));
+        em.persist(acdcConcert1);
         return acdcConcert1;
     }
 
@@ -163,6 +128,7 @@ public class TourDAOTest extends AbstractTestNGSpringContextTests {
         Concert acdcConcert2 = new Concert();
         acdcConcert2.setName("Bratislava - Zimni Stadion Ondreje Nepelu");
         acdcConcert2.setDate(LocalDate.of(2022, 1, 24));
+        em.persist(acdcConcert2);
         return acdcConcert2;
     }
 
@@ -170,6 +136,7 @@ public class TourDAOTest extends AbstractTestNGSpringContextTests {
         Concert acdcConcert3 = new Concert();
         acdcConcert3.setName("London - London Arena");
         acdcConcert3.setDate(LocalDate.of(2022, 1, 28));
+        em.persist(acdcConcert3);
         return acdcConcert3;
     }
 
@@ -177,6 +144,7 @@ public class TourDAOTest extends AbstractTestNGSpringContextTests {
         Concert acdcConcert4 = new Concert();
         acdcConcert4.setName("Paris - Paris La Defense Arena");
         acdcConcert4.setDate(LocalDate.of(2022, 2, 2));
+        em.persist(acdcConcert4);
         return acdcConcert4;
     }
 
@@ -194,6 +162,7 @@ public class TourDAOTest extends AbstractTestNGSpringContextTests {
         Concert queenConcert1 = new Concert();
         queenConcert1.setName("Ostrava - Ostravar Arena");
         queenConcert1.setDate(LocalDate.of(2023, 4, 2));
+        em.persist(queenConcert1);
         return queenConcert1;
     }
 
@@ -201,6 +170,7 @@ public class TourDAOTest extends AbstractTestNGSpringContextTests {
         Concert queenConcert2 = new Concert();
         queenConcert2.setName("Praha - Forum Karlin");
         queenConcert2.setDate(LocalDate.of(2023, 4, 6));
+        em.persist(queenConcert2);
         return queenConcert2;
     }
 }
