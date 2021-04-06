@@ -40,7 +40,7 @@ public class Band {
     private Set<Tour> tours = new HashSet<>();
 
     @OneToOne
-//    @Column(nullable = false)
+    //@Column(nullable = false)
     private Manager manager;
 
     public Long getId() {
