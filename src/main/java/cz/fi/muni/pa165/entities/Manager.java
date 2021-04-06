@@ -24,11 +24,12 @@ public class Manager {
     @OneToOne
     private Band band;
 
-    public Manager(Long id, String name, String userName, String password) {
+    public Manager(Long id, String name, String userName, String password, Band band) {
         this.id = id;
         this.name = name;
         this.userName = userName;
         this.password = password;
+        this.band = band;
     }
 
     public Manager() {}
@@ -78,7 +79,7 @@ public class Manager {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Manager manager = (Manager) o;
-        return name.equals(manager.name) && userName.equals(manager.userName) && password.equals(manager.password) && band.equals(manager.band);
+        return name.equals(manager.name) && userName.equals(manager.userName) && password.equals(manager.password);
     }
 
     @Override

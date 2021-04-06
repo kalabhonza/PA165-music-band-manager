@@ -18,12 +18,12 @@ public class ManagerDAOImpl implements ManagerDAO {
     private EntityManager entityManager;
 
     @Override
-    public Manager getById(long id) {
+    public Manager findById(long id) {
         return entityManager.find(Manager.class, id);
     }
 
     @Override
-    public List<Manager> getAll() {
+    public List<Manager> findAll() {
         return entityManager.createQuery("select m from managers m", Manager.class).getResultList();
     }
 
@@ -43,12 +43,16 @@ public class ManagerDAOImpl implements ManagerDAO {
     }
 
     @Override
-    public Manager getByUserName(String userName) {
-        return entityManager.createQuery("select m from managers m where m.userName = :userName", Manager.class).setParameter("userName", userName).getSingleResult();
+    public Manager findByUserName(String userName) {
+        return entityManager.createQuery("select m from managers m where m.userName = :userName", Manager.class)
+                .setParameter("userName", userName)
+                .getSingleResult();
     }
 
     @Override
-    public Manager getByName(String name) {
-        return entityManager.createQuery("select m from managers m where m.name = :name", Manager.class).setParameter("name", name).getSingleResult();
+    public List<Manager> findByName(String name) {
+        return entityManager.createQuery("select m from managers m where m.name = :name", Manager.class)
+                .setParameter("name", name)
+                .getResultList();
     }
 }

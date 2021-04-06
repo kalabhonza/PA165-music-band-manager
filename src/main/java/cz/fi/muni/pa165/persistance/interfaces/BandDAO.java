@@ -35,7 +35,7 @@ public interface BandDAO {
      * @param name band's name
      * @return found band or null
      */
-    Band findBandByName(String name);
+    List<Band> findBandByName(String name);
 
     /**
      * Search database for band matching given Manager

@@ -1,8 +1,9 @@
 package cz.fi.muni.pa165.entities;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Albert Sukaný
@@ -16,16 +17,12 @@ public class Tour {
     @Column(nullable = false)
     private String name;
 
-    @OneToOne
-    private Band band;
+    @OneToMany//TODO: (fetch = FetchType.EAGER)
+    private Set<Concert> concerts = new HashSet<>();
 
-    @OneToMany
-    private List<Concert> concerts;
-
-    public Tour(Long id,String name, Band band, List<Concert> concerts) {
+    public Tour(Long id,String name, Set<Concert> concerts) {
         this.id = id;
         this.name = name;
-        this.band = band;
         this.concerts = concerts;
     }
 
@@ -47,19 +44,11 @@ public class Tour {
         this.name = name;
     }
 
-    public Band getBand() {
-        return band;
-    }
-
-    public void setBand(Band band) {
-        this.band = band;
-    }
-
-    public List<Concert> getConcerts() {
+    public Set<Concert> getConcerts() {
         return concerts;
     }
 
-    public void setConcerts(List<Concert> concerts) {
+    public void setConcerts(Set<Concert> concerts) {
         this.concerts = concerts;
     }
 
@@ -68,12 +57,12 @@ public class Tour {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tour tour = (Tour) o;
-        return name.equals(tour.name) && band.equals(tour.band) && concerts.equals(tour.concerts);
+        return name.equals(tour.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, band, concerts);
+        return Objects.hash(name, concerts);
     }
 
     @Override
@@ -81,7 +70,6 @@ public class Tour {
         return "Tour{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", band=" + band +
                 ", concerts=" + concerts +
                 '}';
     }

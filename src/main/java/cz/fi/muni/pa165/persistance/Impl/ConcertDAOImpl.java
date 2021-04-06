@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.persistance.Impl;
 
-import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Concert;
 import cz.fi.muni.pa165.persistance.interfaces.ConcertDAO;
 import org.springframework.stereotype.Repository;
@@ -27,12 +26,6 @@ public class ConcertDAOImpl implements ConcertDAO {
 
     public List<Concert> findAll() {
         return em.createQuery("select c from concerts c", Concert.class).getResultList();
-    }
-
-    public List<Concert> findAllByBand(Band band) {
-        return em.createQuery("select c from concerts c where band = :band", Concert.class)
-                .setParameter("band", band)
-                .getResultList();
     }
 
     public List<Concert> findAllByDate(LocalDate date) {

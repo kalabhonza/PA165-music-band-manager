@@ -14,7 +14,6 @@ import java.util.List;
  * @author Igor Ignác
  */
 @Repository
-@Transactional
 public class BandDAOImpl implements BandDAO {
 
     @PersistenceContext
@@ -36,10 +35,10 @@ public class BandDAOImpl implements BandDAO {
     }
 
     @Override
-    public Band findBandByName(String name) {
+    public List<Band> findBandByName(String name) {
         return em.createQuery("select b from bands b where b.name = :name", Band.class)
                 .setParameter("name", name)
-                .getSingleResult();
+                .getResultList();
     }
 
     @Override

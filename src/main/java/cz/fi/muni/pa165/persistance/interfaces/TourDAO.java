@@ -13,13 +13,13 @@ public interface TourDAO {
      * @param id unique identificator
      * @return Tour or {@code null}, if there is no Tour with requested id
      */
-    Tour getById(Long id);
+    Tour findById(Long id);
 
     /**
      * Find all existing tours
      * @return list of all tours
      */
-    List<Tour> getAllTours();
+    List<Tour> findAllTours();
 
     /**
      * Create a new tour
@@ -44,6 +44,6 @@ public interface TourDAO {
      * @param name of the tours to be found
      * @return list of all tours having the given name
      */
-    List<Tour> getByName(String name);
+    List<Tour> findByName(String name);
 
 }

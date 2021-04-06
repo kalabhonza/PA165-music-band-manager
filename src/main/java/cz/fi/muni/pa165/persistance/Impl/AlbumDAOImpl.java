@@ -14,19 +14,18 @@ import java.util.List;
  */
 
 @Repository
-@Transactional
 public class AlbumDAOImpl implements AlbumDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public Album getById(Long id) {
+    public Album findById(Long id) {
         return entityManager.find(Album.class,id);
     }
 
     @Override
-    public List<Album> getAllAlbums() {
+    public List<Album> findAllAlbums() {
         return entityManager.createQuery("select a from albums a", Album.class).getResultList();
     }
 
@@ -47,8 +46,9 @@ public class AlbumDAOImpl implements AlbumDAO {
     }
 
     @Override
-    public List<Album> getAlbumsByName(String name) {
-        return entityManager.createQuery("select a from albums a where a.name = :name",Album.class).setParameter("name", name).getResultList();
-
+    public List<Album> findAlbumsByName(String name) {
+        return entityManager.createQuery("select a from albums a where a.name = :name",Album.class)
+                .setParameter("name", name)
+                .getResultList();
     }
 }
