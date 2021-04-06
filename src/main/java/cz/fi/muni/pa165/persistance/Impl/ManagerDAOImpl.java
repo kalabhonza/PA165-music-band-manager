@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.persistance.Impl;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.persistance.interfaces.ManagerDAO;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author Jan Kaláb
  */
 @Repository
+@Transactional
 public class ManagerDAOImpl implements ManagerDAO {
 
     @PersistenceContext

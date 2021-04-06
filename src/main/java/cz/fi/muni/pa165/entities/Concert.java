@@ -20,19 +20,15 @@ public class Concert {
     @Column(nullable = false)
     private LocalDate date;
 
-    @OneToOne
-    private Band band;
-
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Tour tour;
 
     public Concert() {}
 
-    public Concert(Long id, String placeName, LocalDate date, Band band, Tour tour) {
+    public Concert(Long id, String placeName, LocalDate date, Tour tour) {
         this.id = id;
         this.name = placeName;
         this.date = date;
-        this.band = band;
         this.tour = tour;
     }
 
@@ -60,13 +56,7 @@ public class Concert {
         this.date = date;
     }
 
-    public Band getBand() {
-        return band;
-    }
 
-    public void setBand(Band band) {
-        this.band = band;
-    }
 
     public Tour getTour() {
         return tour;
@@ -84,13 +74,12 @@ public class Concert {
 
         return Objects.equals(getName(), concert.getName()) &&
                 Objects.equals(getDate(), concert.getDate()) &&
-                Objects.equals(getBand(), concert.getBand()) &&
                 Objects.equals(getTour(), concert.getTour());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getDate(), getBand(), getTour());
+        return Objects.hash(getName(), getDate(), getTour());
     }
 
     @Override
@@ -99,7 +88,6 @@ public class Concert {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", date=" + date +
-                ", band=" + band +
                 ", tour=" + tour +
                 '}';
     }

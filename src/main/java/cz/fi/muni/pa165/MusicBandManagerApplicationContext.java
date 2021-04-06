@@ -25,7 +25,6 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @ComponentScan(basePackageClasses = {Band.class, Album.class, Concert.class, Manager.class, Musician.class, Song.class, Tour.class,
         AlbumDAO.class, BandDAO.class, ConcertDAO.class, ManagerDAO.class, MusicianDAO.class, SongDAO.class, TourDAO.class
 }, basePackages = "cz.fi.muni.pa165")
-
 public class MusicBandManagerApplicationContext {
 
     /**
@@ -53,10 +52,10 @@ public class MusicBandManagerApplicationContext {
         return jpaFactoryBean;
     }
 
-    @Bean
-    public LocalValidatorFactoryBean localValidatorFactoryBean() {
-        return new LocalValidatorFactoryBean();
-    }
+//    @Bean
+//    public LocalValidatorFactoryBean localValidatorFactoryBean() {
+//        return new LocalValidatorFactoryBean();
+//    }
 
     @Bean
     public LoadTimeWeaver instrumentationLoadTimeWeaver() {

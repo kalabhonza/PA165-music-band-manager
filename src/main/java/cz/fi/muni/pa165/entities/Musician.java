@@ -29,10 +29,10 @@ public class Musician {
     @ElementCollection
     private List<Instrument> instruments;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL})
     private Set<Band> offers = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Band band;
 
     public Musician() {}

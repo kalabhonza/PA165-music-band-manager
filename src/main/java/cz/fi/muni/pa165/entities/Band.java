@@ -1,9 +1,10 @@
 package cz.fi.muni.pa165.entities;
 
-import com.sun.istack.NotNull;
+
 import cz.fi.muni.pa165.enums.Style;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
@@ -26,19 +27,19 @@ public class Band {
     @Column(nullable = true)
     private byte[] logo;
 
-    @Column(nullable = false)
+    @Column
     private Style style;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private Set<Musician> members = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private Set<Album> albums = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private Set<Tour> tours = new HashSet<>();
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Manager manager;
 
     public Long getId() {
