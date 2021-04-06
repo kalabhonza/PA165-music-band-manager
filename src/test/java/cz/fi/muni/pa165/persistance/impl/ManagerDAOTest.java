@@ -1,22 +1,21 @@
 package cz.fi.muni.pa165.persistance.impl;
 
 import cz.fi.muni.pa165.MusicBandManagerApplicationContext;
-import cz.fi.muni.pa165.entities.Album;
-import cz.fi.muni.pa165.entities.Band;
-import cz.fi.muni.pa165.entities.Manager;
-import cz.fi.muni.pa165.entities.Song;
+import cz.fi.muni.pa165.entities.*;
+import cz.fi.muni.pa165.enums.Instrument;
 import cz.fi.muni.pa165.enums.Style;
 import cz.fi.muni.pa165.persistance.interfaces.ManagerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import java.sql.Time;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -27,170 +26,116 @@ import java.util.Set;
  * @author Igor Ignác
  */
 @ContextConfiguration(classes = MusicBandManagerApplicationContext.class)
+@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@Transactional
 public class ManagerDAOTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private ManagerDAO managerDAO;
 
-    @PersistenceUnit
-    private EntityManagerFactory emf;
-
     @PersistenceContext
     private EntityManager em;
 
+    private Manager manager;
 
-    @Test
-    public void createTest() {
-        Manager manager = new Manager();
-
+    @BeforeMethod
+    public void init() {
+        manager = new Manager();
         manager.setName("Joseph");
-        manager.setBand(mockBand(manager, "Band 1"));
-        managerDAO.create(manager);
-        Manager result = findManagerById(manager.getId());
-        Assert.assertNotNull(result);
-        Assert.assertEquals(manager.getName(), result.getName());
-        Assert.assertEquals(manager.getBand(), result.getBand());
-    }
+        manager.setPassword("password");
+        manager.setUserName("joseph12");
 
-    @Test
-    public void getByIdTest() {
-        Manager manager = new Manager();
+        Song song = new Song();
+        song.setDuration(new Time(1500));
+        song.setName("Song 1");
+        em.persist(song);
 
-        manager.setName("Joseph");
-        manager.setBand(mockBand(manager, "Band 1"));
-        manager.setId(1L);
+        Song song2 = new Song();
+        song2.setDuration(new Time(1500));
+        song2.setName("Song 1");
+        em.persist(song2);
 
-        managerDAO.create(manager);
-        Manager result = managerDAO.getById(manager.getId());
-
-        Assert.assertNotNull(result);
-        Assert.assertEquals(manager.getName(), result.getName());
-        Assert.assertEquals(manager.getBand(), result.getBand());
-    }
-
-    @Test
-    public void getAllTest() {
-        Manager manager1 = new Manager();
-        manager1.setName("Joseph");
-        manager1.setBand(mockBand(manager1, "Band 1"));
-
-        Manager manager2 = new Manager();
-        manager2.setName("Joseph");
-        manager2.setBand(mockBand(manager2, "Band 2"));
-
-        managerDAO.create(manager1);
-        managerDAO.create(manager2);
-        List<Manager> managers = managerDAO.getAll();
-
-        Assert.assertNotNull(managers);
-        Assert.assertEquals(managers.size(), 2);
-        Assert.assertEquals(managers.get(0), manager1);
-        Assert.assertEquals(managers.get(1), manager2);
-    }
-
-    @Test
-    public void updateTest() {
-        Manager manager = new Manager();
-
-        manager.setName("Joseph");
-        manager.setBand(mockBand(manager, "Band 1"));
-
-        managerDAO.create(manager);
-
-        manager.setName("Peter");
-        managerDAO.update(manager);
-
-        Manager result = findManagerById(manager.getId());
-        Assert.assertNotNull(result);
-        Assert.assertEquals(manager.getName(), result.getName());
-        Assert.assertEquals(manager.getBand(), result.getBand());
-    }
-
-    @Test
-    public void removeTest() {
-        Manager manager = new Manager();
-
-        manager.setName("Joseph");
-        manager.setBand(mockBand(manager, "Band 1"));
-        managerDAO.create(manager);
-
-        managerDAO.remove(manager);
-        Manager result = findManagerById(manager.getId());
-        Assert.assertNull(result);
-    }
-
-    @Test
-    public void getByUserNameTest() {
-        Manager manager = new Manager();
-
-        manager.setName("Joseph");
-        manager.setBand(mockBand(manager, "Band 1"));
-        manager.setUserName("jj245");
-
-        managerDAO.create(manager);
-        Manager result = managerDAO.getByUserName("jj245");
-
-        Assert.assertNotNull(result);
-        Assert.assertEquals(manager.getName(), result.getName());
-        Assert.assertEquals(manager.getBand(), result.getBand());
-    }
-
-    @Test
-    public void getByNameTest() {
-        Manager manager = new Manager();
-
-        manager.setName("Joseph");
-        manager.setBand(mockBand(manager, "Band 1"));
-
-        managerDAO.create(manager);
-        Manager result = managerDAO.getByName("Joseph");
-
-        Assert.assertNotNull(result);
-        Assert.assertEquals(manager.getName(), result.getName());
-        Assert.assertEquals(manager.getBand(), result.getBand());
-    }
-
-    private Manager findManagerById(Long id) {
-        EntityManager em = null;
-        try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
-
-            Manager manager = em.find(Manager.class, id);
-            em.getTransaction().commit();
-            em.close();
-            return manager;
-        } finally {
-            if (em != null) em.close();
-        }
-    }
-
-    private Band mockBand(Manager manager, String name) {
-        Band band = new Band();
+        Album album = new Album();
+        album.setName("Album 1");
+        album.setSongs(Arrays.asList(song, song2));
+        em.persist(album);
         Set<Album> albumSet = new HashSet<>();
+        albumSet.add(album);
 
-        albumSet.add(mockAlbum("Album 1"));
-        albumSet.add(mockAlbum("Album 2"));
+        Band band = new Band();
         band.setManager(manager);
-        band.setName(name);
+        band.setName("Band");
         band.setStyle(Style.ALTERNATIVE);
         band.setAlbums(albumSet);
-        return band;
+        em.persist(band);
+
+        Musician musician = new Musician();
+        musician.setPassword("passwordverylongone");
+        musician.setName("Peter Re");
+        musician.setInstruments(Arrays.asList(Instrument.BASS, Instrument.GUITAR));
+        musician.setUsername("repter");
+        em.persist(musician);
+
+        manager.setBand(band);
     }
 
-    private Album mockAlbum(String name) {
-        Album album = new Album();
-
-        album.setName(name);
-        album.setSongs(Arrays.asList(mockSong("Song 1 "), mockSong("Song 2")));
-        return album;
+    @Test
+    public void findById() {
+        em.persist(manager);
+        Manager managerFromDb = managerDAO.findById(manager.getId());
+        Assert.assertNotNull(managerFromDb);
+        Assert.assertEquals(manager, managerFromDb);
     }
 
-    private Song mockSong(String name) {
-        Song song = new Song();
+    @Test
+    public void getAll() {
+        em.persist(manager);
+        List<Manager> managers = managerDAO.getAll();
+        Assert.assertEquals(managers.size(), 1);
+        Assert.assertEquals(managers.get(0).getName(), manager.getName());
+    }
 
-        song.setDuration(new Time(1500));
-        song.setName(name);
-        return song;
+    @Test
+    public void create() {
+        managerDAO.create(manager);
+        Assert.assertTrue(em.contains(manager));
+        Assert.assertNotNull(manager.getId());
+        Assert.assertTrue(em.contains(manager));
+    }
+
+    @Test
+    public void update() {
+        em.persist(manager);
+        manager.setName("newName");
+
+        managerDAO.update(manager);
+        Assert.assertEquals(manager.getName(), "newName");
+    }
+
+    @Test
+    public void remove() {
+        em.persist(manager);
+
+        Assert.assertTrue(em.contains(manager));
+        managerDAO.remove(manager);
+        Assert.assertFalse(em.contains(manager));
+    }
+
+    @Test
+    public void getByUserName() {
+        em.persist(manager);
+
+        Manager managerFromDb = managerDAO.getByUserName("joseph12");
+        Assert.assertNotNull(managerFromDb);
+        Assert.assertEquals(managerFromDb, manager);
+    }
+
+    @Test
+    public void getByName() {
+        em.persist(manager);
+
+        Manager managerFromDb = managerDAO.getByName("Joseph");
+        Assert.assertNotNull(managerFromDb);
+        Assert.assertEquals(managerFromDb, manager);
     }
 }

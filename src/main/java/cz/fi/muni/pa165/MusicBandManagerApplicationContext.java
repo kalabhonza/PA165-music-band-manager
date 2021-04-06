@@ -27,14 +27,6 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 }, basePackages = "cz.fi.muni.pa165")
 public class MusicBandManagerApplicationContext {
 
-    /**
-     * Enables automatic translation of exceptions to DataAccessExceptions.
-     */
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor postProcessor() {
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
-
     @Bean
     public JpaTransactionManager transactionManager() {
         return new JpaTransactionManager(entityManagerFactory().getObject());
@@ -60,6 +52,14 @@ public class MusicBandManagerApplicationContext {
     @Bean
     public LoadTimeWeaver instrumentationLoadTimeWeaver() {
         return new InstrumentationLoadTimeWeaver();
+    }
+
+    /**
+     * Enables automatic translation of exceptions to DataAccessExceptions.
+     */
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor postProcessor() {
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 
     @Bean

@@ -15,7 +15,7 @@ public interface ManagerDAO {
      * @param id
      * @return Manager or {@code null}, if there is no Manager with requested id
      */
-    Manager getById(long id);
+    Manager findById(long id);
 
     /**
      * Find all Managers

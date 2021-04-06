@@ -131,7 +131,7 @@ public class Band {
                 ", members=" + members +
                 ", albums=" + albums +
                 ", tours=" + tours +
-                ", manager=" + manager +
+                ", manager=" + manager.getName() +
                 '}';
     }
 }

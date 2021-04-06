@@ -13,7 +13,6 @@ public interface ConcertDAO {
 
     Concert findById(long id);
     List<Concert> findAll();
-    List<Concert> findAllByBand(Band band);
     List<Concert> findAllByDate(LocalDate date);
     void create(Concert concert);
     void update(Concert concert);
