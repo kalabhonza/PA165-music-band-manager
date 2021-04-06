@@ -3,7 +3,6 @@ package cz.fi.muni.pa165.persistance.Impl;
 import cz.fi.muni.pa165.entities.Song;
 import cz.fi.muni.pa165.persistance.interfaces.SongDAO;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +12,6 @@ import java.util.List;
  * @author Igor Ignác
  */
 @Repository
-@Transactional
 public class SongDAOImpl implements SongDAO {
 
     @PersistenceContext
@@ -35,10 +33,10 @@ public class SongDAOImpl implements SongDAO {
     }
 
     @Override
-    public Song findSongByName(String name) {
+    public List<Song> findSongByName(String name) {
         return em.createQuery("select s from songs s where s.name = :name", Song.class)
                 .setParameter("name", name)
-                .getSingleResult();
+                .getResultList();
     }
 
     @Override

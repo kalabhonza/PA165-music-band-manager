@@ -14,7 +14,6 @@ import java.util.List;
  * @author Aleš Paroulek
  */
 @Repository
-@Transactional
 public class MusicianDAOImpl implements MusicianDAO {
 
     @PersistenceContext

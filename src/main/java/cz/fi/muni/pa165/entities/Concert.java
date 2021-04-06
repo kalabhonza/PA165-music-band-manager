@@ -22,7 +22,7 @@ public class Concert {
 
     public Concert() {}
 
-    public Concert(Long id, String placeName, LocalDate date, Band band, Tour tour) {
+    public Concert(Long id, String placeName, LocalDate date) {
         this.id = id;
         this.name = placeName;
         this.date = date;

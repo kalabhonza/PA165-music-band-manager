@@ -21,7 +21,7 @@ public interface ManagerDAO {
      * Find all Managers
      * @return List of all Managers
      */
-    List<Manager> getAll();
+    List<Manager> findAll();
 
     /**
      * Stores new manager
@@ -46,13 +46,13 @@ public interface ManagerDAO {
      * @param userName of the Manager
      * @return Manager or {@code null}, if there is no Manager with given userName
      */
-    Manager getByUserName(String userName);
+    Manager findByUserName(String userName);
 
     /**
      * Find Manager by its name
      * @param name of the Manager
      * @return Manager or {@code null}, if there is no Manager with given name
      */
-    Manager getByName(String name);
+    List<Manager> findByName(String name);
 
 }

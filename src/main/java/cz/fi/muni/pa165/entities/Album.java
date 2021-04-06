@@ -1,8 +1,9 @@
 package cz.fi.muni.pa165.entities;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Albert Sukaný
@@ -17,9 +18,9 @@ public class Album {
     private String name;
 
     @OneToMany
-    private List<Song> songs;
+    private Set<Song> songs = new HashSet<>();
 
-    public Album(Long id,String name, Band band, List<Song> songs) {
+    public Album(Long id,String name, Set<Song> songs) {
         this.id = id;
         this.name = name;
         this.songs = songs;
@@ -43,11 +44,11 @@ public class Album {
         this.name = name;
     }
 
-    public List<Song> getSongs() {
+    public Set<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(List<Song> songs) {
+    public void setSongs(Set<Song> songs) {
         this.songs = songs;
     }
 
@@ -56,7 +57,7 @@ public class Album {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Album album = (Album) o;
-        return name.equals(album.name) && songs.equals(album.songs);
+        return name.equals(album.name);
     }
 
     @Override

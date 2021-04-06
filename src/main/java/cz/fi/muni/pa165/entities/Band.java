@@ -1,9 +1,10 @@
 package cz.fi.muni.pa165.entities;
 
-import com.sun.istack.NotNull;
+
 import cz.fi.muni.pa165.enums.Style;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
@@ -23,10 +24,10 @@ public class Band {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = true)
+    @Column
     private byte[] logo;
 
-    @Column(nullable = false)
+    @Column
     private Style style;
 
     @OneToMany
@@ -39,6 +40,7 @@ public class Band {
     private Set<Tour> tours = new HashSet<>();
 
     @OneToOne
+    @Column(nullable = false)
     private Manager manager;
 
     public Long getId() {
@@ -111,7 +113,7 @@ public class Band {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Band band = (Band) o;
-        return name.equals(band.name) && Arrays.equals(logo, band.logo) && style == band.style && members.equals(band.members) && albums.equals(band.albums) && tours.equals(band.tours) && manager.equals(band.manager);
+        return name.equals(band.name) && manager.equals(band.manager);
     }
 
     @Override

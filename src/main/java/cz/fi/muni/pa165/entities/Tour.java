@@ -1,8 +1,9 @@
 package cz.fi.muni.pa165.entities;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Albert Sukaný
@@ -16,10 +17,10 @@ public class Tour {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany
-    private List<Concert> concerts;
+    @OneToMany//TODO: (fetch = FetchType.EAGER)
+    private Set<Concert> concerts = new HashSet<>();
 
-    public Tour(Long id,String name, Band band, List<Concert> concerts) {
+    public Tour(Long id,String name, Set<Concert> concerts) {
         this.id = id;
         this.name = name;
         this.concerts = concerts;
@@ -43,11 +44,11 @@ public class Tour {
         this.name = name;
     }
 
-    public List<Concert> getConcerts() {
+    public Set<Concert> getConcerts() {
         return concerts;
     }
 
-    public void setConcerts(List<Concert> concerts) {
+    public void setConcerts(Set<Concert> concerts) {
         this.concerts = concerts;
     }
 
@@ -56,7 +57,7 @@ public class Tour {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tour tour = (Tour) o;
-        return name.equals(tour.name) && concerts.equals(tour.concerts);
+        return name.equals(tour.name);
     }
 
     @Override

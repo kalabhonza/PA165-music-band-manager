@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.persistance.Impl;
 
-import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Concert;
 import cz.fi.muni.pa165.persistance.interfaces.ConcertDAO;
 import org.springframework.stereotype.Repository;

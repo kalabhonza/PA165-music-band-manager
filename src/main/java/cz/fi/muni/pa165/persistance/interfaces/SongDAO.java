@@ -33,7 +33,7 @@ public interface SongDAO {
      * @param name song's name
      * @return found song or null
      */
-    Song findSongByName(String name);
+    List<Song> findSongByName(String name);
 
     /**
      * Returns all songs in database

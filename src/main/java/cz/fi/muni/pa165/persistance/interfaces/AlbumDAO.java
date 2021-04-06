@@ -14,14 +14,14 @@ public interface AlbumDAO {
      * @param id unique identificator
      * @return Album or {@code null}, if there is no Album with requested id
      */
-    Album getById(Long id);
+    Album findById(Long id);
 
     /**
      * Find Album by its id
      * @return list of all albums
      */
 
-    List<Album> getAllAlbums();
+    List<Album> findAllAlbums();
 
     /**
      * creates new istance of class album
@@ -46,7 +46,7 @@ public interface AlbumDAO {
      * @param name of the album
      * @return list of all albums having the given name
      */
-    List<Album> getAlbumsByName(String name);
+    List<Album> findAlbumsByName(String name);
 
 
 

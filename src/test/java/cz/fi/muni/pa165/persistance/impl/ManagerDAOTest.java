@@ -55,9 +55,13 @@ public class ManagerDAOTest extends AbstractTestNGSpringContextTests {
         song2.setName("Song 1");
         em.persist(song2);
 
+        Set<Song> songSet = new HashSet<>();
+        songSet.add(song);
+        songSet.add(song2);
+
         Album album = new Album();
         album.setName("Album 1");
-        album.setSongs(Arrays.asList(song, song2));
+        album.setSongs(songSet);
         em.persist(album);
         Set<Album> albumSet = new HashSet<>();
         albumSet.add(album);
@@ -90,7 +94,7 @@ public class ManagerDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void getAll() {
         em.persist(manager);
-        List<Manager> managers = managerDAO.getAll();
+        List<Manager> managers = managerDAO.findAll();
         Assert.assertEquals(managers.size(), 1);
         Assert.assertEquals(managers.get(0).getName(), manager.getName());
     }
@@ -125,7 +129,7 @@ public class ManagerDAOTest extends AbstractTestNGSpringContextTests {
     public void getByUserName() {
         em.persist(manager);
 
-        Manager managerFromDb = managerDAO.getByUserName("joseph12");
+        Manager managerFromDb = managerDAO.findByUserName("joseph12");
         Assert.assertNotNull(managerFromDb);
         Assert.assertEquals(managerFromDb, manager);
     }
@@ -134,8 +138,8 @@ public class ManagerDAOTest extends AbstractTestNGSpringContextTests {
     public void getByName() {
         em.persist(manager);
 
-        Manager managerFromDb = managerDAO.getByName("Joseph");
+        List<Manager> managerFromDb = managerDAO.findByName("Joseph");
         Assert.assertNotNull(managerFromDb);
-        Assert.assertEquals(managerFromDb, manager);
+        Assert.assertTrue(managerFromDb.contains(manager));
     }
 }

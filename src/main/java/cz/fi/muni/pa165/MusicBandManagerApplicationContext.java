@@ -44,10 +44,10 @@ public class MusicBandManagerApplicationContext {
         return jpaFactoryBean;
     }
 
-    @Bean
-    public LocalValidatorFactoryBean localValidatorFactoryBean() {
-        return new LocalValidatorFactoryBean();
-    }
+//    @Bean
+//    public LocalValidatorFactoryBean localValidatorFactoryBean() {
+//        return new LocalValidatorFactoryBean();
+//    }
 
     @Bean
     public LoadTimeWeaver instrumentationLoadTimeWeaver() {

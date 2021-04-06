@@ -3,7 +3,6 @@ package cz.fi.muni.pa165.persistance.Impl;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.persistance.interfaces.ManagerDAO;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +12,6 @@ import java.util.List;
  * @author Jan Kaláb
  */
 @Repository
-@Transactional
 public class ManagerDAOImpl implements ManagerDAO {
 
     @PersistenceContext
@@ -25,7 +23,7 @@ public class ManagerDAOImpl implements ManagerDAO {
     }
 
     @Override
-    public List<Manager> getAll() {
+    public List<Manager> findAll() {
         return entityManager.createQuery("select m from managers m", Manager.class).getResultList();
     }
 
@@ -45,12 +43,16 @@ public class ManagerDAOImpl implements ManagerDAO {
     }
 
     @Override
-    public Manager getByUserName(String userName) {
-        return entityManager.createQuery("select m from managers m where m.userName = :userName", Manager.class).setParameter("userName", userName).getSingleResult();
+    public Manager findByUserName(String userName) {
+        return entityManager.createQuery("select m from managers m where m.userName = :userName", Manager.class)
+                .setParameter("userName", userName)
+                .getSingleResult();
     }
 
     @Override
-    public Manager getByName(String name) {
-        return entityManager.createQuery("select m from managers m where m.name = :name", Manager.class).setParameter("name", name).getSingleResult();
+    public List<Manager> findByName(String name) {
+        return entityManager.createQuery("select m from managers m where m.name = :name", Manager.class)
+                .setParameter("name", name)
+                .getResultList();
     }
 }
