@@ -20,7 +20,7 @@ public class Album {
     @OneToMany(cascade = {CascadeType.ALL})
     private Set<Song> songs = new HashSet<>();
 
-    public Album(Long id,String name, Band band, Set<Song> songs) {
+    public Album(Long id,String name, Set<Song> songs) {
         this.id = id;
         this.name = name;
         this.songs = songs;
