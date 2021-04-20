@@ -7,7 +7,6 @@
     <modules>
         <module>persistence</module>
         <module>api</module>
-        <module>rest</module>
         <module>service</module>
     </modules>
 
