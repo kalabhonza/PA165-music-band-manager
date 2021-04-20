@@ -6,6 +6,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>persistence</module>
+        <module>api</module>
+        <module>rest</module>
+        <module>service</module>
     </modules>
 
     <parent>
