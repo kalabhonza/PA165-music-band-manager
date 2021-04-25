@@ -18,8 +18,9 @@ public class SongDAOImpl implements SongDAO {
     private EntityManager em;
 
     @Override
-    public void create(Song song) {
+    public Long create(Song song) {
         em.persist(song);
+        return song.getId();
     }
 
     @Override

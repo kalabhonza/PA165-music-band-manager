@@ -13,7 +13,7 @@ public interface SongService {
      * Create new song
      * @param song song to be created
      */
-    void createSong(Song song);
+    Long createSong(Song song);
 
     /**
      * Update song

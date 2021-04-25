@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.service.facade;
 import cz.fi.muni.pa165.api.dto.BandDTO;
 import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.entities.Band;
+import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.service.BandService;
 import cz.fi.muni.pa165.service.mapping.BeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,31 +35,39 @@ public class BandFacadeImpl implements BandFacade {
 
     @Override
     public BandDTO updateBand(BandDTO band) {
-        return null;
+        Band updateBand = beanMapper.mapTo(band, Band.class);
+        updateBand = bandService.updateBand(updateBand);
+        return beanMapper.mapTo(updateBand, BandDTO.class);
     }
 
     @Override
     public BandDTO findBandById(Long id) {
-        return null;
+        Band band = bandService.findBandById(id);
+        return beanMapper.mapTo(band, BandDTO.class);
     }
 
     @Override
     public List<BandDTO> findBandByName(String name) {
-        return null;
+        List<Band> band = bandService.findBandByName(name);
+        return beanMapper.mapTo(band, BandDTO.class);
     }
 
     @Override
     public BandDTO findBandByManager(ManagerDTO manager) {
-        return null;
+        Manager bandMananager = beanMapper.mapTo(manager, Manager.class);
+        Band band = bandService.findBandByManager(bandMananager);
+        return beanMapper.mapTo(band, BandDTO.class);
     }
 
     @Override
     public List<BandDTO> findAllBands() {
-        return null;
+        List<Band> band = bandService.findAllBands();
+        return beanMapper.mapTo(band, BandDTO.class);
     }
 
     @Override
     public void deleteBand(BandDTO band) {
-
+        Band deleteBand = beanMapper.mapTo(band, Band.class);
+        bandService.deleteBand(deleteBand);
     }
 }

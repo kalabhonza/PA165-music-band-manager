@@ -13,8 +13,9 @@ public interface BandService {
     /**
      * Create new band
      * @param band band to be created
+     * @return band id
      */
-    void createBand(Band band);
+    Long createBand(Band band);
 
     /**
      * Updates band

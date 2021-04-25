@@ -4,7 +4,6 @@ import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.persistance.interfaces.BandDAO;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,8 +19,9 @@ public class BandDAOImpl implements BandDAO {
     private EntityManager em;
 
     @Override
-    public void create(Band band) {
+    public Long create(Band band) {
         em.persist(band);
+        return band.getId();
     }
 
     @Override
