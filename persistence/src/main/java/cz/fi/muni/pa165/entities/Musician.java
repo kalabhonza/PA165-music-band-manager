@@ -136,7 +136,6 @@ public class Musician {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", instruments=" + instruments +
                 ", offers=" + offers +
                 ", band=" + band +
