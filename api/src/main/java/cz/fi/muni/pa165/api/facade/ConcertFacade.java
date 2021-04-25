@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.api.facade;
 
 import cz.fi.muni.pa165.api.dto.ConcertDTO;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,7 +22,6 @@ public interface ConcertFacade {
      */
     List<ConcertDTO> findAll();
 
-
     /**
      * Finds all concert of given date
      * @param date Date of which concerts will be found
@@ -36,10 +36,18 @@ public interface ConcertFacade {
     void create(ConcertDTO concert);
 
     /**
-     * Updates given concert
-     * @param concert Concert to be updated
+     * Sets name of given concert
+     * @param concert Concert which name will be changed
+     * @param name New name of the concert
      */
-    void update(ConcertDTO concert);
+    void setName(ConcertDTO concert, String name);
+
+    /**
+     * Sets date of given concert
+     * @param concert Concert which date will be changed
+     * @param date New date of the concert
+     */
+    void setDate(ConcertDTO concert, LocalDate date);
 
     /**
      * Removes given concert
