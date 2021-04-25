@@ -13,8 +13,9 @@ public interface BandDAO {
     /**
      * Saves band into database
      * @param band band object which should be saved
+     * @return created band id
      */
-    void create(Band band);
+    Long create(Band band);
 
     /**
      * Updates band in database

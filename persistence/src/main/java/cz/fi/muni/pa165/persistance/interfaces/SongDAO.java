@@ -11,8 +11,9 @@ public interface SongDAO {
     /**
      * Saves song into database
      * @param song song object which should be saved
+     * @return
      */
-    void create(Song song);
+    Long create(Song song);
 
     /**
      * Updates song in database
