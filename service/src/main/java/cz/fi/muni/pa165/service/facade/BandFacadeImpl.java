@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.service.facade;
 
 import cz.fi.muni.pa165.api.dto.BandDTO;
+import cz.fi.muni.pa165.api.dto.ManagerDTO;
 import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;

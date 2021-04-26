@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.api.facade;
 
 import cz.fi.muni.pa165.api.dto.BandDTO;
+import cz.fi.muni.pa165.api.dto.ManagerDTO;
 
 import java.util.List;
 
