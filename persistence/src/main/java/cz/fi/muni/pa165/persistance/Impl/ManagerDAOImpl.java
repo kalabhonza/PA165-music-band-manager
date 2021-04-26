@@ -28,8 +28,9 @@ public class ManagerDAOImpl implements ManagerDAO {
     }
 
     @Override
-    public void create(Manager manager) {
+    public Long create(Manager manager) {
         entityManager.persist(manager);
+        return manager.getId();
     }
 
     @Override

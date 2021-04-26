@@ -1,14 +1,12 @@
-package cz.fi.muni.pa165.persistance.interfaces;
+package cz.fi.muni.pa165.service;
 
 import cz.fi.muni.pa165.entities.Manager;
 import java.util.List;
 
 /**
- * DAO for Manager entity
- *
  * @author Jan Kaláb
  */
-public interface ManagerDAO {
+public interface ManagerService {
     /**
      * Find Manager by its id
      *
@@ -33,7 +31,7 @@ public interface ManagerDAO {
      * Updates existing Manager
      * @param manager to be updated
      */
-    void update(Manager manager);
+    Manager update(Manager manager);
 
     /**
      * Removes Manager
@@ -54,5 +52,4 @@ public interface ManagerDAO {
      * @return Manager or {@code null}, if there is no Manager with given name
      */
     List<Manager> findByName(String name);
-
 }
