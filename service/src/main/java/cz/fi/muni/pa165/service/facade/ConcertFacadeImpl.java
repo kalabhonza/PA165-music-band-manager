@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * @author Aleš Paroulek
+ */
 public class ConcertFacadeImpl implements ConcertFacade {
     private ConcertService concertService;
     private BeanMapper beanMapper;
@@ -40,14 +43,12 @@ public class ConcertFacadeImpl implements ConcertFacade {
 
     @Override
     public void create(ConcertDTO concert) {
-        Concert newConcert = beanMapper.mapTo(concert, Concert.class);
-        concertService.create(newConcert);
+        concertService.create(beanMapper.mapTo(concert, Concert.class));
     }
 
     @Override
     public void setName(ConcertDTO concert, String name) {
         concertService.setName(beanMapper.mapTo(concert, Concert.class), name);
-
     }
 
     @Override
