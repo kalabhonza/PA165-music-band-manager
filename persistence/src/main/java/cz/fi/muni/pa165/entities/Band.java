@@ -40,8 +40,15 @@ public class Band {
     private Set<Tour> tours = new HashSet<>();
 
     @OneToOne
-    //@Column(nullable = false)
     private Manager manager;
+
+    public Band() {}
+
+    public Band(Long id, String name, Style style) {
+        this.id = id;
+        this.name = name;
+        this.style = style;
+    }
 
     public Long getId() {
         return id;

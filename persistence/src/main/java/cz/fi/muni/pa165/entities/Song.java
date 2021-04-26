@@ -22,6 +22,12 @@ public class Song {
 
     public Song() {}
 
+    public Song(Long id, String name, Time duration) {
+        this.id = id;
+        this.name = name;
+        this.duration = duration;
+    }
+
     public Long getId() {
         return id;
     }
