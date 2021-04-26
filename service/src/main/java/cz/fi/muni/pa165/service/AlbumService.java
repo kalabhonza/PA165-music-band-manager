@@ -1,13 +1,11 @@
-package cz.fi.muni.pa165.persistance.interfaces;
+package cz.fi.muni.pa165.service;
 
+import cz.fi.muni.pa165.api.dto.AlbumDTO;
 import cz.fi.muni.pa165.entities.Album;
 
 import java.util.List;
 
-/**
- * @author Albert Sukaný
- */
-public interface AlbumDAO {
+public interface AlbumService {
 
     /**
      * Finds album by id
@@ -33,7 +31,7 @@ public interface AlbumDAO {
      * update existing album
      * @param album to be changed
      */
-    void update(Album album);
+    Album update(Album album);
 
     /**
      * delete existing album
@@ -47,7 +45,4 @@ public interface AlbumDAO {
      * @return list of all albums having the given name
      */
     List<Album> findAlbumsByName(String name);
-
-
-
 }
