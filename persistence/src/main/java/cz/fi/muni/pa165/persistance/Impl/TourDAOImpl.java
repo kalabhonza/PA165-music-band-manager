@@ -31,8 +31,9 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public void create(Tour tour) {
+    public Long create(Tour tour) {
         entityManager.persist(tour);
+        return tour.getId();
     }
 
     @Override

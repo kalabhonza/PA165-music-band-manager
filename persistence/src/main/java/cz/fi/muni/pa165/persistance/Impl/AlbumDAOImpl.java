@@ -30,8 +30,9 @@ public class AlbumDAOImpl implements AlbumDAO {
     }
 
     @Override
-    public void create(Album album) {
+    public Long create(Album album) {
         entityManager.persist(album);
+        return album.getId();
     }
 
     @Override

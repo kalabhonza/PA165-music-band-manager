@@ -1,13 +1,11 @@
-package cz.fi.muni.pa165.persistance.interfaces;
+package cz.fi.muni.pa165.service;
 
 import cz.fi.muni.pa165.entities.Tour;
 
 import java.util.List;
 
-/**
- * @author Albert Sukaný
- */
-public interface TourDAO {
+public interface TourService {
+
     /**
      * Finds Tour by id
      * @param id unique identificator
@@ -31,7 +29,7 @@ public interface TourDAO {
      * update existing tour
      * @param tour to be updated
      */
-    void update(Tour tour);
+    Tour update(Tour tour);
 
     /**
      * Delete given tour
