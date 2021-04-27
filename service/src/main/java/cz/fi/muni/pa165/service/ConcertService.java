@@ -35,19 +35,11 @@ public interface ConcertService {
     void create(Concert concert);
 
     /**
-     * Sets name of given concert
-     * @param concert Concert which name will be changed
-     * @param name New name of the concert
+     * Updates concert
+     * @param concert Concert to be updated
      */
-    void setName(Concert concert, String name);
-
-    /**
-     * Sets date of given concert
-     * @param concert Concert which date will be changed
-     * @param date New date of the concert
-     */
-    void setDate(Concert concert, LocalDate date);
-
+    void update(Concert concert);
+    
     /**
      * Removes given concert
      * @param concert Concert to be removed
