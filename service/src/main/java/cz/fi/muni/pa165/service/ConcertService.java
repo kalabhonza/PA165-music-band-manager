@@ -31,22 +31,16 @@ public interface ConcertService {
     /**
      * Creates a new concert
      * @param concert Concert to be created
+     * @return id of created concert
      */
-    void create(Concert concert);
+    Long create(Concert concert);
 
     /**
-     * Sets name of given concert
-     * @param concert Concert which name will be changed
-     * @param name New name of the concert
+     * Updates concert
+     * @param concert Concert to be updated
+     * @return updated concert
      */
-    void setName(Concert concert, String name);
-
-    /**
-     * Sets date of given concert
-     * @param concert Concert which date will be changed
-     * @param date New date of the concert
-     */
-    void setDate(Concert concert, LocalDate date);
+    Concert update(Concert concert);
 
     /**
      * Removes given concert

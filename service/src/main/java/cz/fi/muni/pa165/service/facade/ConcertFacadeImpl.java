@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.service.facade;
 
+import cz.fi.muni.pa165.api.dto.ConcertCreateDTO;
 import cz.fi.muni.pa165.api.dto.ConcertDTO;
 import cz.fi.muni.pa165.api.facade.ConcertFacade;
 import cz.fi.muni.pa165.entities.Concert;
@@ -42,18 +43,15 @@ public class ConcertFacadeImpl implements ConcertFacade {
     }
 
     @Override
-    public void create(ConcertDTO concert) {
-        concertService.create(beanMapper.mapTo(concert, Concert.class));
+    public Long create(ConcertCreateDTO concert) {
+        return concertService.create(beanMapper.mapTo(concert, Concert.class));
     }
 
     @Override
-    public void setName(ConcertDTO concert, String name) {
-        concertService.setName(beanMapper.mapTo(concert, Concert.class), name);
-    }
-
-    @Override
-    public void setDate(ConcertDTO concert, LocalDate date) {
-        concertService.setDate(beanMapper.mapTo(concert, Concert.class), date);
+    public ConcertDTO update(ConcertDTO concert) {
+        Concert convertedConcert = beanMapper.mapTo(concert, Concert.class);
+        Concert updatedConcert = concertService.update(convertedConcert);
+        return beanMapper.mapTo(updatedConcert, ConcertDTO.class);
     }
 
     @Override
