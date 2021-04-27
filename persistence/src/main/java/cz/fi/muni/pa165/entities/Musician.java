@@ -32,7 +32,7 @@ public class Musician {
     @ManyToMany
     private Set<Band> offers = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Band band;
 
     public Musician() {}

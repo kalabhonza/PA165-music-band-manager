@@ -79,14 +79,16 @@ public class MusicianDTO {
         if (this == o) return true;
         if (!(o instanceof MusicianDTO)) return false;
         MusicianDTO that = (MusicianDTO) o;
-        return Objects.equals(getId(), that.getId()) &&
-                Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getUsername(), that.getUsername());
+        return Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getUsername(), that.getUsername()) &&
+                Objects.equals(getInstruments(), that.getInstruments()) &&
+                Objects.equals(getBand(), that.getBand()) &&
+                Objects.equals(getOffers(), that.getOffers());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getUsername());
+        return Objects.hash(getName(), getUsername(), getBand());
     }
 
     @Override

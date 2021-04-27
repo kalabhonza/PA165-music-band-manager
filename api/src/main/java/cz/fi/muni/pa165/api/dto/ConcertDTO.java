@@ -40,14 +40,13 @@ public class ConcertDTO {
         if (this == o) return true;
         if (!(o instanceof ConcertDTO)) return false;
         ConcertDTO that = (ConcertDTO) o;
-        return Objects.equals(getId(), that.getId()) &&
-                Objects.equals(getName(), that.getName()) &&
+        return Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getDate(), that.getDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDate());
+        return Objects.hash(getName(), getDate());
     }
 
     @Override
