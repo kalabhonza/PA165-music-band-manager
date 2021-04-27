@@ -51,17 +51,25 @@ public class MusicianServiceImpl implements MusicianService {
     }
 
     @Override
-    public void create(Musician musician) {
-        musicianDAO.create(musician);
+    public Long create(Musician musician) {
+        return musicianDAO.create(musician);
     }
 
     @Override
-    public void update(Musician musician) {
+    public Musician update(Musician musician) {
         musicianDAO.update(musician);
+        Musician updatedMusician = musicianDAO.findById(musician.getId());
+        if (!updatedMusician.equals(musician)) {
+            throw new DataAccessException("Updating of musician with id: " + musician.getId() + " failed") {};
+        }
+        return updatedMusician;
     }
 
     @Override
     public void remove(Musician musician) {
         musicianDAO.remove(musician);
+        if (musicianDAO.findById(musician.getId()) != null) {
+            throw new DataAccessException("Removing of musician with id: " + musician.getId() + " failed") {};
+        }
     }
 }

@@ -23,7 +23,6 @@ public interface ConcertDAO {
      */
     List<Concert> findAll();
 
-
     /**
      * Finds all concert of given date
      * @param date Date of which concerts will be found
@@ -34,14 +33,16 @@ public interface ConcertDAO {
     /**
      * Creates a new concert
      * @param concert Concert to be created
+     * @return id of created concert
      */
-    void create(Concert concert);
+    Long create(Concert concert);
 
     /**
      * Updates given concert
      * @param concert Concert to be updated
+     * @return updated concert
      */
-    void update(Concert concert);
+    Concert update(Concert concert);
 
     /**
      * Removes given concert

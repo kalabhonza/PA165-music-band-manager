@@ -51,13 +51,15 @@ public class MusicianFacadeImpl implements MusicianFacade {
     }
 
     @Override
-    public void create(MusicianDTO musician) {
-        musicianService.create(beanMapper.mapTo(musician, Musician.class));
+    public Long create(MusicianDTO musician) {
+        return musicianService.create(beanMapper.mapTo(musician, Musician.class));
     }
 
     @Override
-    public void update(MusicianDTO musician) {
-        musicianService.update(beanMapper.mapTo(musician, Musician.class));
+    public MusicianDTO update(MusicianDTO musician) {
+        Musician convertedMusician = beanMapper.mapTo(musician, Musician.class);
+        Musician updatedMusician = musicianService.update(convertedMusician);
+        return beanMapper.mapTo(updatedMusician, MusicianDTO.class);
     }
 
     @Override

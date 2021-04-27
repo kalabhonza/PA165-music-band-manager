@@ -34,12 +34,13 @@ public class ConcertDAOImpl implements ConcertDAO {
                 .getResultList();
     }
 
-    public void create(Concert concert) {
+    public Long create(Concert concert) {
         em.persist(concert);
+        return concert.getId();
     }
 
-    public void update(Concert concert) {
-        em.merge(concert);
+    public Concert update(Concert concert) {
+        return em.merge(concert);
     }
 
     public void remove(Concert concert) {

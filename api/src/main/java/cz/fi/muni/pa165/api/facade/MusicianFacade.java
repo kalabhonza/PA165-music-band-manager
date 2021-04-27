@@ -40,14 +40,16 @@ public interface MusicianFacade {
     /**
      * Creates a new musician
      * @param musician Musician to be created
+     * @return id of created musician
      */
-    void create(MusicianDTO musician);
+    Long create(MusicianDTO musician);
 
     /**
      * Updates musician
      * @param musician Musician to be updated
+     * @return updated musician
      */
-    void update(MusicianDTO musician);
+    MusicianDTO update(MusicianDTO musician);
 
     /**
      * Removes musician

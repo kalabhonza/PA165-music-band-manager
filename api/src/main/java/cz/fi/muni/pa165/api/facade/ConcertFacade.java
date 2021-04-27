@@ -32,14 +32,16 @@ public interface ConcertFacade {
     /**
      * Creates a new concert
      * @param concert Concert to be created
+     * @return id of created concert
      */
-    void create(ConcertDTO concert);
+    Long create(ConcertDTO concert);
 
     /**
      * Updates concert
      * @param concert Concert to be updated
+     * @return updated concert
      */
-    void update(ConcertDTO concert);
+    ConcertDTO update(ConcertDTO concert);
 
     /**
      * Removes given concert

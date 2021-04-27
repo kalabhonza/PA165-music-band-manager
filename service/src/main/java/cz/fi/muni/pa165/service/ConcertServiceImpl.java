@@ -40,17 +40,25 @@ public class ConcertServiceImpl implements ConcertService {
     }
 
     @Override
-    public void create(Concert concert) {
-        concertDAO.create(concert);
+    public Long create(Concert concert) {
+        return concertDAO.create(concert);
     }
 
     @Override
-    public void update(Concert concert) {
+    public Concert update(Concert concert) {
         concertDAO.update(concert);
+        Concert updatedConcert = concertDAO.findById(concert.getId());
+        if (!updatedConcert.equals(concert)) {
+            throw new DataAccessException("Updating of concert with id: " + concert.getId() + " failed") {};
+        }
+        return updatedConcert;
     }
 
     @Override
     public void remove(Concert concert) {
         concertDAO.remove(concert);
+        if (concertDAO.findById(concert.getId()) != null) {
+            throw new DataAccessException("Removing of concert with id: " + concert.getId() + " failed") {};
+        }
     }
 }

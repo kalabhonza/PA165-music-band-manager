@@ -42,15 +42,17 @@ public class ConcertFacadeImpl implements ConcertFacade {
     }
 
     @Override
-    public void create(ConcertDTO concert) {
-        concertService.create(beanMapper.mapTo(concert, Concert.class));
+    public Long create(ConcertDTO concert) {
+        return concertService.create(beanMapper.mapTo(concert, Concert.class));
     }
 
     @Override
-    public void update(ConcertDTO concert) {
-        concertService.update(beanMapper.mapTo(concert, Concert.class));
+    public ConcertDTO update(ConcertDTO concert) {
+        Concert convertedConcert = beanMapper.mapTo(concert, Concert.class);
+        Concert updatedConcert = concertService.update(convertedConcert);
+        return beanMapper.mapTo(updatedConcert, ConcertDTO.class);
     }
-    
+
     @Override
     public void remove(ConcertDTO concert) {
         concertService.remove(beanMapper.mapTo(concert, Concert.class));

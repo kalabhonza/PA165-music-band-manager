@@ -40,14 +40,16 @@ public interface MusicianService {
     /**
      * Creates a new musician
      * @param musician Musician to be created
+     * @return id of created musician
      */
-    void create(Musician musician);
+    Long create(Musician musician);
 
     /**
      * Updates a musician
      * @param musician Musician to be updated
+     * @return Updated musician
      */
-    void update(Musician musician);
+    Musician update(Musician musician);
 
     /**
      * Removes musician
