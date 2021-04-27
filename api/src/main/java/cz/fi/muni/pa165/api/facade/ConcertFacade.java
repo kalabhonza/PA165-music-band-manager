@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.api.facade;
 
+import cz.fi.muni.pa165.api.dto.ConcertCreateDTO;
 import cz.fi.muni.pa165.api.dto.ConcertDTO;
 
 import java.time.LocalDate;
@@ -34,7 +35,7 @@ public interface ConcertFacade {
      * @param concert Concert to be created
      * @return id of created concert
      */
-    Long create(ConcertDTO concert);
+    Long create(ConcertCreateDTO concert);
 
     /**
      * Updates concert

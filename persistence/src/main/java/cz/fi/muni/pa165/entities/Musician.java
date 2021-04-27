@@ -37,7 +37,7 @@ public class Musician {
 
     public Musician() {}
 
-    public Musician(Long id, String name, String username, String password, List<Instrument> instruments, Set<Band> offers, Tour tour) {
+    public Musician(Long id, String name, String username, String password, List<Instrument> instruments, Set<Band> offers) {
         this.id = id;
         this.name = name;
         this.username = username;

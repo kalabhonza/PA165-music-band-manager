@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.api.facade;
 
 import cz.fi.muni.pa165.api.dto.BandDTO;
+import cz.fi.muni.pa165.api.dto.MusicianCreateDTO;
 import cz.fi.muni.pa165.api.dto.MusicianDTO;
 import cz.fi.muni.pa165.enums.Instrument;
 
@@ -42,7 +43,7 @@ public interface MusicianFacade {
      * @param musician Musician to be created
      * @return id of created musician
      */
-    Long create(MusicianDTO musician);
+    Long create(MusicianCreateDTO musician);
 
     /**
      * Updates musician

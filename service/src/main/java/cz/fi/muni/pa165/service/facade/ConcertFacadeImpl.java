@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.service.facade;
 
+import cz.fi.muni.pa165.api.dto.ConcertCreateDTO;
 import cz.fi.muni.pa165.api.dto.ConcertDTO;
 import cz.fi.muni.pa165.api.facade.ConcertFacade;
 import cz.fi.muni.pa165.entities.Concert;
@@ -42,7 +43,7 @@ public class ConcertFacadeImpl implements ConcertFacade {
     }
 
     @Override
-    public Long create(ConcertDTO concert) {
+    public Long create(ConcertCreateDTO concert) {
         return concertService.create(beanMapper.mapTo(concert, Concert.class));
     }
 

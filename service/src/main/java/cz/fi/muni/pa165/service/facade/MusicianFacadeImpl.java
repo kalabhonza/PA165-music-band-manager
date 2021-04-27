@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.service.facade;
 
 import cz.fi.muni.pa165.api.dto.BandDTO;
+import cz.fi.muni.pa165.api.dto.MusicianCreateDTO;
 import cz.fi.muni.pa165.api.dto.MusicianDTO;
 import cz.fi.muni.pa165.api.facade.MusicianFacade;
 import cz.fi.muni.pa165.entities.Band;
@@ -51,7 +52,7 @@ public class MusicianFacadeImpl implements MusicianFacade {
     }
 
     @Override
-    public Long create(MusicianDTO musician) {
+    public Long create(MusicianCreateDTO musician) {
         return musicianService.create(beanMapper.mapTo(musician, Musician.class));
     }
 
