@@ -56,41 +56,8 @@ public class MusicianFacadeImpl implements MusicianFacade {
     }
 
     @Override
-    public void setName(MusicianDTO musician, String name) {
-        musicianService.setName(beanMapper.mapTo(musician, Musician.class), name);
-    }
-
-    @Override
-    public void setUsername(MusicianDTO musician, String username) {
-        musicianService.setUsername(beanMapper.mapTo(musician, Musician.class), username);
-    }
-
-    @Override
-    public void setPassword(MusicianDTO musician, String password) {
-        musicianService.setPassword(beanMapper.mapTo(musician, Musician.class), password);
-    }
-
-    @Override
-    public void setInstruments(MusicianDTO musician, List<Instrument> instruments) {
-        musicianService.setInstruments(beanMapper.mapTo(musician, Musician.class), instruments);
-    }
-
-    @Override
-    public void addOffer(MusicianDTO musician, BandDTO band) {
-        Band newOffer = beanMapper.mapTo(band, Band.class);
-        musicianService.addOffer(beanMapper.mapTo(musician, Musician.class), newOffer);
-    }
-
-    @Override
-    public void removeOffer(MusicianDTO musician, BandDTO band) {
-        Band offer = beanMapper.mapTo(band, Band.class);
-        musicianService.removeOffer(beanMapper.mapTo(musician, Musician.class), offer);
-    }
-
-    @Override
-    public void acceptOffer(MusicianDTO musician, BandDTO band) {
-        Band offer = beanMapper.mapTo(band, Band.class);
-        musicianService.acceptOffer(beanMapper.mapTo(musician, Musician.class), offer);
+    public void update(MusicianDTO musician) {
+        musicianService.update(beanMapper.mapTo(musician, Musician.class));
     }
 
     @Override

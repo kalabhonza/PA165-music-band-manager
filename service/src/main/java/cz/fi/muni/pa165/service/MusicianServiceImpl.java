@@ -59,7 +59,7 @@ public class MusicianServiceImpl implements MusicianService {
     public void update(Musician musician) {
         musicianDAO.update(musician);
     }
-    
+
     @Override
     public void remove(Musician musician) {
         musicianDAO.remove(musician);

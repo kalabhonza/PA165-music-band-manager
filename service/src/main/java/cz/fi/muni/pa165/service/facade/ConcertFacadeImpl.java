@@ -47,15 +47,10 @@ public class ConcertFacadeImpl implements ConcertFacade {
     }
 
     @Override
-    public void setName(ConcertDTO concert, String name) {
-        concertService.setName(beanMapper.mapTo(concert, Concert.class), name);
+    public void update(ConcertDTO concert) {
+        concertService.update(beanMapper.mapTo(concert, Concert.class));
     }
-
-    @Override
-    public void setDate(ConcertDTO concert, LocalDate date) {
-        concertService.setDate(beanMapper.mapTo(concert, Concert.class), date);
-    }
-
+    
     @Override
     public void remove(ConcertDTO concert) {
         concertService.remove(beanMapper.mapTo(concert, Concert.class));
