@@ -36,18 +36,10 @@ public interface ConcertFacade {
     void create(ConcertDTO concert);
 
     /**
-     * Sets name of given concert
-     * @param concert Concert which name will be changed
-     * @param name New name of the concert
+     * Updates concert
+     * @param concert Concert to be updated
      */
-    void setName(ConcertDTO concert, String name);
-
-    /**
-     * Sets date of given concert
-     * @param concert Concert which date will be changed
-     * @param date New date of the concert
-     */
-    void setDate(ConcertDTO concert, LocalDate date);
+    void update(ConcertDTO concert);
 
     /**
      * Removes given concert
