@@ -39,7 +39,7 @@ public interface ConcertService {
      * @param concert Concert to be updated
      */
     void update(Concert concert);
-    
+
     /**
      * Removes given concert
      * @param concert Concert to be removed

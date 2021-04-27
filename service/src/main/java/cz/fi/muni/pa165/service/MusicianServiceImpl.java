@@ -56,61 +56,10 @@ public class MusicianServiceImpl implements MusicianService {
     }
 
     @Override
-    public void setName(Musician musician, String name) {
-        musician.setName(name);
+    public void update(Musician musician) {
         musicianDAO.update(musician);
     }
-
-    @Override
-    public void setUsername(Musician musician, String username) {
-        if (musicianDAO.findByUserName(username) != null) {
-            throw new DataAccessException("Username " + username + " is already taken.") {};
-        }
-        musician.setUsername(username);
-        musicianDAO.update(musician);
-    }
-
-    @Override
-    public void setPassword(Musician musician, String password) {
-        musician.setPassword(password);
-        musicianDAO.update(musician);
-    }
-
-    @Override
-    public void setInstruments(Musician musician, List<Instrument> instruments) {
-        musician.setInstruments(instruments);
-        musicianDAO.update(musician);
-    }
-
-    @Override
-    public void addOffer(Musician musician, Band band) {
-        Set<Band> offers = musician.getOffers();
-        offers.add(band);
-        musician.setOffers(offers);
-        musicianDAO.update(musician);
-    }
-
-    @Override
-    public void removeOffer(Musician musician, Band band) {
-        Set<Band> offers = musician.getOffers();
-        if (!offers.contains(band)) {
-            throw new DataAccessException("Band " + band + "is not in offers of musician " + musician) {};
-        }
-        offers.remove(band);
-        musician.setOffers(offers);
-        musicianDAO.update(musician);
-    }
-
-    @Override
-    public void acceptOffer(Musician musician, Band band) {
-        Set<Band> offers = musician.getOffers();
-        if (!offers.contains(band)) {
-            throw new DataAccessException("Band " + band + "is not in offers of musician " + musician) {};
-        }
-        musician.acceptOffer(band);
-        musicianDAO.update(musician);
-    }
-
+    
     @Override
     public void remove(Musician musician) {
         musicianDAO.remove(musician);

@@ -45,14 +45,7 @@ public class ConcertServiceImpl implements ConcertService {
     }
 
     @Override
-    public void setName(Concert concert, String name) {
-        concert.setName(name);
-        concertDAO.update(concert);
-    }
-
-    @Override
-    public void setDate(Concert concert, LocalDate date) {
-        concert.setDate(date);
+    public void update(Concert concert) {
         concertDAO.update(concert);
     }
 
