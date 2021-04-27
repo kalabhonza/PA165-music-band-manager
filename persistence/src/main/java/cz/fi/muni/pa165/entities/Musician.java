@@ -37,13 +37,11 @@ public class Musician {
 
     public Musician() {}
 
-    public Musician(Long id, String name, String username, String password, List<Instrument> instruments, Set<Band> offers) {
+    public Musician(Long id, String name, String username, String password) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
-        this.instruments = instruments;
-        this.offers = offers;
     }
 
     public void acceptOffer(Band band) {
