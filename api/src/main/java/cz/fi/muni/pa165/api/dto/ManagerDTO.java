@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.api.dto;
 
+import cz.fi.muni.pa165.api.dto.band.BandDTO;
+
 import java.util.Objects;
 
 /**

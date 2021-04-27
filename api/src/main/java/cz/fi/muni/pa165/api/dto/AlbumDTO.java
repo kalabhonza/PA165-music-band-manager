@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.api.dto;
 
+import cz.fi.muni.pa165.api.dto.song.SongDTO;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;

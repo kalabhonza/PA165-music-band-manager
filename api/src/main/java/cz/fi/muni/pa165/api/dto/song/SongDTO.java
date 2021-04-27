@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.song;
 
 
 import java.sql.Time;
@@ -44,14 +44,13 @@ public class SongDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SongDTO songDTO = (SongDTO) o;
-        return Objects.equals(getId(), songDTO.getId()) &&
-                Objects.equals(getName(), songDTO.getName()) &&
+        return Objects.equals(getName(), songDTO.getName()) &&
                 Objects.equals(getDuration(), songDTO.getDuration());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDuration());
+        return Objects.hash(getName(), getDuration());
     }
 
 

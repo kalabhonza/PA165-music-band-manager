@@ -24,14 +24,16 @@ public interface ManagerFacade {
     /**
      * Stores new manager
      * @param manager to be created
+     * @return
      */
-    void create(ManagerDTO manager);
+    ManagerDTO create(ManagerCreateDTO manager);
 
     /**
      * Updates existing Manager
      * @param manager to be updated
+     * @return
      */
-    ManagerDTO update(ManagerDTO manager);
+    ManagerDTO update(ManagerUpdateDTO manager);
 
     /**
      * Removes Manager

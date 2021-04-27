@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.api.dto;
 
+import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.enums.Instrument;
 import java.util.HashSet;
 import java.util.List;

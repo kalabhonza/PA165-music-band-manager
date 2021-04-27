@@ -1,6 +1,8 @@
 package cz.fi.muni.pa165.api.facade;
 
-import cz.fi.muni.pa165.api.dto.SongDTO;
+import cz.fi.muni.pa165.api.dto.song.SongCreateDTO;
+import cz.fi.muni.pa165.api.dto.song.SongDTO;
+import cz.fi.muni.pa165.api.dto.song.SongUpdateDTO;
 
 import java.util.List;
 
@@ -13,15 +15,16 @@ public interface SongFacade {
     /**
      * Create new song
      * @param song song to be created
+     * @return id of created song
      */
-    void createSong(SongDTO song);
+    Long createSong(SongCreateDTO song);
 
     /**
      * Update song
      * @param song song which to be updated
      * @return updated song
      */
-    SongDTO updateSong(SongDTO song);
+    SongDTO updateSong(SongUpdateDTO song);
 
     /**
      * Search for song by id
