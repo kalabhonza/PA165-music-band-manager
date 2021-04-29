@@ -24,7 +24,6 @@ public class SongServiceTest {
     private SongService songService;
     private Song songA;
     private Song songB;
-    private Song songC;
     private List<Song> songs;
 
     @Mock
@@ -43,14 +42,9 @@ public class SongServiceTest {
         songB.setName("B");
         songB.setDuration(new Time(60));
 
-        songC = new Song();
-        songC.setName("C");
-        songC.setDuration(new Time(60));
-
         songs = new ArrayList<Song>();
         songs.add(songA);
         songs.add(songB);
-        songs.add(songC);
     }
 
     @Test
