@@ -37,8 +37,7 @@ public class ManagerServiceImpl implements ManagerService{
 
     @Override
     public Manager update(Manager manager) {
-        managerDAO.update(manager);
-        Manager updatedManager = managerDAO.findById(manager.getId());
+        Manager updatedManager = managerDAO.update(manager);
         if (updatedManager != manager) {
             throw new DataAccessException("Manager with id: " + manager.getId() + "was not updated") {};
         }

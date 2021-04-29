@@ -30,8 +30,7 @@ public class BandServiceImpl implements BandService {
 
     @Override
     public Band updateBand(Band band) {
-        bandDAO.update(band);
-        Band updatedBand = bandDAO.findBandById(band.getId());
+        Band updatedBand = bandDAO.update(band);
         if (updatedBand == null) {
             throw new DataAccessException("Band with id: " + band.getId() + "was not updated") {};
         }

@@ -8,7 +8,7 @@ import java.util.Objects;
 public class SongUpdateDTO {
     @NotNull(message = "Id can not be null")
     private Long id;
-    @NotEmpty(message = "Id can not be empty")
+    @NotEmpty(message = "Name can not be empty")
     private String name;
     @NotNull(message = "Duration can no be null")
     private Time duration;

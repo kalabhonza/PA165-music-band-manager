@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class ManagerServiceTest {
 
     private ManagerService managerService;
     private Manager manager;
-    private List<Manager> managerList;
+    private List<Manager> managerList = new ArrayList<>();
     private Band band;
 
     @Mock
@@ -57,7 +58,6 @@ public class ManagerServiceTest {
     @Test
     public void create() {
         Long id = managerService.create(manager);
-        assertEquals(id, manager.getId());
         then(managerDAO).should().create(manager);
     }
 

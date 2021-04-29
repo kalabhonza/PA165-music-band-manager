@@ -3,13 +3,13 @@ package facade;
 import cz.fi.muni.pa165.api.dto.ManagerCreateDTO;
 import cz.fi.muni.pa165.api.dto.ManagerDTO;
 import cz.fi.muni.pa165.api.dto.ManagerUpdateDTO;
-import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.facade.ManagerFacade;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.service.ManagerService;
 import cz.fi.muni.pa165.service.facade.ManagerFacadeImpl;
-import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
+import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
+import cz.fi.muni.pa165.service.mapping.mapstruct.ManagerMapperImpl;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
@@ -34,7 +34,10 @@ public class ManagerFacadeTest {
     @Mock
     private ManagerService managerService;
     @Mock
-    private BeanMapper beanMapper;
+    private ManagerMapperImpl managerMapper;
+    @Mock
+    private BandMapperImpl bandMapper;
+
 
     private Manager manager;
     private List<Manager> managers;
@@ -46,36 +49,37 @@ public class ManagerFacadeTest {
     @BeforeMethod
     public void init() {
         MockitoAnnotations.openMocks(this);
-        managerFacade = new ManagerFacadeImpl(managerService, beanMapper);
+        managerFacade = new ManagerFacadeImpl(managerService, managerMapper);
 
         Band band = new Band(2L, "Herders", ALTERNATIVE);
         manager = new Manager(1L, "John Doe", "johan123", "passwd", band);
+        band.setManager(manager);
 
         managerDTO = new ManagerDTO();
         managerDTO.setId(manager.getId());
         managerDTO.setName(manager.getName());
         managerDTO.setUserName(manager.getUserName());
         managerDTO.setPassword(manager.getPassword());
-        managerDTO.setBand(beanMapper.mapTo(manager.getBand(), BandDTO.class));
+        managerDTO.setBand(bandMapper.mapToBandDTO(manager.getBand()));
 
         managerCreateDTO = new ManagerCreateDTO();
         managerCreateDTO.setId(manager.getId());
         managerCreateDTO.setName(manager.getName());
         managerCreateDTO.setUserName(manager.getUserName());
         managerCreateDTO.setPassword(manager.getPassword());
-        managerCreateDTO.setBand(beanMapper.mapTo(manager.getBand(), BandDTO.class));
+        managerCreateDTO.setBand(bandMapper.mapToBandDTO(manager.getBand()));
 
         managerUpdateDTO = new ManagerUpdateDTO();
         managerUpdateDTO.setId(manager.getId());
         managerUpdateDTO.setName(manager.getName());
         managerUpdateDTO.setUserName(manager.getUserName());
         managerUpdateDTO.setPassword(manager.getPassword());
-        managerUpdateDTO.setBand(beanMapper.mapTo(manager.getBand(), BandDTO.class));
+        managerUpdateDTO.setBand(bandMapper.mapToBandDTO(manager.getBand()));
     }
 
     @Test
     public void createManager() {
-        given(beanMapper.mapTo(managerCreateDTO, Manager.class)).willReturn(manager);
+        given(managerMapper.mapToEntity(managerCreateDTO)).willReturn(manager);
         managerFacade.create(managerCreateDTO);
         then(managerService).should().create(manager);
     }
@@ -83,7 +87,7 @@ public class ManagerFacadeTest {
     @Test
     public void findById() {
         given(managerService.findById(manager.getId())).willReturn(manager);
-        given(beanMapper.mapTo(manager, ManagerDTO.class)).willReturn(managerDTO);
+        given(managerMapper.mapToManagerDTO(manager)).willReturn(managerDTO);
         ManagerDTO res = managerFacade.findById(manager.getId());
         assertEquals(managerDTO, res);
         then(managerService).should().findById(manager.getId());
@@ -92,7 +96,7 @@ public class ManagerFacadeTest {
     @Test
     public void findByName() {
         given(managerService.findByName(manager.getName())).willReturn(managers);
-        given(beanMapper.mapTo(managers, ManagerDTO.class)).willReturn(managerDTOS);
+        given(managerMapper.mapToListDTO(managers)).willReturn(managerDTOS);
         List<ManagerDTO> res = managerFacade.findByName(manager.getName());
         assertEquals(managerDTOS, res);
         then(managerService).should().findByName(manager.getName());
@@ -101,7 +105,7 @@ public class ManagerFacadeTest {
     @Test
     public void findByUserName() {
         given(managerService.findByUserName(manager.getName())).willReturn(manager);
-        given(beanMapper.mapTo(manager, ManagerDTO.class)).willReturn(managerDTO);
+        given(managerMapper.mapToManagerDTO(manager)).willReturn(managerDTO);
         ManagerDTO res = managerFacade.findByUserName(manager.getName());
         assertEquals(managerDTO, res);
         then(managerService).should().findByUserName(manager.getName());
@@ -110,7 +114,7 @@ public class ManagerFacadeTest {
     @Test
     public void findAll() {
         given(managerService.findAll()).willReturn(managers);
-        given(beanMapper.mapTo(managers, ManagerDTO.class)).willReturn(managerDTOS);
+        given(managerMapper.mapToListDTO(managers)).willReturn(managerDTOS);
         List<ManagerDTO> res = managerFacade.findAll();
         assertEquals(managerDTOS, res);
         then(managerService).should().findAll();
@@ -118,15 +122,15 @@ public class ManagerFacadeTest {
 
     @Test
     public void updateManager() {
-        given(beanMapper.mapTo(managerUpdateDTO, Manager.class)).willReturn(manager);
+        given(managerMapper.mapToEntity(managerUpdateDTO)).willReturn(manager);
         managerFacade.update(managerUpdateDTO);
         then(managerService).should().update(manager);
     }
 
     @Test
     public void removeManager() {
-        managerFacade.remove(managerDTO);
-        then(managerService).should().remove(manager);
+        managerFacade.remove(managerDTO);;
+        then(managerService).should().remove(managerMapper.mapToEntity(managerDTO));
     }
 
 }
