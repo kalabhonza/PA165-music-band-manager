@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * Information about Band
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 public class BandDTO {
     private Long id;

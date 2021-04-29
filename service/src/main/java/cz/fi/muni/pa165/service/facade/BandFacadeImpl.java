@@ -8,7 +8,8 @@ import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.service.BandService;
-import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
+import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
+import cz.fi.muni.pa165.service.mapping.mapstruct.ManagerMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,61 +17,64 @@ import java.util.List;
 
 /**
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 @Service
 public class BandFacadeImpl implements BandFacade {
 
     private BandService bandService;
-    private BeanMapper beanMapper;
+    @Autowired
+    private BandMapperImpl bandMapper;
 
     @Autowired
-    public BandFacadeImpl(BandService bandService, BeanMapper beanMapper) {
+    private ManagerMapperImpl managerMapper;
+
+    @Autowired
+    public BandFacadeImpl(BandService bandService) {
         this.bandService = bandService;
-        this.beanMapper = beanMapper;
     }
 
     @Override
     public Long createBand(BandCreateDTO band) {
-        Band createdBand = beanMapper.mapTo(band, Band.class);
+        Band createdBand = bandMapper.mapToEntity(band);
         return this.bandService.createBand(createdBand);
     }
 
     @Override
     public BandDTO updateBand(BandUpdateDTO band) {
-        Band updateBand = beanMapper.mapTo(band, Band.class);
+        Band updateBand = bandMapper.mapToEntity(band);
         updateBand = bandService.updateBand(updateBand);
-        return beanMapper.mapTo(updateBand, BandDTO.class);
+        return bandMapper.mapToBandDTO(updateBand);
     }
 
     @Override
     public BandDTO findBandById(Long id) {
         Band band = bandService.findBandById(id);
-        return beanMapper.mapTo(band, BandDTO.class);
+        return bandMapper.mapToBandDTO(band);
     }
 
     @Override
     public List<BandDTO> findBandByName(String name) {
         List<Band> band = bandService.findBandByName(name);
-        return beanMapper.mapTo(band, BandDTO.class);
+        return bandMapper.mapToListDTO(band);
     }
 
     @Override
     public BandDTO findBandByManager(ManagerDTO manager) {
-        Manager bandMananager = beanMapper.mapTo(manager, Manager.class);
+        Manager bandMananager = managerMapper.mapToEntity(manager);
         Band band = bandService.findBandByManager(bandMananager);
-        return beanMapper.mapTo(band, BandDTO.class);
+        return bandMapper.mapToBandDTO(band);
     }
 
     @Override
     public List<BandDTO> findAllBands() {
         List<Band> band = bandService.findAllBands();
-        return beanMapper.mapTo(band, BandDTO.class);
+        return bandMapper.mapToListDTO(band);
     }
 
     @Override
     public void deleteBand(BandDTO band) {
-        Band deleteBand = beanMapper.mapTo(band, Band.class);
+        Band deleteBand = bandMapper.mapToEntity(band);
         bandService.deleteBand(deleteBand);
     }
 }

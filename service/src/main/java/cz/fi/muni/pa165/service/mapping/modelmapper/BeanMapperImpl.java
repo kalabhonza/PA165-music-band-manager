@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Bean mapper used for mapping of entities to DTO
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 
 @Service

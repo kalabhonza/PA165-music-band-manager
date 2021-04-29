@@ -1,6 +1,8 @@
 package facade;
 
+import cz.fi.muni.pa165.api.dto.ManagerCreateDTO;
 import cz.fi.muni.pa165.api.dto.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.ManagerUpdateDTO;
 import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.facade.ManagerFacade;
 import cz.fi.muni.pa165.entities.Band;

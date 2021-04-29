@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Interface for Band facade
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 public interface BandFacade {
     /**

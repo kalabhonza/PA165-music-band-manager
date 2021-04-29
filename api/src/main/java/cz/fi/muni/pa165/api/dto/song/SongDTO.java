@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Information about Song
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 public class SongDTO {
 

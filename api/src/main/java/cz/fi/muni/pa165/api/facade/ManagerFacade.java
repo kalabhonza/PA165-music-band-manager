@@ -1,6 +1,9 @@
 package cz.fi.muni.pa165.api.facade;
 
+import cz.fi.muni.pa165.api.dto.ManagerCreateDTO;
 import cz.fi.muni.pa165.api.dto.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.ManagerUpdateDTO;
+
 import java.util.List;
 
 /**
@@ -26,7 +29,7 @@ public interface ManagerFacade {
      * @param manager to be created
      * @return
      */
-    ManagerDTO create(ManagerCreateDTO manager);
+    Long create(ManagerCreateDTO manager);
 
     /**
      * Updates existing Manager

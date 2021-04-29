@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Bean mapper used for mapping of entities to DTO
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 public interface BeanMapper {
     /**

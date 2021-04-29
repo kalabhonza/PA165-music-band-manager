@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 public interface BandService {
     /**

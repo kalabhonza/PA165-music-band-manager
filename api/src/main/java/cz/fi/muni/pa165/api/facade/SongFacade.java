@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Interface for Song facade
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 public interface SongFacade {
     /**
