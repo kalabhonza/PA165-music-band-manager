@@ -39,12 +39,13 @@ public class MusicianDAOImpl implements MusicianDAO {
                 .getResultList();
     }
 
-    public void create(Musician musician) {
+    public Long create(Musician musician) {
         em.persist(musician);
+        return musician.getId();
     }
 
-    public void update(Musician musician) {
-        em.merge(musician);
+    public Musician update(Musician musician) {
+        return em.merge(musician);
     }
 
     public void remove(Musician musician) {

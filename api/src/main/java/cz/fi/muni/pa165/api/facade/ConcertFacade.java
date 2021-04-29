@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.api.facade;
 
+import cz.fi.muni.pa165.api.dto.ConcertCreateDTO;
 import cz.fi.muni.pa165.api.dto.ConcertDTO;
 
 import java.time.LocalDate;
@@ -32,22 +33,16 @@ public interface ConcertFacade {
     /**
      * Creates a new concert
      * @param concert Concert to be created
+     * @return id of created concert
      */
-    void create(ConcertDTO concert);
+    Long create(ConcertCreateDTO concert);
 
     /**
-     * Sets name of given concert
-     * @param concert Concert which name will be changed
-     * @param name New name of the concert
+     * Updates concert
+     * @param concert Concert to be updated
+     * @return updated concert
      */
-    void setName(ConcertDTO concert, String name);
-
-    /**
-     * Sets date of given concert
-     * @param concert Concert which date will be changed
-     * @param date New date of the concert
-     */
-    void setDate(ConcertDTO concert, LocalDate date);
+    ConcertDTO update(ConcertDTO concert);
 
     /**
      * Removes given concert

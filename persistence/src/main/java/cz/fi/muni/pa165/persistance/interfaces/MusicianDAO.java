@@ -40,14 +40,16 @@ public interface MusicianDAO {
     /**
      * Creates a new musician
      * @param musician Musician to be created
+     * @return id of created musician
      */
-    void create(Musician musician);
+    Long create(Musician musician);
 
     /**
      * Updates musician
      * @param musician Musician to be updated
+     * @return updated musician
      */
-    void update(Musician musician);
+    Musician update(Musician musician);
 
     /**
      * Removes musician

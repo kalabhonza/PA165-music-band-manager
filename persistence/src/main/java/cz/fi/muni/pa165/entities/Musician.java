@@ -32,18 +32,16 @@ public class Musician {
     @ManyToMany
     private Set<Band> offers = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Band band;
 
     public Musician() {}
 
-    public Musician(Long id, String name, String username, String password, List<Instrument> instruments, Set<Band> offers, Tour tour) {
+    public Musician(Long id, String name, String username, String password) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
-        this.instruments = instruments;
-        this.offers = offers;
     }
 
     public void acceptOffer(Band band) {

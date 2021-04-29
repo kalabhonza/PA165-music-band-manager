@@ -40,57 +40,16 @@ public interface MusicianService {
     /**
      * Creates a new musician
      * @param musician Musician to be created
+     * @return id of created musician
      */
-    void create(Musician musician);
+    Long create(Musician musician);
 
     /**
-     * Sets new name to a musician
-     * @param musician Musician which name will be changed
-     * @param name New name of the musician
+     * Updates a musician
+     * @param musician Musician to be updated
+     * @return Updated musician
      */
-    void setName(Musician musician, String name);
-
-    /**
-     * Sets new username to a musician
-     * @param musician Musician which username will be changed
-     * @param username New username of the musician
-     */
-    void setUsername(Musician musician, String username);
-
-    /**
-     * Sets new password to a musician
-     * @param musician Musician which password will be changed
-     * @param password New password of the musician
-     */
-    void setPassword(Musician musician, String password);
-
-    /**
-     * Sets instruments to a musician
-     * @param musician Musician which instruments will be changed
-     * @param instruments New instruments of a musician
-     */
-    void setInstruments(Musician musician, List<Instrument> instruments);
-
-    /**
-     * Adds a band offer to a musician
-     * @param musician Musician who will get the new offer
-     * @param band Offered band
-     */
-    void addOffer(Musician musician, Band band);
-
-    /**
-     * Removes a band offer from a musician
-     * @param musician Musician who will lose a band offer
-     * @param band Offered band which will be removed from musician's offers
-     */
-    void removeOffer(Musician musician, Band band);
-
-    /**
-     * Sets given band to musician
-     * @param musician Musician that will be added into band
-     * @param band Band into which will be the musician added
-     */
-    void acceptOffer(Musician musician, Band band);
+    Musician update(Musician musician);
 
     /**
      * Removes musician
