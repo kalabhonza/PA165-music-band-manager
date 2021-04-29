@@ -4,7 +4,7 @@ import cz.fi.muni.pa165.api.facade.AlbumFacade;
 import cz.fi.muni.pa165.entities.Album;
 import cz.fi.muni.pa165.entities.Song;
 import cz.fi.muni.pa165.service.AlbumService;
-import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
+
 import org.mockito.Mock;
 
 import java.util.List;
@@ -23,8 +23,8 @@ public class AlbumFacadeTest {
     @Mock
     private AlbumService albumService;
 
-    @Mock
-    private BeanMapper beanMapper;
+    //@Mock
+    //private BeanMapper beanMapper;
 
 
 }

@@ -63,7 +63,7 @@ public class ManagerFacadeTest {
         managerDTO.setBand(bandMapper.mapToBandDTO(manager.getBand()));
 
         managerCreateDTO = new ManagerCreateDTO();
-        managerCreateDTO.setId(manager.getId());
+        //managerCreateDTO.setId(manager.getId());
         managerCreateDTO.setName(manager.getName());
         managerCreateDTO.setUserName(manager.getUserName());
         managerCreateDTO.setPassword(manager.getPassword());

@@ -8,6 +8,7 @@ import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.service.BandService;
+import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapper;
 import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ManagerMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +24,18 @@ import java.util.List;
 public class BandFacadeImpl implements BandFacade {
 
     private BandService bandService;
-    @Autowired
     private BandMapperImpl bandMapper;
 
     @Autowired
     private ManagerMapperImpl managerMapper;
 
     @Autowired
-    public BandFacadeImpl(BandService bandService) {
+    public BandFacadeImpl(BandService bandService, BandMapperImpl bandMapper, ManagerMapperImpl managerMapper) {
         this.bandService = bandService;
+        this.bandMapper = bandMapper;
+        this.managerMapper = managerMapper;
     }
+
 
     @Override
     public Long createBand(BandCreateDTO band) {

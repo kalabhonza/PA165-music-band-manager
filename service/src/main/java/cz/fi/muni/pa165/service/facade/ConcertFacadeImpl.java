@@ -18,12 +18,12 @@ import java.util.List;
 public class ConcertFacadeImpl implements ConcertFacade {
     private ConcertService concertService;
 
-    @Autowired
     private ConcertMapperImpl concertMapper;
 
     @Autowired
-    public ConcertFacadeImpl(ConcertService concertService) {
+    public ConcertFacadeImpl(ConcertService concertService, ConcertMapperImpl concertMapper) {
         this.concertService = concertService;
+        this.concertMapper = concertMapper;
     }
 
     @Override

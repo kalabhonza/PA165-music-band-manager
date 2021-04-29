@@ -6,7 +6,6 @@ import cz.fi.muni.pa165.api.facade.AlbumFacade;
 import cz.fi.muni.pa165.entities.Album;
 import cz.fi.muni.pa165.service.AlbumService;
 import cz.fi.muni.pa165.service.mapping.mapstruct.AlbumMapperImpl;
-import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

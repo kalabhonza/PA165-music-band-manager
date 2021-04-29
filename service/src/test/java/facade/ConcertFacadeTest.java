@@ -1,35 +1,104 @@
-//package facade;
+package facade;
+
+
+import cz.fi.muni.pa165.api.dto.concert.ConcertCreateDTO;
+import cz.fi.muni.pa165.api.dto.concert.ConcertDTO;
+import cz.fi.muni.pa165.api.dto.concert.ConcertUpdateDTO;
+import cz.fi.muni.pa165.api.facade.BandFacade;
+import cz.fi.muni.pa165.api.facade.ConcertFacade;
+import cz.fi.muni.pa165.entities.Band;
+import cz.fi.muni.pa165.entities.Concert;
+import cz.fi.muni.pa165.enums.Style;
+import cz.fi.muni.pa165.service.BandService;
+import cz.fi.muni.pa165.service.ConcertService;
+import cz.fi.muni.pa165.service.facade.BandFacadeImpl;
+import cz.fi.muni.pa165.service.facade.ConcertFacadeImpl;
+
+import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
+import cz.fi.muni.pa165.service.mapping.mapstruct.ConcertMapperImpl;
+
+
+
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import org.testng.annotations.BeforeMethod;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+
+
+public class ConcertFacadeTest {
+    private ConcertFacade concertFacade;
+
+    @Mock
+    private ConcertService concertService;
+
+    @Mock
+    private ConcertMapperImpl concertMapper;
+
+
+    private ConcertCreateDTO concertCreateDTO;
+    private ConcertUpdateDTO concertUpdateDTO;
+    private ConcertDTO concertDTO;
+    private Concert concert;
+    private Concert testConcert1;
+    private List<Concert> concerts;
+    private List<ConcertDTO> concertDTOS;
+
+    @BeforeMethod
+    public void init(){
+        MockitoAnnotations.openMocks(this);
+        concertFacade = new ConcertFacadeImpl(concertService, concertMapper);
+
+        concert = new Concert(1L, "Brno", LocalDate.of(2020,10,10));
+
+
+        concertDTO = new ConcertDTO();
+        concertDTO.setId(concert.getId());
+        concertDTO.setName(concert.getName());
+        concertDTO.setDate(concert.getDate());
+
+        concertCreateDTO = new ConcertCreateDTO();
+        concertCreateDTO.setName(concert.getName());
+        concertCreateDTO.setDate(concert.getDate());
+        System.out.println(concertCreateDTO.getName());
+
+        concertUpdateDTO = new ConcertUpdateDTO();
+        concertUpdateDTO.setId(concert.getId());
+        concertUpdateDTO.setName(concert.getName());
+        concertUpdateDTO.setDate(concert.getDate());
+
+
+
+    }
+
+    @Test
+    public void createConcertTest(){
+//        Assert.assertNotEquals(concertCreateDTO,null);
+//        String name = concertCreateDTO.getName();
+//        Assert.assertNotEquals(name,null);
 //
-//import com.github.dozermapper.core.inject.Inject;
-//import cz.fi.muni.pa165.api.dto.*;
-//import cz.fi.muni.pa165.entities.Band;
-//import cz.fi.muni.pa165.entities.Concert;
-//import cz.fi.muni.pa165.service.BandService;
-//import cz.fi.muni.pa165.service.ConcertService;
-//import cz.fi.muni.pa165.service.facade.BandFacadeImpl;
-//import cz.fi.muni.pa165.service.facade.ConcertFacadeImpl;
-//
-//import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
-//import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapperImpl;
-//import org.junit.Before;
-//import org.junit.Rule;
-//import org.junit.Test;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.junit.MockitoJUnit;
-//import org.mockito.junit.MockitoRule;
-//import org.springframework.test.context.ContextConfiguration;
-//import org.springframework.test.context.TestExecutionListeners;
-//import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-//
-//import java.time.LocalDate;
-//
-//import static org.mockito.Matchers.any;
-//import static org.mockito.Mockito.*;
-//
-//@ContextConfiguration(classes = BeanMapperImpl.class)
-//@TestExecutionListeners(TransactionalTestExecutionListener.class)
-//public class ConcertFacadeTest {
+//        given(concertService.create(concert)).willReturn(concert.getId());
+        given(concertMapper.mapToEntity(concertCreateDTO)).willReturn(concert);
+        concertFacade.create(concertCreateDTO);
+        then(concertService).should().create(concert);
+    }
+
+    @Test
+    public void updateConcertTests() {
+
+        given(concertMapper.mapToEntity(concertUpdateDTO)).willReturn(concert);
+        concertFacade.update(concertUpdateDTO);
+        then(concertService).should().update(concert);
+    }
+}
 //
 //    @Mock
 //    private ConcertService concertService;

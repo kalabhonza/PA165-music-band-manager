@@ -6,7 +6,6 @@ import cz.fi.muni.pa165.entities.Tour;
 import cz.fi.muni.pa165.service.TourService;
 import cz.fi.muni.pa165.service.mapping.mapstruct.AlbumMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.TourMapperImpl;
-import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +20,9 @@ public class TourFacadeImpl implements TourFacade {
     private TourMapperImpl tourMapper;
 
     @Autowired
-    public TourFacadeImpl(TourService tourService) {
+    public TourFacadeImpl(TourService tourService, TourMapperImpl tourMapper) {
         this.tourService = tourService;
+        this.tourMapper = tourMapper;
     }
 
 
