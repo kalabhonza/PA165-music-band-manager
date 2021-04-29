@@ -1,14 +1,17 @@
 //package facade;
 //
 //import com.github.dozermapper.core.inject.Inject;
-//import cz.fi.muni.pa165.api.dto.band.BandDTO;
+//import cz.fi.muni.pa165.api.dto.ManagerDTO;
 //import cz.fi.muni.pa165.api.dto.MusicianCreateDTO;
 //import cz.fi.muni.pa165.api.dto.MusicianDTO;
+//import cz.fi.muni.pa165.api.dto.band.BandDTO;
 //import cz.fi.muni.pa165.entities.Band;
 //import cz.fi.muni.pa165.entities.Manager;
 //import cz.fi.muni.pa165.entities.Musician;
 //import cz.fi.muni.pa165.service.MusicianService;
 //import cz.fi.muni.pa165.service.facade.MusicianFacadeImpl;
+//
+//
 //import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
 //import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapperImpl;
 //import org.junit.Before;
@@ -21,6 +24,7 @@
 //import org.springframework.test.context.ContextConfiguration;
 //
 //import java.util.ArrayList;
+//import java.util.HashSet;
 //import java.util.List;
 //
 //import static org.mockito.Matchers.any;
@@ -50,6 +54,8 @@
 //    private Band band;
 //
 //    private Manager manager;
+//
+//    private ManagerDTO managerDTO;
 //
 //    private Musician musician;
 //
@@ -82,12 +88,39 @@
 //        this.band.setName("ACDC");
 //        this.band.setId(5L);
 //
+//        this.manager = new Manager();
+//        this.manager.setId(6L);
+//        this.manager.setName("Anton");
+//        this.manager.setUserName("antonn");
+//        this.manager.setPassword("1234");
 //
+//        this.band.setManager(this.manager);
+//        this.manager.setBand(this.band);
+//
+//
+//
+//        this.band.setMembers(new HashSet<>(allMusicians));
+//        this.musician.setBand(this.band);
+//        this.testMusician1.setBand(this.band);
+//
+//        this.bandDTO = new BandDTO();
+//        this.bandDTO.setId(5L);
+//        this.bandDTO.setName("ACDC");
+//
+//        this.managerDTO = new ManagerDTO();
+//        this.managerDTO.setId(6L);
+//        this.managerDTO.setName("Anton");
+//        this.managerDTO.setUserName("antonn");
+//        this.managerDTO.setPassword("1234");
+//        this.managerDTO.setBand(this.bandDTO);
+//
+//        this.bandDTO.setManager(this.managerDTO);
 //
 //        when(musicianService.update(any(Musician.class))).thenReturn(testMusician1);
 //        when(musicianService.findById(any(Long.class))).thenReturn(testMusician1);
 //        when(musicianService.findByUserName(any(String.class))).thenReturn(testMusician1);
 //        when(musicianService.findAll()).thenReturn(allMusicians);
+//        when(musicianService.findAllByBand(this.band)).thenReturn(allMusicians);
 //    }
 //
 //    @Test
@@ -126,4 +159,9 @@
 //        verify(musicianService, times(1)).remove(any(Musician.class));
 //    }
 //
+//    @Test
+//    public void findAllMusicianByBandTest(){
+//        musicianFacade.findAllByBand(bandDTO);
+//        verify(musicianService, times(1)).findAllByBand(this.band);
+//    }
 //}
