@@ -33,7 +33,7 @@ public interface AlbumDAO {
      * update existing album
      * @param album to be changed
      */
-    void update(Album album);
+    Album update(Album album);
 
     /**
      * delete existing album

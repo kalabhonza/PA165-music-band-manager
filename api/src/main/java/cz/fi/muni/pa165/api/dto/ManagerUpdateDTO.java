@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.api.dto;
 
 import cz.fi.muni.pa165.api.dto.band.BandDTO;
+import java.util.Objects;
 
 public class ManagerUpdateDTO {
     private Long id;
@@ -13,8 +14,9 @@ public class ManagerUpdateDTO {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+
+    public void setId(Long managerID) {
+        this.id = managerID;
     }
 
     public String getName() {
@@ -47,5 +49,33 @@ public class ManagerUpdateDTO {
 
     public void setBand(BandDTO band) {
         this.band = band;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ManagerDTO)) return false;
+        ManagerDTO that = (ManagerDTO) o;
+        return getId().equals(that.getId()) &&
+                getName().equals(that.getName()) &&
+                getUserName().equals(that.getUserName()) &&
+                getPassword().equals(that.getPassword()) &&
+                Objects.equals(getBand(), that.getBand());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getUserName(), getPassword(), getBand());
+    }
+
+    @Override
+    public String toString() {
+        return "ManagerDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", band=" + band.getName() +
+                '}';
     }
 }

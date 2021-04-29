@@ -37,8 +37,9 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public void update(Tour tour) {
+    public Tour update(Tour tour) {
         entityManager.merge(tour);
+        return tour;
     }
 
     @Override
