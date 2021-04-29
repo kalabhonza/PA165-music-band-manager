@@ -2,6 +2,7 @@ package facade;
 
 import com.github.dozermapper.core.inject.Inject;
 import cz.fi.muni.pa165.api.dto.BandDTO;
+import cz.fi.muni.pa165.api.dto.ManagerDTO;
 import cz.fi.muni.pa165.api.dto.MusicianCreateDTO;
 import cz.fi.muni.pa165.api.dto.MusicianDTO;
 import cz.fi.muni.pa165.entities.Band;
@@ -22,6 +23,7 @@ import org.mockito.junit.MockitoRule;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.mockito.Matchers.any;
@@ -51,6 +53,8 @@ public class MusicianFacadeTest {
     private Band band;
 
     private Manager manager;
+
+    private ManagerDTO managerDTO;
 
     private Musician musician;
 
@@ -83,12 +87,39 @@ public class MusicianFacadeTest {
         this.band.setName("ACDC");
         this.band.setId(5L);
 
+        this.manager = new Manager();
+        this.manager.setId(6L);
+        this.manager.setName("Anton");
+        this.manager.setUserName("antonn");
+        this.manager.setPassword("1234");
 
+        this.band.setManager(this.manager);
+        this.manager.setBand(this.band);
+
+
+
+        this.band.setMembers(new HashSet<>(allMusicians));
+        this.musician.setBand(this.band);
+        this.testMusician1.setBand(this.band);
+
+        this.bandDTO = new BandDTO();
+        this.bandDTO.setId(5L);
+        this.bandDTO.setName("ACDC");
+
+        this.managerDTO = new ManagerDTO();
+        this.managerDTO.setId(6L);
+        this.managerDTO.setName("Anton");
+        this.managerDTO.setUserName("antonn");
+        this.managerDTO.setPassword("1234");
+        this.managerDTO.setBand(this.bandDTO);
+
+        this.bandDTO.setManager(this.managerDTO);
 
         when(musicianService.update(any(Musician.class))).thenReturn(testMusician1);
         when(musicianService.findById(any(Long.class))).thenReturn(testMusician1);
         when(musicianService.findByUserName(any(String.class))).thenReturn(testMusician1);
         when(musicianService.findAll()).thenReturn(allMusicians);
+        when(musicianService.findAllByBand(this.band)).thenReturn(allMusicians);
     }
 
     @Test
@@ -127,4 +158,9 @@ public class MusicianFacadeTest {
         verify(musicianService, times(1)).remove(any(Musician.class));
     }
 
+    @Test
+    public void findAllMusicianByBandTest(){
+        musicianFacade.findAllByBand(bandDTO);
+        verify(musicianService, times(1)).findAllByBand(this.band);
+    }
 }
