@@ -30,7 +30,6 @@ public class AlbumServiceTest {
     private Song songB;
     private Album albumA;
     private Album albumB;
-    private Album albumC;
     private List<Album> albums;
 
 
@@ -60,16 +59,11 @@ public class AlbumServiceTest {
 
         albumB = new Album();
         albumB.setName("B");
-        albumA.setSongs(new HashSet<>(Arrays.asList(songB)));
-
-        albumC = new Album();
-        albumC.setName("C");
-        albumA.setSongs(new HashSet<>(Arrays.asList(songA, songB)));
+        albumB.setSongs(new HashSet<>(Arrays.asList(songB)));
 
         albums = new ArrayList<>();
         albums.add(albumA);
         albums.add(albumB);
-        albums.add(albumC);
     }
 
     @Test
