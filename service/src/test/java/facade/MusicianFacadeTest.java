@@ -13,6 +13,7 @@ import cz.fi.muni.pa165.service.MusicianService;
 
 
 import cz.fi.muni.pa165.service.facade.MusicianFacadeImpl;
+import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapper;
 import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.MusicianMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ManagerMapperImpl;
@@ -178,6 +179,7 @@ public class MusicianFacadeTest {
     @Test
     public void findAllMusicianByBandTest(){
         given(musicianService.findAllByBand(band)).willReturn(allMusicians);
+        given(bandMapper.mapToEntity(bandDTO)).willReturn(band);
         given(musicianMapper.mapToListDTO(allMusicians)).willReturn(allMusiciansDTO);
         List<MusicianDTO> result = musicianFacade.findAllByBand(bandDTO);
         assertEquals(allMusiciansDTO, result);
