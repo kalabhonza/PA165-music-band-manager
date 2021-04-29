@@ -1,7 +1,6 @@
 package cz.fi.muni.pa165.api.facade;
 
-import cz.fi.muni.pa165.api.dto.TourDTO;
-import cz.fi.muni.pa165.entities.Tour;
+import cz.fi.muni.pa165.api.dto.tour.TourDTO;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package cz.fi.muni.pa165.api.facade;
 
-import cz.fi.muni.pa165.api.dto.AlbumDTO;
-import cz.fi.muni.pa165.entities.Album;
+import cz.fi.muni.pa165.api.dto.album.AlbumDTO;
 
 import java.util.List;
 

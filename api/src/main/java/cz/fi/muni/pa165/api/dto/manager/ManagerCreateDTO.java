@@ -1,5 +1,6 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.manager;
 
+import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import java.util.Objects;
 
 public class ManagerCreateDTO {
@@ -7,6 +8,7 @@ public class ManagerCreateDTO {
     private String name;
     private String userName;
     private String password;
+    private BandDTO band;
 
     public Long getId() {
         return id;
@@ -38,6 +40,14 @@ public class ManagerCreateDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public BandDTO getBand() {
+        return band;
+    }
+
+    public void setBand(BandDTO band) {
+        this.band = band;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.service.mapping;
+package cz.fi.muni.pa165.service.mapping.modelmapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Bean mapper used for mapping of entities to DTO
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 
 @Service

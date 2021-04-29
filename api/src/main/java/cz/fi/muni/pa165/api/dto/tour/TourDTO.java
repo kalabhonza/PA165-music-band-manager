@@ -1,4 +1,6 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.tour;
+
+import cz.fi.muni.pa165.api.dto.concert.ConcertDTO;
 
 import java.util.HashSet;
 import java.util.Objects;

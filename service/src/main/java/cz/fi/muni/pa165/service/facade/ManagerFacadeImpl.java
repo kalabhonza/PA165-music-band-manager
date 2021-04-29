@@ -1,10 +1,12 @@
 package cz.fi.muni.pa165.service.facade;
 
-import cz.fi.muni.pa165.api.dto.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.manager.ManagerCreateDTO;
+import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.manager.ManagerUpdateDTO;
 import cz.fi.muni.pa165.api.facade.ManagerFacade;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.service.ManagerService;
-import cz.fi.muni.pa165.service.mapping.BeanMapper;
+import cz.fi.muni.pa165.service.mapping.mapstruct.ManagerMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
@@ -14,54 +16,54 @@ import java.util.List;
 public class ManagerFacadeImpl implements ManagerFacade {
 
     private ManagerService managerService;
-    private BeanMapper beanMapper;
+    private ManagerMapperImpl managerMapper;
 
     @Autowired
-    public ManagerFacadeImpl(ManagerService managerService, BeanMapper beanMapper) {
+    public ManagerFacadeImpl(ManagerService managerService, ManagerMapperImpl managerMapper) {
         this.managerService = managerService;
-        this.beanMapper = beanMapper;
+        this.managerMapper = managerMapper;
     }
 
     @Override
     public ManagerDTO findById(long id) {
         Manager manager = managerService.findById(id);
-        return beanMapper.mapTo(manager, ManagerDTO.class);
+        return managerMapper.mapToManagerDTO(manager);
     }
 
     @Override
     public List<ManagerDTO> findAll() {
         List<Manager> manager = managerService.findAll();
-        return beanMapper.mapTo(manager, ManagerDTO.class);
+        return managerMapper.mapToListDTO(manager);
     }
 
     @Override
-    public void create(ManagerDTO manager) {
-        Manager createdManager = beanMapper.mapTo(manager, Manager.class);
-        this.managerService.create(createdManager);
+    public Long create(ManagerCreateDTO manager) {
+        Manager createdManager = managerMapper.mapToEntity(manager);
+        return this.managerService.create(createdManager);
     }
 
     @Override
-    public ManagerDTO update(ManagerDTO manager) {
-        Manager updatedManager = beanMapper.mapTo(manager, Manager.class);
+    public ManagerDTO update(ManagerUpdateDTO manager) {
+        Manager updatedManager = managerMapper.mapToEntity(manager);
         updatedManager = managerService.update(updatedManager);
-        return beanMapper.mapTo(updatedManager, ManagerDTO.class);
+        return managerMapper.mapToManagerDTO(updatedManager);
     }
 
     @Override
     public void remove(ManagerDTO manager) {
-        Manager deletedManager = beanMapper.mapTo(manager, Manager.class);
+        Manager deletedManager = managerMapper.mapToEntity(manager);
         managerService.remove(deletedManager);
     }
 
     @Override
     public ManagerDTO findByUserName(String userName) {
         Manager manager = managerService.findByUserName(userName);
-        return beanMapper.mapTo(manager, ManagerDTO.class);
+        return managerMapper.mapToManagerDTO(manager);
     }
 
     @Override
     public List<ManagerDTO> findByName(String name) {
         List<Manager> manager = managerService.findByName(name);
-        return beanMapper.mapTo(manager, ManagerDTO.class);
+        return managerMapper.mapToListDTO(manager);
     }
 }

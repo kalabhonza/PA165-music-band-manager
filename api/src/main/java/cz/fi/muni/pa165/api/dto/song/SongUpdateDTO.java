@@ -1,18 +1,16 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.song;
 
-
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Time;
 import java.util.Objects;
 
-/**
- * Information about Song
- *
- * @author Igor Ignac
- */
-public class SongDTO {
-
+public class SongUpdateDTO {
+    @NotNull(message = "Id can not be null")
     private Long id;
+    @NotEmpty(message = "Name can not be empty")
     private String name;
+    @NotNull(message = "Duration can no be null")
     private Time duration;
 
     public Long getId() {
@@ -43,10 +41,8 @@ public class SongDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SongDTO songDTO = (SongDTO) o;
-        return Objects.equals(getId(), songDTO.getId()) &&
-                Objects.equals(getName(), songDTO.getName()) &&
-                Objects.equals(getDuration(), songDTO.getDuration());
+        SongUpdateDTO that = (SongUpdateDTO) o;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getDuration(), that.getDuration());
     }
 
     @Override
@@ -54,10 +50,9 @@ public class SongDTO {
         return Objects.hash(getId(), getName(), getDuration());
     }
 
-
     @Override
     public String toString() {
-        return "SongDTO{" +
+        return "SongUpdateDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", duration=" + duration +

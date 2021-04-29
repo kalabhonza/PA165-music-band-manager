@@ -1,8 +1,13 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.manager;
+
+import cz.fi.muni.pa165.api.dto.band.BandDTO;
 
 import java.util.Objects;
 
-public class ManagerUpdateDTO {
+/**
+ * @author Jan Kaláb
+ */
+public class ManagerDTO {
     private Long id;
     private String name;
     private String userName;

@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 @Service
 public class SongServiceImpl implements SongService {
@@ -31,8 +31,7 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public Song updateSong(Song song) {
-        songDAO.update(song);
-        Song updatedSong = songDAO.findSongById(song.getId());
+        Song updatedSong = songDAO.update(song);
         if (updatedSong == null) {
             throw new DataAccessException("Band with id: " + song.getId() + "was not updated") {};
         }

@@ -1,4 +1,6 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.album;
+
+import cz.fi.muni.pa165.api.dto.song.SongDTO;
 
 import java.util.HashSet;
 import java.util.Objects;

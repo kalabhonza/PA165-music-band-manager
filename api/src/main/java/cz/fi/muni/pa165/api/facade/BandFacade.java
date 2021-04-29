@@ -1,29 +1,31 @@
 package cz.fi.muni.pa165.api.facade;
 
-import cz.fi.muni.pa165.api.dto.BandCreateDTO;
-import cz.fi.muni.pa165.api.dto.BandDTO;
-import cz.fi.muni.pa165.api.dto.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.band.BandCreateDTO;
+import cz.fi.muni.pa165.api.dto.band.BandDTO;
+import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.band.BandUpdateDTO;
 
 import java.util.List;
 
 /**
  * Interface for Band facade
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 public interface BandFacade {
     /**
      * Create new band
      * @param band band to be created
+     * @return id of created band
      */
-    void createBand(BandCreateDTO band);
+    Long createBand(BandCreateDTO band);
 
     /**
      * Updates band
      * @param band band to be updated
      * @return updated band
      */
-    BandDTO updateBand(BandDTO band);
+    BandDTO updateBand(BandUpdateDTO band);
 
     /**
      * Find band by id

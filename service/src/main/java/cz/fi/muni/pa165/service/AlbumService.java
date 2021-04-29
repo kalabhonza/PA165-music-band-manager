@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.service;
 
-import cz.fi.muni.pa165.api.dto.AlbumDTO;
 import cz.fi.muni.pa165.entities.Album;
 
 import java.util.List;

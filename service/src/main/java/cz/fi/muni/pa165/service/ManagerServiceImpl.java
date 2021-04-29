@@ -20,7 +20,7 @@ public class ManagerServiceImpl implements ManagerService{
     public Manager findById(long id) {
         Manager manager = managerDAO.findById(id);
         if (manager == null) {
-            throw new DataAccessException("Manager with id: " + manager.getId() + "was not found") {};
+            throw new DataAccessException("Manager with id: " + id + "was not found") {};
         }
         return manager;
     }
@@ -37,9 +37,8 @@ public class ManagerServiceImpl implements ManagerService{
 
     @Override
     public Manager update(Manager manager) {
-        managerDAO.update(manager);
-        Manager updatedManager = managerDAO.findById(manager.getId());
-        if (updatedManager == null) {
+        Manager updatedManager = managerDAO.update(manager);
+        if (updatedManager != manager) {
             throw new DataAccessException("Manager with id: " + manager.getId() + "was not updated") {};
         }
         return updatedManager;
@@ -57,7 +56,7 @@ public class ManagerServiceImpl implements ManagerService{
     public Manager findByUserName(String userName) {
         Manager manager = managerDAO.findByUserName(userName);
         if (manager == null) {
-            throw new DataAccessException("Manager with userName: " + manager.getUserName() + "was not found") {};
+            throw new DataAccessException("Manager with userName: " + userName + "was not found") {};
         }
         return manager;
     }
@@ -65,8 +64,8 @@ public class ManagerServiceImpl implements ManagerService{
     @Override
     public List<Manager> findByName(String name) {
         List<Manager> manager = managerDAO.findByName(name);
-        if (manager == null || manager.isEmpty()) {
-            throw new DataAccessException("Manager with name: " + name + "was not found") {};
+        if (manager == null) {
+            throw new DataAccessException("Internal database error in method findByName") {};
         }
         return manager;
     }

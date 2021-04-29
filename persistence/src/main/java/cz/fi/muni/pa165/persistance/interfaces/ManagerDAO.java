@@ -32,8 +32,9 @@ public interface ManagerDAO {
     /**
      * Updates existing Manager
      * @param manager to be updated
+     * @return
      */
-    void update(Manager manager);
+    Manager update(Manager manager);
 
     /**
      * Removes Manager

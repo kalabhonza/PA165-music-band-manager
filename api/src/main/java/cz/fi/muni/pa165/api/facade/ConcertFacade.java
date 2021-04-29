@@ -1,7 +1,8 @@
 package cz.fi.muni.pa165.api.facade;
 
-import cz.fi.muni.pa165.api.dto.ConcertCreateDTO;
-import cz.fi.muni.pa165.api.dto.ConcertDTO;
+import cz.fi.muni.pa165.api.dto.concert.ConcertCreateDTO;
+import cz.fi.muni.pa165.api.dto.concert.ConcertDTO;
+import cz.fi.muni.pa165.api.dto.concert.ConcertUpdateDTO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -42,7 +43,7 @@ public interface ConcertFacade {
      * @param concert Concert to be updated
      * @return updated concert
      */
-    ConcertDTO update(ConcertDTO concert);
+    ConcertDTO update(ConcertUpdateDTO concert);
 
     /**
      * Removes given concert
