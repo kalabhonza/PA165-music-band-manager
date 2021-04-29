@@ -1,12 +1,14 @@
 package cz.fi.muni.pa165.service.facade;
 
-import cz.fi.muni.pa165.api.dto.BandDTO;
+import cz.fi.muni.pa165.api.dto.band.BandCreateDTO;
+import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.dto.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.band.BandUpdateDTO;
 import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.service.BandService;
-import cz.fi.muni.pa165.service.mapping.BeanMapper;
+import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,13 +31,13 @@ public class BandFacadeImpl implements BandFacade {
     }
 
     @Override
-    public void createBand(BandDTO band) {
+    public Long createBand(BandCreateDTO band) {
         Band createdBand = beanMapper.mapTo(band, Band.class);
-        this.bandService.createBand(createdBand);
+        return this.bandService.createBand(createdBand);
     }
 
     @Override
-    public BandDTO updateBand(BandDTO band) {
+    public BandDTO updateBand(BandUpdateDTO band) {
         Band updateBand = beanMapper.mapTo(band, Band.class);
         updateBand = bandService.updateBand(updateBand);
         return beanMapper.mapTo(updateBand, BandDTO.class);

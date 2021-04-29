@@ -1,10 +1,12 @@
 package cz.fi.muni.pa165.service.facade;
 
-import cz.fi.muni.pa165.api.dto.SongDTO;
+import cz.fi.muni.pa165.api.dto.song.SongCreateDTO;
+import cz.fi.muni.pa165.api.dto.song.SongDTO;
+import cz.fi.muni.pa165.api.dto.song.SongUpdateDTO;
 import cz.fi.muni.pa165.api.facade.SongFacade;
 import cz.fi.muni.pa165.entities.Song;
 import cz.fi.muni.pa165.service.SongService;
-import cz.fi.muni.pa165.service.mapping.BeanMapper;
+import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,13 +29,13 @@ public class SongFacadeImpl implements SongFacade {
     }
 
     @Override
-    public void createSong(SongDTO song) {
+    public Long createSong(SongCreateDTO song) {
         Song createdSong = beanMapper.mapTo(song, Song.class);
-        this.songService.createSong(createdSong);
+        return this.songService.createSong(createdSong);
     }
 
     @Override
-    public SongDTO updateSong(SongDTO song) {
+    public SongDTO updateSong(SongUpdateDTO song) {
        Song updateSong = beanMapper.mapTo(song, Song.class);
        updateSong = songService.updateSong(updateSong);
        return this.beanMapper.mapTo(updateSong, SongDTO.class);

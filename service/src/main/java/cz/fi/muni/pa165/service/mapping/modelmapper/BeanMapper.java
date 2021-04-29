@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.service.mapping;
+package cz.fi.muni.pa165.service.mapping.modelmapper;
 
 import java.util.Collection;
 import java.util.List;

@@ -20,7 +20,7 @@ public class ManagerServiceImpl implements ManagerService{
     public Manager findById(long id) {
         Manager manager = managerDAO.findById(id);
         if (manager == null) {
-            throw new DataAccessException("Manager with id: " + manager.getId() + "was not found") {};
+            throw new DataAccessException("Manager with id: " + id + "was not found") {};
         }
         return manager;
     }
@@ -39,7 +39,7 @@ public class ManagerServiceImpl implements ManagerService{
     public Manager update(Manager manager) {
         managerDAO.update(manager);
         Manager updatedManager = managerDAO.findById(manager.getId());
-        if (updatedManager == null) {
+        if (updatedManager != manager) {
             throw new DataAccessException("Manager with id: " + manager.getId() + "was not updated") {};
         }
         return updatedManager;
@@ -57,7 +57,7 @@ public class ManagerServiceImpl implements ManagerService{
     public Manager findByUserName(String userName) {
         Manager manager = managerDAO.findByUserName(userName);
         if (manager == null) {
-            throw new DataAccessException("Manager with userName: " + manager.getUserName() + "was not found") {};
+            throw new DataAccessException("Manager with userName: " + userName + "was not found") {};
         }
         return manager;
     }

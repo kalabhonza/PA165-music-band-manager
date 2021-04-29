@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.service.mapping;
+package cz.fi.muni.pa165.service.mapping.modelmapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -2,11 +2,10 @@ package cz.fi.muni.pa165.service.facade;
 
 
 import cz.fi.muni.pa165.api.dto.AlbumDTO;
-import cz.fi.muni.pa165.api.dto.BandDTO;
 import cz.fi.muni.pa165.api.facade.AlbumFacade;
 import cz.fi.muni.pa165.entities.Album;
 import cz.fi.muni.pa165.service.AlbumService;
-import cz.fi.muni.pa165.service.mapping.BeanMapper;
+import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
