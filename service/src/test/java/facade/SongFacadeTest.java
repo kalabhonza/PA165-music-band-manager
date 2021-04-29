@@ -1,6 +1,5 @@
 package facade;
 
-import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.api.dto.song.SongCreateDTO;
 import cz.fi.muni.pa165.api.dto.song.SongDTO;
 import cz.fi.muni.pa165.api.dto.song.SongUpdateDTO;
@@ -149,5 +148,5 @@ public class SongFacadeTest {
         songFacade.deleteSong(songAdto);
         then(songService).should().deleteSong(songA);
     }
-    
+
 }
