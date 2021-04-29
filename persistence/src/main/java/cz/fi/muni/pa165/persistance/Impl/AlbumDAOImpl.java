@@ -36,8 +36,9 @@ public class AlbumDAOImpl implements AlbumDAO {
     }
 
     @Override
-    public void update(Album album) {
+    public Album update(Album album) {
         entityManager.merge(album);
+        return album;
     }
 
     @Override

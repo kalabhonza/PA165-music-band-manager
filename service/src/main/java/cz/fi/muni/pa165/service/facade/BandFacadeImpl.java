@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.service.facade;
 
+import cz.fi.muni.pa165.api.dto.BandCreateDTO;
 import cz.fi.muni.pa165.api.dto.BandDTO;
 import cz.fi.muni.pa165.api.dto.ManagerDTO;
 import cz.fi.muni.pa165.api.facade.BandFacade;
@@ -29,7 +30,7 @@ public class BandFacadeImpl implements BandFacade {
     }
 
     @Override
-    public void createBand(BandDTO band) {
+    public void createBand(BandCreateDTO band) {
         Band createdBand = beanMapper.mapTo(band, Band.class);
         this.bandService.createBand(createdBand);
     }

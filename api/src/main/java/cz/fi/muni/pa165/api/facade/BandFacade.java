@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.api.facade;
 
+import cz.fi.muni.pa165.api.dto.BandCreateDTO;
 import cz.fi.muni.pa165.api.dto.BandDTO;
 import cz.fi.muni.pa165.api.dto.ManagerDTO;
 
@@ -15,7 +16,7 @@ public interface BandFacade {
      * Create new band
      * @param band band to be created
      */
-    void createBand(BandDTO band);
+    void createBand(BandCreateDTO band);
 
     /**
      * Updates band

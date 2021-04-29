@@ -31,7 +31,7 @@ public interface TourDAO {
      * update existing tour
      * @param tour to be updated
      */
-    void update(Tour tour);
+    Tour update(Tour tour);
 
     /**
      * Delete given tour
