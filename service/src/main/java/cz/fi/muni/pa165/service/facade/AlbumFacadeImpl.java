@@ -21,7 +21,7 @@ public class AlbumFacadeImpl implements AlbumFacade {
     private AlbumMapperImpl albumMapper;
 
     @Autowired
-    public AlbumFacadeImpl(AlbumService albumService, BeanMapper beanMapper){
+    public AlbumFacadeImpl(AlbumService albumService){
         this.albumService = albumService;
     }
 

@@ -21,7 +21,7 @@ public class TourFacadeImpl implements TourFacade {
     private TourMapperImpl tourMapper;
 
     @Autowired
-    public TourFacadeImpl(TourService tourService, BeanMapper beanMapper) {
+    public TourFacadeImpl(TourService tourService) {
         this.tourService = tourService;
     }
 
