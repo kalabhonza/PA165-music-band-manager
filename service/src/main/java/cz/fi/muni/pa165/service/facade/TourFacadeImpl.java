@@ -4,7 +4,7 @@ import cz.fi.muni.pa165.api.dto.TourDTO;
 import cz.fi.muni.pa165.api.facade.TourFacade;
 import cz.fi.muni.pa165.entities.Tour;
 import cz.fi.muni.pa165.service.TourService;
-import cz.fi.muni.pa165.service.mapping.BeanMapper;
+import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
 
 import java.util.List;
 

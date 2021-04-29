@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.api.facade;
 
-import cz.fi.muni.pa165.api.dto.BandDTO;
+import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.dto.MusicianCreateDTO;
 import cz.fi.muni.pa165.api.dto.MusicianDTO;
 import cz.fi.muni.pa165.enums.Instrument;

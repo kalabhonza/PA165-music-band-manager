@@ -34,8 +34,8 @@ public class ManagerDAOImpl implements ManagerDAO {
     }
 
     @Override
-    public void update(Manager manager) {
-        entityManager.merge(manager);
+    public Manager update(Manager manager) {
+        return entityManager.merge(manager);
     }
 
     @Override

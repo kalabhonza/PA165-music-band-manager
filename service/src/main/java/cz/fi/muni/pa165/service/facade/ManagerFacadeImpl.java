@@ -1,10 +1,12 @@
 package cz.fi.muni.pa165.service.facade;
 
+import cz.fi.muni.pa165.api.dto.ManagerCreateDTO;
 import cz.fi.muni.pa165.api.dto.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.ManagerUpdateDTO;
 import cz.fi.muni.pa165.api.facade.ManagerFacade;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.service.ManagerService;
-import cz.fi.muni.pa165.service.mapping.BeanMapper;
+import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
@@ -35,13 +37,13 @@ public class ManagerFacadeImpl implements ManagerFacade {
     }
 
     @Override
-    public void create(ManagerDTO manager) {
+    public Long create(ManagerCreateDTO manager) {
         Manager createdManager = beanMapper.mapTo(manager, Manager.class);
-        this.managerService.create(createdManager);
+        return this.managerService.create(createdManager);
     }
 
     @Override
-    public ManagerDTO update(ManagerDTO manager) {
+    public ManagerDTO update(ManagerUpdateDTO manager) {
         Manager updatedManager = beanMapper.mapTo(manager, Manager.class);
         updatedManager = managerService.update(updatedManager);
         return beanMapper.mapTo(updatedManager, ManagerDTO.class);

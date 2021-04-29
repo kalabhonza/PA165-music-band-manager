@@ -1,8 +1,11 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.band;
 
+import cz.fi.muni.pa165.api.dto.AlbumDTO;
+import cz.fi.muni.pa165.api.dto.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.MusicianDTO;
+import cz.fi.muni.pa165.api.dto.TourDTO;
 import cz.fi.muni.pa165.enums.Style;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -10,7 +13,7 @@ import java.util.Set;
 /**
  * Information about Band
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 public class BandDTO {
     private Long id;
@@ -91,8 +94,7 @@ public class BandDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BandDTO bandDTO = (BandDTO) o;
-        return Objects.equals(getId(), bandDTO.getId()) &&
-                Objects.equals(getName(), bandDTO.getName()) &&
+        return Objects.equals(getName(), bandDTO.getName()) &&
                 Objects.equals(getManager(), bandDTO.getManager()) &&
                 Objects.equals(getMembers(), bandDTO.getMembers()) &&
                 Objects.equals(getAlbums(), bandDTO.getAlbums()) &&
@@ -101,7 +103,7 @@ public class BandDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getManager(), getMembers(), getAlbums(), getTours());
+        return Objects.hash(getName(), getManager(), getMembers(), getAlbums(), getTours());
     }
 
     @Override

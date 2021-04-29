@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.service.mapping;
+package cz.fi.muni.pa165.service.mapping.modelmapper;
 
 import java.util.Collection;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Bean mapper used for mapping of entities to DTO
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 public interface BeanMapper {
     /**

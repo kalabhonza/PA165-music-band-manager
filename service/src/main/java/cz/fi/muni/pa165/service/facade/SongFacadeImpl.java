@@ -1,10 +1,12 @@
 package cz.fi.muni.pa165.service.facade;
 
-import cz.fi.muni.pa165.api.dto.SongDTO;
+import cz.fi.muni.pa165.api.dto.song.SongCreateDTO;
+import cz.fi.muni.pa165.api.dto.song.SongDTO;
+import cz.fi.muni.pa165.api.dto.song.SongUpdateDTO;
 import cz.fi.muni.pa165.api.facade.SongFacade;
 import cz.fi.muni.pa165.entities.Song;
 import cz.fi.muni.pa165.service.SongService;
-import cz.fi.muni.pa165.service.mapping.BeanMapper;
+import cz.fi.muni.pa165.service.mapping.mapstruct.SongMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,54 +14,55 @@ import java.util.List;
 
 /**
  *
- * @author Igor Ignac
+ * @author Igor Ignác
  */
 @Service
 public class SongFacadeImpl implements SongFacade {
 
     private SongService songService;
-    private BeanMapper beanMapper;
 
     @Autowired
-    public SongFacadeImpl(SongService songService, BeanMapper beanMapper) {
+    private SongMapperImpl songMapper;
+
+    @Autowired
+    public SongFacadeImpl(SongService songService) {
         this.songService = songService;
-        this.beanMapper = beanMapper;
     }
 
     @Override
-    public void createSong(SongDTO song) {
-        Song createdSong = beanMapper.mapTo(song, Song.class);
-        this.songService.createSong(createdSong);
+    public Long createSong(SongCreateDTO song) {
+        Song createdSong = songMapper.mapToEntity(song);
+        return this.songService.createSong(createdSong);
     }
 
     @Override
-    public SongDTO updateSong(SongDTO song) {
-       Song updateSong = beanMapper.mapTo(song, Song.class);
+    public SongDTO updateSong(SongUpdateDTO song) {
+       Song updateSong = songMapper.mapToEntity(song);
        updateSong = songService.updateSong(updateSong);
-       return this.beanMapper.mapTo(updateSong, SongDTO.class);
+       return songMapper.mapToSongDTO(updateSong);
     }
 
     @Override
     public SongDTO findSongById(Long id) {
         Song song = songService.findSongById(id);
-        return beanMapper.mapTo(song, SongDTO.class);
+        return songMapper.mapToSongDTO(song);
     }
 
     @Override
     public List<SongDTO> findSongByName(String name) {
         List<Song> songs = songService.findSongByName(name);
-        return beanMapper.mapTo(songs, SongDTO.class);
+        return songMapper.mapToListDTO(songs);
     }
 
     @Override
     public List<SongDTO> findAllSongs() {
         List<Song> songs = songService.findAllSongs();
-        return beanMapper.mapTo(songs, SongDTO.class);
+        return songMapper.mapToListDTO(songs);
     }
 
     @Override
     public void deleteSong(SongDTO song) {
-        Song deleteSong = beanMapper.mapTo(song, Song.class);
+        Song deleteSong = songMapper.mapToEntity(song);
         songService.deleteSong(deleteSong);
     }
 }

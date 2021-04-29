@@ -5,7 +5,7 @@ import cz.fi.muni.pa165.api.dto.ConcertDTO;
 import cz.fi.muni.pa165.api.facade.ConcertFacade;
 import cz.fi.muni.pa165.entities.Concert;
 import cz.fi.muni.pa165.service.ConcertService;
-import cz.fi.muni.pa165.service.mapping.BeanMapper;
+import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
