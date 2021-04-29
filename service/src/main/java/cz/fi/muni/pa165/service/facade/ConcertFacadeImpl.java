@@ -1,7 +1,8 @@
 package cz.fi.muni.pa165.service.facade;
 
-import cz.fi.muni.pa165.api.dto.ConcertCreateDTO;
-import cz.fi.muni.pa165.api.dto.ConcertDTO;
+import cz.fi.muni.pa165.api.dto.concert.ConcertCreateDTO;
+import cz.fi.muni.pa165.api.dto.concert.ConcertDTO;
+import cz.fi.muni.pa165.api.dto.concert.ConcertUpdateDTO;
 import cz.fi.muni.pa165.api.facade.ConcertFacade;
 import cz.fi.muni.pa165.entities.Concert;
 import cz.fi.muni.pa165.service.ConcertService;
@@ -48,7 +49,7 @@ public class ConcertFacadeImpl implements ConcertFacade {
     }
 
     @Override
-    public ConcertDTO update(ConcertDTO concert) {
+    public ConcertDTO update(ConcertUpdateDTO concert) {
         Concert convertedConcert = beanMapper.mapTo(concert, Concert.class);
         Concert updatedConcert = concertService.update(convertedConcert);
         return beanMapper.mapTo(updatedConcert, ConcertDTO.class);

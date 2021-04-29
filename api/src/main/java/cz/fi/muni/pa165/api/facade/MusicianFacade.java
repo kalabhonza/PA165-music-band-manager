@@ -1,9 +1,9 @@
 package cz.fi.muni.pa165.api.facade;
 
 import cz.fi.muni.pa165.api.dto.band.BandDTO;
-import cz.fi.muni.pa165.api.dto.MusicianCreateDTO;
-import cz.fi.muni.pa165.api.dto.MusicianDTO;
-import cz.fi.muni.pa165.enums.Instrument;
+import cz.fi.muni.pa165.api.dto.musician.MusicianCreateDTO;
+import cz.fi.muni.pa165.api.dto.musician.MusicianDTO;
+import cz.fi.muni.pa165.api.dto.musician.MusicianUpdateDTO;
 
 import java.util.List;
 
@@ -50,7 +50,7 @@ public interface MusicianFacade {
      * @param musician Musician to be updated
      * @return updated musician
      */
-    MusicianDTO update(MusicianDTO musician);
+    MusicianDTO update(MusicianUpdateDTO musician);
 
     /**
      * Removes musician

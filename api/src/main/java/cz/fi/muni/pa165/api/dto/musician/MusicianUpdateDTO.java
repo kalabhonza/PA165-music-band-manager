@@ -1,7 +1,10 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.musician;
 
 import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.enums.Instrument;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -10,11 +13,16 @@ import java.util.Set;
 /**
  * @author Aleš Paroulek
  */
-public class MusicianDTO {
+public class MusicianUpdateDTO {
+    @NotNull(message = "Id can not be null")
     private Long id;
+    @NotEmpty(message = "Name can not be empty")
     private String name;
+    @NotEmpty(message = "Username can not be empty")
     private String username;
+    @NotEmpty(message = "Password can not be empty")
     private String password;
+    @NotEmpty(message = "Instruments can not be empty")
     private List<Instrument> instruments;
     private Set<BandDTO> offers = new HashSet<>();
     private BandDTO band;
@@ -78,8 +86,8 @@ public class MusicianDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MusicianDTO)) return false;
-        MusicianDTO that = (MusicianDTO) o;
+        if (!(o instanceof MusicianUpdateDTO)) return false;
+        MusicianUpdateDTO that = (MusicianUpdateDTO) o;
         return Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getUsername(), that.getUsername()) &&
                 Objects.equals(getInstruments(), that.getInstruments()) &&
@@ -94,7 +102,7 @@ public class MusicianDTO {
 
     @Override
     public String toString() {
-        return "MusicianDTO{" +
+        return "MusicianUpdateDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", username='" + username + '\'' +

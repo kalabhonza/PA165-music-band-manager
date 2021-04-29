@@ -1,12 +1,12 @@
 package cz.fi.muni.pa165.service.facade;
 
 import cz.fi.muni.pa165.api.dto.band.BandDTO;
-import cz.fi.muni.pa165.api.dto.MusicianCreateDTO;
-import cz.fi.muni.pa165.api.dto.MusicianDTO;
+import cz.fi.muni.pa165.api.dto.musician.MusicianCreateDTO;
+import cz.fi.muni.pa165.api.dto.musician.MusicianDTO;
+import cz.fi.muni.pa165.api.dto.musician.MusicianUpdateDTO;
 import cz.fi.muni.pa165.api.facade.MusicianFacade;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Musician;
-import cz.fi.muni.pa165.enums.Instrument;
 import cz.fi.muni.pa165.service.MusicianService;
 import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class MusicianFacadeImpl implements MusicianFacade {
     }
 
     @Override
-    public MusicianDTO update(MusicianDTO musician) {
+    public MusicianDTO update(MusicianUpdateDTO musician) {
         Musician convertedMusician = beanMapper.mapTo(musician, Musician.class);
         Musician updatedMusician = musicianService.update(convertedMusician);
         return beanMapper.mapTo(updatedMusician, MusicianDTO.class);
