@@ -34,9 +34,9 @@ public class SongFacadeImpl implements SongFacade {
 
     @Override
     public SongDTO updateSong(SongDTO song) {
-       Song updateSong = beanMapper.mapTo(song, Song.class);
-       updateSong = songService.updateSong(updateSong);
-       return this.beanMapper.mapTo(updateSong, SongDTO.class);
+        Song updateSong = beanMapper.mapTo(song, Song.class);
+        updateSong = songService.updateSong(updateSong);
+        return this.beanMapper.mapTo(updateSong, SongDTO.class);
     }
 
     @Override
