@@ -25,7 +25,7 @@ public interface ManagerFacade {
      * Stores new manager
      * @param manager to be created
      */
-    void create(ManagerDTO manager);
+    Long create(ManagerDTO manager);
 
     /**
      * Updates existing Manager

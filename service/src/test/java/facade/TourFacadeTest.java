@@ -4,6 +4,7 @@ import com.github.dozermapper.core.inject.Inject;
 import cz.fi.muni.pa165.api.dto.*;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Concert;
+import cz.fi.muni.pa165.entities.Musician;
 import cz.fi.muni.pa165.entities.Tour;
 import cz.fi.muni.pa165.persistance.interfaces.ConcertDAO;
 import cz.fi.muni.pa165.service.MusicianService;
@@ -14,8 +15,10 @@ import cz.fi.muni.pa165.service.mapping.BeanMapper;
 import cz.fi.muni.pa165.service.mapping.BeanMapperImpl;
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,6 +28,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = BeanMapperImpl.class)
 public class TourFacadeTest {
@@ -59,8 +66,16 @@ public class TourFacadeTest {
 
     private List<ConcertDTO> allConcertDTO;
 
+    private TourUpdateDTO tourUpdateDTO;
+
+
+
     @Before
     public void setUp(){
+
+        //MockitoAnnotations.openMocks(this); nefunguje?
+        tourFacade = new TourFacadeImpl(tourService, beanMapper);
+
         this.tour = new Tour();
         this.tour.setName("ACDC tour 2021");
         this.tour.setId(1L);
@@ -100,7 +115,29 @@ public class TourFacadeTest {
         this.tourDTO.setName("ACDC tour 2021");
         this.tourDTO.setConcerts(new HashSet<>(this.allConcertDTO));
 
-        
+        this.tourCreateDTO = new TourCreateDTO();
+        this.tourCreateDTO.setName("ACDC tour 2021");
+
+        this.tourUpdateDTO = new TourUpdateDTO();
+        this.tourUpdateDTO.setId(this.tour.getId());
+        this.tourUpdateDTO.setName("New Tour Name");
+        this.tourUpdateDTO.setConcerts(new HashSet<>(beanMapper.mapTo(tour.getConcerts(), ConcertDTO.class)));
+
+        when(tourService.update(any(Tour.class))).thenReturn(tour);
+
 
     }
+
+    @Test
+    public void createTourTest(){
+        tourFacade.create(tourDTO); //createTourDTO nefunguje ??
+        verify(tourService, times(1)).create(any(Tour.class));
+    }
+
+//    @Test
+//    public void updateTourTest(){
+//        tourFacade.update(tourUpdateDTO);
+//        verify(tourService, times(1)).create(any(Tour.class));
+//    }
+
 }

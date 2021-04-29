@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.api.facade.TourFacade;
 import cz.fi.muni.pa165.entities.Tour;
 import cz.fi.muni.pa165.service.TourService;
 import cz.fi.muni.pa165.service.mapping.BeanMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -12,6 +13,13 @@ public class TourFacadeImpl implements TourFacade {
 
     private TourService tourService;
     private BeanMapper beanMapper;
+
+    @Autowired
+    public TourFacadeImpl(TourService tourService, BeanMapper beanMapper) {
+        this.tourService = tourService;
+        this.beanMapper = beanMapper;
+    }
+
 
     @Override
     public TourDTO findById(Long id) {

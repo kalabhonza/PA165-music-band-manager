@@ -35,9 +35,10 @@ public class ManagerFacadeImpl implements ManagerFacade {
     }
 
     @Override
-    public void create(ManagerDTO manager) {
+    public Long create(ManagerDTO manager) {
         Manager createdManager = beanMapper.mapTo(manager, Manager.class);
         this.managerService.create(createdManager);
+        return createdManager.getId();
     }
 
     @Override
