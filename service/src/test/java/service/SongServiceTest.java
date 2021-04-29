@@ -4,18 +4,14 @@ import cz.fi.muni.pa165.entities.Song;
 import cz.fi.muni.pa165.persistance.interfaces.SongDAO;
 import cz.fi.muni.pa165.service.SongService;
 import cz.fi.muni.pa165.service.SongServiceImpl;
-import org.hibernate.service.spi.ServiceException;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.DataAccessException;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 
 import java.sql.Time;
 import java.util.ArrayList;
