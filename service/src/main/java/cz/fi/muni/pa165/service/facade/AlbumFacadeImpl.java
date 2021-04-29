@@ -1,7 +1,9 @@
 package cz.fi.muni.pa165.service.facade;
 
 
+import cz.fi.muni.pa165.api.dto.album.AlbumCreateDTO;
 import cz.fi.muni.pa165.api.dto.album.AlbumDTO;
+import cz.fi.muni.pa165.api.dto.album.AlbumUpdateDTO;
 import cz.fi.muni.pa165.api.facade.AlbumFacade;
 import cz.fi.muni.pa165.entities.Album;
 import cz.fi.muni.pa165.service.AlbumService;
@@ -16,13 +18,12 @@ import java.util.List;
 public class AlbumFacadeImpl implements AlbumFacade {
 
     private AlbumService albumService;
-
-    @Autowired
     private AlbumMapperImpl albumMapper;
 
     @Autowired
-    public AlbumFacadeImpl(AlbumService albumService, BeanMapper beanMapper){
+    public AlbumFacadeImpl(AlbumService albumService, AlbumMapperImpl albumMapper){
         this.albumService = albumService;
+        this.albumMapper = albumMapper;
     }
 
     @Override
@@ -38,13 +39,13 @@ public class AlbumFacadeImpl implements AlbumFacade {
     }
 
     @Override
-    public Long create(AlbumDTO album) {
+    public Long create(AlbumCreateDTO album) {
         Album createdAlbum = albumMapper.mapToEntity(album);
         return this.albumService.create(createdAlbum);
     }
 
     @Override
-    public AlbumDTO update(AlbumDTO album) {
+    public AlbumDTO update(AlbumUpdateDTO album) {
         Album updatedAlbum = albumMapper.mapToEntity(album);
         updatedAlbum = albumService.update(updatedAlbum);
         return albumMapper.mapToAlbumDTO(updatedAlbum);

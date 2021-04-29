@@ -1,6 +1,8 @@
 package cz.fi.muni.pa165.api.facade;
 
+import cz.fi.muni.pa165.api.dto.album.AlbumCreateDTO;
 import cz.fi.muni.pa165.api.dto.album.AlbumDTO;
+import cz.fi.muni.pa165.api.dto.album.AlbumUpdateDTO;
 
 import java.util.List;
 
@@ -24,13 +26,13 @@ public interface AlbumFacade {
      * creates new istance of class album
      * @param album to be created
      */
-    Long create(AlbumDTO album);
+    Long create(AlbumCreateDTO album);
 
     /**
      * update existing album
      * @param album to be changed
      */
-    AlbumDTO update(AlbumDTO album);
+    AlbumDTO update(AlbumUpdateDTO album);
 
     /**
      * delete existing album
