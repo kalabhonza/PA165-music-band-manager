@@ -58,7 +58,7 @@ public class BandFacadeTest{
         this.band = new Band(1L, "Sabaton", Style.METAL);
         this.testBand1 = new Band(2L, "Kabat", Style.ROCK);
 
-        //pak prepsat na createDTO
+
         this.bandCreateDTO = new BandCreateDTO();
         this.bandCreateDTO.setName("One Direction");
         this.bandCreateDTO.setStyle(Style.POP);
