@@ -94,7 +94,7 @@ public class SongServiceTest {
         assertEquals(song.getName(), songA.getName());
         assertEquals(song.getDuration(), songA.getDuration());
 
-        verify(songDAO, times(2)).findSongById(songA.getId());
+        verify(songDAO, times(1)).findSongById(songA.getId());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class SongServiceTest {
 
     @Test(expectedExceptions = DataAccessException.class)
     public void updateNonExistingSong() {
-        when(songDAO.update(songA)).thenReturn(null);
+        when(songDAO.findSongById(songA.getId())).thenReturn(null);
         songService.updateSong(songA);
     }
 
@@ -127,7 +127,7 @@ public class SongServiceTest {
         songService.deleteSong(songA);
     }
 
-    @Test
+    @Test(expectedExceptions = DataAccessException.class)
     public void findByNonExistingId() {
         when(songDAO.findSongById(666L)).thenReturn(null);
         songService.findSongById(666L);
@@ -136,7 +136,8 @@ public class SongServiceTest {
     @Test
     public void findByNonExistingName() {
         when(songDAO.findSongByName("UEEE")).thenReturn(null);
-        songService.findSongByName("UEEE");
+        List<Song> result = songService.findSongByName("UEEE");
+        assertEquals(result, null);
     }
 
 }
