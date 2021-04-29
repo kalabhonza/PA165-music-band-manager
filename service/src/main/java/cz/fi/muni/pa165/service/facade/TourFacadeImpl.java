@@ -1,6 +1,8 @@
 package cz.fi.muni.pa165.service.facade;
 
+import cz.fi.muni.pa165.api.dto.tour.TourCreateDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourDTO;
+import cz.fi.muni.pa165.api.dto.tour.TourUpdateDTO;
 import cz.fi.muni.pa165.api.facade.TourFacade;
 import cz.fi.muni.pa165.entities.Tour;
 import cz.fi.muni.pa165.service.TourService;
@@ -17,14 +19,13 @@ public class TourFacadeImpl implements TourFacade {
 
     private TourService tourService;
 
-    @Autowired
     private TourMapperImpl tourMapper;
 
     @Autowired
-    public TourFacadeImpl(TourService tourService, BeanMapper beanMapper) {
+    public TourFacadeImpl(TourService tourService, TourMapperImpl tourMapper) {
         this.tourService = tourService;
+        this.tourMapper = tourMapper;
     }
-
 
     @Override
     public TourDTO findById(Long id) {
@@ -39,14 +40,14 @@ public class TourFacadeImpl implements TourFacade {
     }
 
     @Override
-    public Long create(TourDTO tour) {
+    public Long create(TourCreateDTO tour) {
         Tour createdTour = tourMapper.mapToEntity(tour);
         return this.tourService.create(createdTour);
 
     }
 
     @Override
-    public TourDTO update(TourDTO tour) {
+    public TourDTO update(TourUpdateDTO tour) {
         Tour updatedTour = tourMapper.mapToEntity(tour);
         updatedTour = tourService.update(updatedTour);
         return tourMapper.mapToTourDTO(updatedTour);

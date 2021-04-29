@@ -50,8 +50,8 @@ public class SongServiceImpl implements SongService {
     @Override
     public List<Song> findSongByName(String name) {
         List<Song> song = songDAO.findSongByName(name);
-        if (song == null || song.isEmpty()) {
-            throw new DataAccessException("Song with name: " + name + "not found") {};
+        if (song == null) {
+            throw new DataAccessException("Song with name: " + name + " not found") {};
         }
         return song;
     }

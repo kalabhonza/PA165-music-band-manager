@@ -23,15 +23,14 @@ import java.util.List;
 public class BandFacadeImpl implements BandFacade {
 
     private BandService bandService;
-    @Autowired
     private BandMapperImpl bandMapper;
-
-    @Autowired
     private ManagerMapperImpl managerMapper;
 
     @Autowired
-    public BandFacadeImpl(BandService bandService) {
+    public BandFacadeImpl(BandService bandService, BandMapperImpl bandMapper, ManagerMapperImpl managerMapper) {
         this.bandService = bandService;
+        this.bandMapper = bandMapper;
+        this.managerMapper = managerMapper;
     }
 
     @Override
