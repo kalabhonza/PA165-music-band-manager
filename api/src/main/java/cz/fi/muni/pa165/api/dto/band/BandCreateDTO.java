@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.api.dto.band;
 
-import cz.fi.muni.pa165.api.dto.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.enums.Style;
 
 import java.util.Objects;

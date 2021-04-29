@@ -7,6 +7,7 @@ import cz.fi.muni.pa165.api.dto.musician.MusicianUpdateDTO;
 import cz.fi.muni.pa165.api.facade.MusicianFacade;
 import cz.fi.muni.pa165.entities.Musician;
 import cz.fi.muni.pa165.service.MusicianService;
+import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import cz.fi.muni.pa165.service.mapping.mapstruct.MusicianMapperImpl;
 

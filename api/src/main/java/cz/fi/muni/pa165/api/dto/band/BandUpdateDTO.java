@@ -1,9 +1,9 @@
 package cz.fi.muni.pa165.api.dto.band;
 
-import cz.fi.muni.pa165.api.dto.AlbumDTO;
-import cz.fi.muni.pa165.api.dto.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.album.AlbumDTO;
+import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.api.dto.musician.MusicianDTO;
-import cz.fi.muni.pa165.api.dto.TourDTO;
+import cz.fi.muni.pa165.api.dto.tour.TourDTO;
 import cz.fi.muni.pa165.enums.Style;
 
 import javax.validation.constraints.NotEmpty;

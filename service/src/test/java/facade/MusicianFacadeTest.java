@@ -1,7 +1,7 @@
 //package facade;
 //
 //import com.github.dozermapper.core.inject.Inject;
-//import cz.fi.muni.pa165.api.dto.ManagerDTO;
+//import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 //import cz.fi.muni.pa165.api.dto.MusicianCreateDTO;
 //import cz.fi.muni.pa165.api.dto.MusicianDTO;
 //import cz.fi.muni.pa165.api.dto.band.BandDTO;

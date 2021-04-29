@@ -1,8 +1,8 @@
 package cz.fi.muni.pa165.service.facade;
 
-import cz.fi.muni.pa165.api.dto.ManagerCreateDTO;
-import cz.fi.muni.pa165.api.dto.ManagerDTO;
-import cz.fi.muni.pa165.api.dto.ManagerUpdateDTO;
+import cz.fi.muni.pa165.api.dto.manager.ManagerCreateDTO;
+import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.manager.ManagerUpdateDTO;
 import cz.fi.muni.pa165.api.facade.ManagerFacade;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.service.ManagerService;

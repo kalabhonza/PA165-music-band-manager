@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.tour;
 
 import cz.fi.muni.pa165.api.dto.concert.ConcertDTO;
 
@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class TourDTO {
+public class TourUpdateDTO {
     private Long id;
     private String Name;
     private Set<ConcertDTO> concerts = new HashSet<>();
@@ -40,24 +40,15 @@ public class TourDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TourDTO tourDTO = (TourDTO) o;
-        return id.equals(tourDTO.id) && Name.equals(tourDTO.Name) && Objects.equals(concerts, tourDTO.concerts);
+        if (!(o instanceof TourUpdateDTO)) return false;
+        TourUpdateDTO that = (TourUpdateDTO) o;
+        return getId().equals(that.getId()) &&
+                getName().equals(that.getName()) &&
+                Objects.equals(getConcerts(), that.getConcerts());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, Name, concerts);
+        return Objects.hash(getId(), getName(), getConcerts());
     }
-
-    @Override
-    public String toString() {
-        return "TourDTO{" +
-                "id=" + id +
-                ", Name='" + Name + '\'' +
-                ", concerts=" + concerts +
-                '}';
-    }
-
-
 }

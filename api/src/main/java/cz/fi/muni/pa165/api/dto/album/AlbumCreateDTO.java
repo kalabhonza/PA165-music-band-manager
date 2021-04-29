@@ -1,8 +1,6 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.album;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 public class AlbumCreateDTO {
 

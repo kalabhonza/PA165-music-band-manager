@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.tour;
 
 import java.util.Objects;
 

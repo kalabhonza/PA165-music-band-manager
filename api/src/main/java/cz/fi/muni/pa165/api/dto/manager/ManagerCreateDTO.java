@@ -1,9 +1,9 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.manager;
 
 import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import java.util.Objects;
 
-public class ManagerUpdateDTO {
+public class ManagerCreateDTO {
     private Long id;
     private String name;
     private String userName;
@@ -14,9 +14,8 @@ public class ManagerUpdateDTO {
         return id;
     }
 
-
-    public void setId(Long managerID) {
-        this.id = managerID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -54,28 +53,26 @@ public class ManagerUpdateDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ManagerDTO)) return false;
-        ManagerDTO that = (ManagerDTO) o;
+        if (!(o instanceof ManagerCreateDTO)) return false;
+        ManagerCreateDTO that = (ManagerCreateDTO) o;
         return getId().equals(that.getId()) &&
                 getName().equals(that.getName()) &&
                 getUserName().equals(that.getUserName()) &&
-                getPassword().equals(that.getPassword()) &&
-                Objects.equals(getBand(), that.getBand());
+                getPassword().equals(that.getPassword());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getUserName(), getPassword(), getBand());
+        return Objects.hash(getId(), getName(), getUserName(), getPassword());
     }
 
     @Override
     public String toString() {
-        return "ManagerDTO{" +
+        return "ManagerCreateDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", band=" + band.getName() +
                 '}';
     }
 }

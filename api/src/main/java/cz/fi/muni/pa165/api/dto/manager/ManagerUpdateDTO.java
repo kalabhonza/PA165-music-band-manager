@@ -1,13 +1,9 @@
-package cz.fi.muni.pa165.api.dto;
+package cz.fi.muni.pa165.api.dto.manager;
 
 import cz.fi.muni.pa165.api.dto.band.BandDTO;
-
 import java.util.Objects;
 
-/**
- * @author Jan Kaláb
- */
-public class ManagerDTO {
+public class ManagerUpdateDTO {
     private Long id;
     private String name;
     private String userName;
@@ -17,6 +13,7 @@ public class ManagerDTO {
     public Long getId() {
         return id;
     }
+
 
     public void setId(Long managerID) {
         this.id = managerID;
@@ -78,7 +75,7 @@ public class ManagerDTO {
                 ", name='" + name + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", band=" + band +
+                ", band=" + band.getName() +
                 '}';
     }
 }

@@ -53,7 +53,7 @@ public class ConcertFacadeImpl implements ConcertFacade {
     public ConcertDTO update(ConcertUpdateDTO concert) {
         Concert convertedConcert = concertMapper.mapToEntity(concert);
         Concert updatedConcert = concertService.update(convertedConcert);
-        return concert.mapToConcertDTO(updatedConcert);
+        return concertMapper.mapToConcertDTO(updatedConcert);
     }
 
     @Override
