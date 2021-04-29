@@ -1,12 +1,13 @@
 package cz.fi.muni.pa165.service.facade;
 
-import cz.fi.muni.pa165.api.dto.ConcertCreateDTO;
-import cz.fi.muni.pa165.api.dto.ConcertDTO;
+import cz.fi.muni.pa165.api.dto.concert.ConcertCreateDTO;
+import cz.fi.muni.pa165.api.dto.concert.ConcertDTO;
+import cz.fi.muni.pa165.api.dto.concert.ConcertUpdateDTO;
 import cz.fi.muni.pa165.api.facade.ConcertFacade;
 import cz.fi.muni.pa165.entities.Concert;
 import cz.fi.muni.pa165.service.ConcertService;
-import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import cz.fi.muni.pa165.service.mapping.mapstruct.ConcertMapperImpl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,46 +17,47 @@ import java.util.List;
  */
 public class ConcertFacadeImpl implements ConcertFacade {
     private ConcertService concertService;
-    private BeanMapper beanMapper;
 
     @Autowired
-    public ConcertFacadeImpl(ConcertService concertService, BeanMapper beanMapper) {
+    private ConcertMapperImpl concertMapper;
+
+    @Autowired
+    public ConcertFacadeImpl(ConcertService concertService) {
         this.concertService = concertService;
-        this.beanMapper = beanMapper;
     }
 
     @Override
     public ConcertDTO findById(long id) {
         Concert concert = concertService.findById(id);
-        return beanMapper.mapTo(concert, ConcertDTO.class);
+        return concertMapper.mapToConcertDTO(concert);
     }
 
     @Override
     public List<ConcertDTO> findAll() {
         List<Concert> concerts = concertService.findAll();
-        return beanMapper.mapTo(concerts, ConcertDTO.class);
+        return concertMapper.mapToListDTO(concerts);
     }
 
     @Override
     public List<ConcertDTO> findAllByDate(LocalDate date) {
         List<Concert> concerts = concertService.findAllByDate(date);
-        return beanMapper.mapTo(concerts, ConcertDTO.class);
+        return concertMapper.mapToListDTO(concerts);
     }
 
     @Override
     public Long create(ConcertCreateDTO concert) {
-        return concertService.create(beanMapper.mapTo(concert, Concert.class));
+        return concertService.create(concertMapper.mapToEntity(concert));
     }
 
     @Override
-    public ConcertDTO update(ConcertDTO concert) {
-        Concert convertedConcert = beanMapper.mapTo(concert, Concert.class);
+    public ConcertDTO update(ConcertUpdateDTO concert) {
+        Concert convertedConcert = concertMapper.mapToEntity(concert);
         Concert updatedConcert = concertService.update(convertedConcert);
-        return beanMapper.mapTo(updatedConcert, ConcertDTO.class);
+        return concert.mapToConcertDTO(updatedConcert);
     }
 
     @Override
     public void remove(ConcertDTO concert) {
-        concertService.remove(beanMapper.mapTo(concert, Concert.class));
+        concertService.remove(concertMapper.mapToEntity(concert));
     }
 }
