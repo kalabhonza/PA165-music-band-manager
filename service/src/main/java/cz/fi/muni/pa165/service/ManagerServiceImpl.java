@@ -64,8 +64,8 @@ public class ManagerServiceImpl implements ManagerService{
     @Override
     public List<Manager> findByName(String name) {
         List<Manager> manager = managerDAO.findByName(name);
-        if (manager == null || manager.isEmpty()) {
-            throw new DataAccessException("Manager with name: " + name + "was not found") {};
+        if (manager == null) {
+            throw new DataAccessException("Internal database error in method findByName") {};
         }
         return manager;
     }

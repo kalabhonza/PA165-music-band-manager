@@ -118,11 +118,6 @@ public class ManagerServiceTest {
     }
 
     @Test(expectedExceptions = DataAccessException.class)
-    public void removeNonExisting() {
-        managerService.remove(new Manager(20L, "Peter", "peete21", "passwd", band));
-    }
-
-    @Test(expectedExceptions = DataAccessException.class)
     public void updateNonExisting() {
         Manager manger1 = new Manager(20L, "Peter", "peete21", "passwd", band);
         given(managerDAO.update(manger1)).willReturn(null);
