@@ -24,7 +24,7 @@ public interface AlbumFacade {
      * creates new istance of class album
      * @param album to be created
      */
-    void create(AlbumDTO album);
+    Long create(AlbumDTO album);
 
     /**
      * update existing album
