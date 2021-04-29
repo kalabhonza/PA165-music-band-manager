@@ -22,7 +22,7 @@ public interface TourFacade {
      * Create a new tour
      * @param tour to be created
      */
-    void create(TourDTO tour);
+    Long create(TourDTO tour);
 
     /**
      * update existing tour
