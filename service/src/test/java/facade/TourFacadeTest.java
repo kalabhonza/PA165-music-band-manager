@@ -13,12 +13,8 @@ import cz.fi.muni.pa165.service.TourService;
 import cz.fi.muni.pa165.service.facade.TourFacadeImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ConcertMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.TourMapperImpl;
-import cz.fi.muni.pa165.service.mapping.modelmapper.BeanMapper;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -30,7 +26,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.*;
 
 public class TourFacadeTest {
     private TourFacade tourFacade;

@@ -57,7 +57,7 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public List<Album> findAlbumsByName(String name) {
         List<Album> albums = albumDAO.findAlbumsByName(name);
-        if (albums == null || albums.isEmpty()){
+        if (albums == null){
             throw new DataAccessException("Album with name: " + name + "not found") {};
         }
         return albums;

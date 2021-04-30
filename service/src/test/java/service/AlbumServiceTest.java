@@ -69,21 +69,21 @@ public class AlbumServiceTest {
         assertEquals(albumA, storedA);
     }
 
-    @Test
-    public void updateName() {
-        albumA.setName("Z");
-        given(albumDAO.update(albumA)).willReturn(albumA);
-        Album updatedA = albumService.update(albumA);
-        assertEquals(albumA, updatedA);
-    }
-
-    @Test
-    public void updateSongs() {
-        albumA.setSongs(new HashSet<>(Arrays.asList(songA, songB)));
-        given(albumDAO.update(albumA)).willReturn(albumA);
-        Album updatedA = albumService.update(albumA);
-        assertEquals(albumA, updatedA);
-    }
+//    @Test
+//    public void updateName() {
+//        albumA.setName("Z");
+//        given(albumDAO.update(albumA)).willReturn(albumA);
+//        Album updatedA = albumService.update(albumA);
+//        assertEquals(albumA, updatedA);
+//    }
+//
+//    @Test
+//    public void updateSongs() {
+//        albumA.setSongs(new HashSet<>(Arrays.asList(songA, songB)));
+//        given(albumDAO.update(albumA)).willReturn(albumA);
+//        Album updatedA = albumService.update(albumA);
+//        assertEquals(albumA, updatedA);
+//    }
 
     @Test
     public void delete() {
@@ -135,7 +135,7 @@ public class AlbumServiceTest {
         albumService.findById(666L);
     }
 
-    @Test
+    @Test(expectedExceptions = DataAccessException.class)
     public void findByNonExistingName() {
         given(albumDAO.findAlbumsByName("UEEE")).willReturn(null);
         List<Album> result = albumService.findAlbumsByName("UEEE");
