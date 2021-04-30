@@ -119,7 +119,7 @@ public class AlbumServiceTest {
 
     @Test(expectedExceptions = DataAccessException.class)
     public void updateNonExistingAlbum() {
-        given(albumDAO.update(albumA)).willReturn(null);//.findById(albumA.getId())).willReturn(null);
+        given(albumDAO.update(albumA)).willReturn(null);
         albumService.update(albumA);
     }
 
