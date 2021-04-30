@@ -91,7 +91,7 @@ public class ConcertServiceTest {
         concertService.findById(10L);
     }
 
-    @Test(expectedExceptions = DataAccessException.class)
+    @Test
     public void findByNonExistingUserName() {
         given(concertDAO.findByName(anyString())).willReturn(null);
         concertService.findByName("RANDOM NAME");

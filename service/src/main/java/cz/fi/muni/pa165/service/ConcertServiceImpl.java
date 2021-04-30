@@ -48,8 +48,10 @@ public class ConcertServiceImpl implements ConcertService {
     @Override
     public Concert update(Concert concert) {
         Concert updatedConcert = concertDAO.update(concert);
-
         if (updatedConcert == null) {
+            throw new DataAccessException("Concert with id: " + concert.getId() + " does not exist") {};
+        }
+        if (!updatedConcert.equals(concert)) {
             throw new DataAccessException("Updating of concert with id: " + concert.getId() + " failed") {};
         }
         return updatedConcert;
@@ -65,10 +67,6 @@ public class ConcertServiceImpl implements ConcertService {
 
     @Override
     public List<Concert> findByName(String name) {
-        List<Concert> concerts = concertDAO.findByName(name);
-        if (concerts == null) {
-            throw new DataAccessException("Band with name: " + name + "not found") {};
-        }
-        return concerts;
+        return concertDAO.findByName(name);
     }
 }

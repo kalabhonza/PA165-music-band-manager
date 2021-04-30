@@ -33,7 +33,10 @@ public class SongServiceImpl implements SongService {
     public Song updateSong(Song song) {
         Song updatedSong = songDAO.update(song);
         if (updatedSong == null) {
-            throw new DataAccessException("Band with id: " + song.getId() + "was not updated") {};
+            throw new DataAccessException("Song with id: " + song.getId() + "does not exist") {};
+        }
+        if (!updatedSong.equals(song)) {
+            throw new DataAccessException("Song with id: " + song.getId() + "was not updated") {};
         }
         return updatedSong;
     }

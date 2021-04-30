@@ -38,10 +38,12 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public Album update(Album album) {
-        albumDAO.update(album);
-        Album updatedAlbum = albumDAO.findById(album.getId());
-        if( updatedAlbum == null){
-            throw new DataAccessException("Album with id: " + album.getId() + "was not updated"){};
+        Album updatedAlbum = albumDAO.update(album);
+        if (updatedAlbum == null) {
+            throw new DataAccessException("Album with id: " + album.getId() + " does not exist") {};
+        }
+        if(!updatedAlbum.equals(album)){
+            throw new DataAccessException("Album with id: " + album.getId() + " was not updated"){};
         }
         return updatedAlbum;
     }
