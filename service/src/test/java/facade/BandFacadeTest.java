@@ -9,26 +9,22 @@ import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.enums.Style;
 import cz.fi.muni.pa165.service.BandService;
 import cz.fi.muni.pa165.service.facade.BandFacadeImpl;
-import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapper;
+
 
 import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ManagerMapperImpl;
-import org.junit.Assert;
 
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-
-
-import org.junit.Rule;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.testng.Assert.assertEquals;
 
 
 public class BandFacadeTest{
@@ -58,8 +54,7 @@ public class BandFacadeTest{
         MockitoAnnotations.openMocks(this);
         bandFacade = new BandFacadeImpl(bandService, bandMapper,managerMapper);
 
-        Band band = new Band(1L, "Sabaton", Style.METAL);
-        //this.testBand1 = new Band(2L, "Kabat", Style.ROCK);
+        band = new Band(1L, "Sabaton", Style.METAL);
 
 
         bandDTO = new BandDTO();
@@ -82,23 +77,51 @@ public class BandFacadeTest{
     }
 
     @Test
-    public void createBandTest(){
-        Assert.assertNotEquals(bandCreateDTO,null);
+    public void createBand(){
         given(bandMapper.mapToEntity(bandCreateDTO)).willReturn(band);
         bandFacade.createBand(bandCreateDTO);
         then(bandService).should().createBand(band);
     }
 
     @Test
-    public void updateBandTests() {
+    public void updateBand() {
         given(bandMapper.mapToEntity(bandUpdateDTO)).willReturn(band);
         bandFacade.updateBand(bandUpdateDTO);
         then(bandService).should().updateBand(band);
     }
 
-//    @Test
-//    public void updateBandTest(){
-//        bandFacade.updateBand(bandUpdateDTO);
-//        verify(bandService, times(1)).updateBand(any(Band.class));
-//    }
+    @Test
+    public void findById(){
+        given(bandService.findBandById(band.getId())).willReturn(band);
+        given(bandMapper.mapToBandDTO(band)).willReturn(bandDTO);
+        BandDTO res = bandFacade.findBandById((band.getId()));
+        assertEquals(bandDTO, res);
+        then(bandService).should().findBandById(band.getId());
+    }
+
+    @Test
+    public void findByName() {
+        given(bandService.findBandByName(band.getName())).willReturn(bands);
+        given(bandMapper.mapToListDTO(bands)).willReturn(bandDTOs);
+        List<BandDTO> res = bandFacade.findBandByName(band.getName());
+        assertEquals(bandDTOs, res);
+        then(bandService).should().findBandByName(band.getName());
+    }
+
+    @Test
+    public void findAll() {
+        given(bandService.findAllBands()).willReturn(bands);
+        given(bandMapper.mapToListDTO(bands)).willReturn(bandDTOs);
+        List<BandDTO> res = bandFacade.findAllBands();
+        assertEquals(bandDTOs, res);
+        then(bandService).should().findAllBands();
+    }
+
+
+    @Test
+    public void removeBand() {
+        bandFacade.deleteBand(bandDTO);;
+        then(bandService).should().deleteBand(bandMapper.mapToEntity(bandDTO));
+    }
+
 }

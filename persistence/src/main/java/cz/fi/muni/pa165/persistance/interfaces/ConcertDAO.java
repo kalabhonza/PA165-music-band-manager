@@ -50,4 +50,8 @@ public interface ConcertDAO {
      */
     void remove(Concert concert);
 
+
+    List<Concert> findByName(String name);
+
+
 }

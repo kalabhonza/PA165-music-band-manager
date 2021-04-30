@@ -47,4 +47,7 @@ public interface ConcertService {
      * @param concert Concert to be removed
      */
     void remove(Concert concert);
+
+    List<Concert> findByName(String name);
+
 }

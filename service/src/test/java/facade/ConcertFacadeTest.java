@@ -4,34 +4,30 @@ package facade;
 import cz.fi.muni.pa165.api.dto.concert.ConcertCreateDTO;
 import cz.fi.muni.pa165.api.dto.concert.ConcertDTO;
 import cz.fi.muni.pa165.api.dto.concert.ConcertUpdateDTO;
-import cz.fi.muni.pa165.api.facade.BandFacade;
+
 import cz.fi.muni.pa165.api.facade.ConcertFacade;
-import cz.fi.muni.pa165.entities.Band;
+
 import cz.fi.muni.pa165.entities.Concert;
-import cz.fi.muni.pa165.enums.Style;
-import cz.fi.muni.pa165.service.BandService;
+
 import cz.fi.muni.pa165.service.ConcertService;
-import cz.fi.muni.pa165.service.facade.BandFacadeImpl;
+
 import cz.fi.muni.pa165.service.facade.ConcertFacadeImpl;
 
-import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ConcertMapperImpl;
 
-
-
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import org.testng.annotations.BeforeMethod;
+
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.testng.Assert.assertEquals;
 
 
 public class ConcertFacadeTest {
@@ -68,7 +64,6 @@ public class ConcertFacadeTest {
         concertCreateDTO = new ConcertCreateDTO();
         concertCreateDTO.setName(concert.getName());
         concertCreateDTO.setDate(concert.getDate());
-        System.out.println(concertCreateDTO.getName());
 
         concertUpdateDTO = new ConcertUpdateDTO();
         concertUpdateDTO.setId(concert.getId());
@@ -81,11 +76,6 @@ public class ConcertFacadeTest {
 
     @Test
     public void createConcertTest(){
-//        Assert.assertNotEquals(concertCreateDTO,null);
-//        String name = concertCreateDTO.getName();
-//        Assert.assertNotEquals(name,null);
-//
-//        given(concertService.create(concert)).willReturn(concert.getId());
         given(concertMapper.mapToEntity(concertCreateDTO)).willReturn(concert);
         concertFacade.create(concertCreateDTO);
         then(concertService).should().create(concert);
@@ -98,54 +88,37 @@ public class ConcertFacadeTest {
         concertFacade.update(concertUpdateDTO);
         then(concertService).should().update(concert);
     }
+
+    @Test
+    public void findById() {
+        given(concertService.findById(concert.getId())).willReturn(concert);
+        given(concertMapper.mapToConcertDTO(concert)).willReturn(concertDTO);
+        ConcertDTO res = concertFacade.findById(concert.getId());
+        assertEquals(concertDTO, res);
+        then(concertService).should().findById(concert.getId());
+    }
+
+    @Test
+    public void findAllByDate() {
+        given(concertService.findAllByDate(concert.getDate())).willReturn(concerts);
+        given(concertMapper.mapToListDTO(concerts)).willReturn(concertDTOS);
+        List<ConcertDTO> res = concertFacade.findAllByDate(concert.getDate());
+        assertEquals(concertDTOS, res);
+        then(concertService).should().findAllByDate(concert.getDate());
+    }
+
+    @Test
+    public void findAll() {
+        given(concertService.findAll()).willReturn(concerts);
+        given(concertMapper.mapToListDTO(concerts)).willReturn(concertDTOS);
+        List<ConcertDTO> res = concertFacade.findAll();
+        assertEquals(concertDTOS, res);
+        then(concertService).should().findAll();
+    }
+
+    @Test
+    public void removeConcert() {
+        concertFacade.remove(concertDTO);;
+        then(concertService).should().remove(concertMapper.mapToEntity(concertDTO));
+    }
 }
-//
-//    @Mock
-//    private ConcertService concertService;
-//
-//    @Mock
-//    private BeanMapper beanMapper;
-//
-//    @Inject
-//    @InjectMocks
-//    private ConcertFacadeImpl concertFacade;
-//
-//    @Rule
-//    public MockitoRule mockitoRule = MockitoJUnit.rule();
-//
-//    private ConcertCreateDTO concertCreateDTO;
-//
-//    private ConcertDTO concertDTO;
-//
-//    private Concert concert;
-//
-//    private Concert testConcert1;
-//
-//    @Before
-//    public void setUp(){
-//        this.concert = new Concert(1L, "Vizovice", LocalDate.of( 2022, 1, 28));
-//        this.testConcert1 = new Concert(2L, "Praha", LocalDate.of( 2023, 2, 18));
-//
-//        this.concertCreateDTO = new ConcertCreateDTO();
-//        this.concertCreateDTO.setName("Brno");
-//        this.concertCreateDTO.setDate(LocalDate.of(2020,10,10));
-//
-//        when(concertService.update(any(Concert.class))).thenReturn(testConcert1);
-//
-//    }
-//
-//    @Test
-//    public void createConcertTest(){
-//        concertFacade.create(concertCreateDTO);
-//        verify(concertService, times(1)).create(any(Concert.class));
-//    }
-//
-//    @Test
-//    public void updateBandTest(){
-//        concertFacade.update(concertDTO);
-//        verify(concertService, times(1)).update(any(Concert.class));
-//    }
-//
-//
-//
-//}
