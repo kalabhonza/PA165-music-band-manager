@@ -58,6 +58,9 @@ public class MusicianServiceImpl implements MusicianService {
     @Override
     public Musician update(Musician musician) {
         Musician updatedMusician = musicianDAO.update(musician);
+        if (updatedMusician == null) {
+            throw new DataAccessException("Musician with id: " + musician.getId() + " does not exist") {};
+        }
         if (!updatedMusician.equals(musician)) {
             throw new DataAccessException("Updating of musician with id: " + musician.getId() + " failed") {};
         }

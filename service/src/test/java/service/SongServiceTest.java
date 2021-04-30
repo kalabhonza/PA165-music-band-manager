@@ -114,10 +114,12 @@ public class SongServiceTest {
         songService.findSongById(666L);
     }
 
-    @Test(expectedExceptions = DataAccessException.class)
+    @Test
     public void findByNonExistingName() {
-        given(songDAO.findSongByName("UEEE")).willReturn(null);
+        List<Song> emptyList = new ArrayList<>();
+        given(songDAO.findSongByName("UEEE")).willReturn(emptyList);
         List<Song> result = songService.findSongByName("UEEE");
+        assertEquals(result, emptyList);
     }
 
 }
