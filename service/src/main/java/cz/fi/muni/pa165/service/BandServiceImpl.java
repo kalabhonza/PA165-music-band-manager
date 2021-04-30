@@ -32,7 +32,10 @@ public class BandServiceImpl implements BandService {
     public Band updateBand(Band band) {
         Band updatedBand = bandDAO.update(band);
         if (updatedBand == null) {
-            throw new DataAccessException("Band with id: " + band.getId() + "was not updated") {};
+            throw new DataAccessException("Band with id: " + band.getId() + "does not exist") {};
+        }
+        if (!updatedBand.equals(band)){
+            throw new DataAccessException("Band with id: " + band.getId() + " was not updated"){};
         }
         return updatedBand;
     }
