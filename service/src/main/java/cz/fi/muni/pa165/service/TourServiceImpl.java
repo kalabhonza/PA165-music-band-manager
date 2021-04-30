@@ -40,7 +40,10 @@ public class TourServiceImpl implements  TourService{
     @Override
     public Tour update(Tour tour) {
         Tour updatedTour = tourDAO.update(tour);
-        if( updatedTour != tour){
+        if (updatedTour == null) {
+            throw new DataAccessException("Tour with id: " + tour.getId() + "does not exist") {};
+        }
+        if(!updatedTour.equals(tour)){
             throw new DataAccessException("Tour with id: " + tour.getId() + "was not updated"){};
         }
         return updatedTour;
