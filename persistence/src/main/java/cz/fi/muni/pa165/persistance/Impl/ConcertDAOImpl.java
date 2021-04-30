@@ -46,5 +46,12 @@ public class ConcertDAOImpl implements ConcertDAO {
     public void remove(Concert concert) {
         em.remove(concert);
     }
+
+    @Override
+    public List<Concert> findByName(String name) {
+        return em.createQuery("select c from concerts c where name = :name", Concert.class)
+                .setParameter("name", name)
+                .getResultList();
+    }
 }
 

@@ -1,18 +1,15 @@
 package cz.fi.muni.pa165.service.mapping.mapstruct;
 
-import cz.fi.muni.pa165.api.dto.band.BandCreateDTO;
-import cz.fi.muni.pa165.api.dto.band.BandDTO;
-import cz.fi.muni.pa165.api.dto.band.BandUpdateDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourCreateDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourUpdateDTO;
-import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Tour;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TourMapper {
     TourDTO mapToTourDTO(Tour entity);
 

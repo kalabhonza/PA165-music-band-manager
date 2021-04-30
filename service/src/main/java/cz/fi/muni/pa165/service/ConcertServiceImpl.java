@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.service;
 
+import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Concert;
 import cz.fi.muni.pa165.persistance.interfaces.ConcertDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,9 @@ public class ConcertServiceImpl implements ConcertService {
 
     @Override
     public Concert update(Concert concert) {
-        concertDAO.update(concert);
-        Concert updatedConcert = concertDAO.findById(concert.getId());
-        if (!updatedConcert.equals(concert)) {
+        Concert updatedConcert = concertDAO.update(concert);
+
+        if (updatedConcert == null) {
             throw new DataAccessException("Updating of concert with id: " + concert.getId() + " failed") {};
         }
         return updatedConcert;
@@ -60,5 +61,14 @@ public class ConcertServiceImpl implements ConcertService {
         if (concertDAO.findById(concert.getId()) != null) {
             throw new DataAccessException("Removing of concert with id: " + concert.getId() + " failed") {};
         }
+    }
+
+    @Override
+    public List<Concert> findByName(String name) {
+        List<Concert> concerts = concertDAO.findByName(name);
+        if (concerts == null) {
+            throw new DataAccessException("Band with name: " + name + "not found") {};
+        }
+        return concerts;
     }
 }

@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.dto.band.BandUpdateDTO;
 import cz.fi.muni.pa165.entities.Band;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author Igor Ignác
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BandMapper {
     BandDTO mapToBandDTO(Band entity);
 

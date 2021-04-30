@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class ConcertFacadeImpl implements ConcertFacade {
     private ConcertService concertService;
+
     private ConcertMapperImpl concertMapper;
 
     @Autowired

@@ -10,6 +10,7 @@ public class BandCreateDTO {
     private Style style;
     private ManagerDTO manager;
 
+
     public String getName() {
         return name;
     }

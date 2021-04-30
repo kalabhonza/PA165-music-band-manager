@@ -3,8 +3,10 @@ package cz.fi.muni.pa165;
 import cz.fi.muni.pa165.entities.*;
 import cz.fi.muni.pa165.persistance.Impl.BandDAOImpl;
 import cz.fi.muni.pa165.persistance.interfaces.*;
-import org.hibernate.jpa.HibernatePersistenceProvider;
+
 import javax.sql.DataSource;
+
+import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

@@ -48,7 +48,7 @@ public class BandServiceImpl implements BandService {
     @Override
     public List<Band> findBandByName(String name) {
         List<Band> band = bandDAO.findBandByName(name);
-        if (band == null || band.isEmpty()) {
+        if (band == null) {
             throw new DataAccessException("Band with name: " + name + "not found") {};
         }
         return band;
