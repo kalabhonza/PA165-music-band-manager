@@ -39,9 +39,8 @@ public class TourServiceImpl implements  TourService{
 
     @Override
     public Tour update(Tour tour) {
-        tourDAO.update(tour);
-        Tour updatedTour = tourDAO.findById(tour.getId());
-        if( updatedTour == null){
+        Tour updatedTour = tourDAO.update(tour);
+        if( updatedTour != tour){
             throw new DataAccessException("Tour with id: " + tour.getId() + "was not updated"){};
         }
         return updatedTour;
@@ -58,7 +57,7 @@ public class TourServiceImpl implements  TourService{
     @Override
     public List<Tour> findByName(String name) {
         List<Tour> tours = tourDAO.findByName(name);
-        if (tours == null || tours.isEmpty()){
+        if (tours == null){
             throw new DataAccessException("Tour with name: " + name + "not found") {};
         }
         return tours;

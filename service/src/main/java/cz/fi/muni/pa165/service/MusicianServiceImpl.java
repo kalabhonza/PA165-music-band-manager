@@ -57,8 +57,7 @@ public class MusicianServiceImpl implements MusicianService {
 
     @Override
     public Musician update(Musician musician) {
-        musicianDAO.update(musician);
-        Musician updatedMusician = musicianDAO.findById(musician.getId());
+        Musician updatedMusician = musicianDAO.update(musician);
         if (!updatedMusician.equals(musician)) {
             throw new DataAccessException("Updating of musician with id: " + musician.getId() + " failed") {};
         }

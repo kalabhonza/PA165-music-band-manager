@@ -18,16 +18,15 @@ import java.util.List;
  */
 public class MusicianFacadeImpl implements MusicianFacade {
     private MusicianService musicianService;
-
-    @Autowired
     private MusicianMapperImpl musicianMapper;
-
     @Autowired
     private BandMapperImpl bandMapper;
 
     @Autowired
-    public MusicianFacadeImpl(MusicianService musicianService) {
+    public MusicianFacadeImpl(MusicianService musicianService, MusicianMapperImpl musicianMapper, BandMapperImpl bandMapper) {
         this.musicianService = musicianService;
+        this.musicianMapper = musicianMapper;
+        this.bandMapper = bandMapper;
     }
 
 

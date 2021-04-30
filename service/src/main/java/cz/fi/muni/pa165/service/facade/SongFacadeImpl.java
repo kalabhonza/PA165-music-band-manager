@@ -20,13 +20,12 @@ import java.util.List;
 public class SongFacadeImpl implements SongFacade {
 
     private SongService songService;
-
-    @Autowired
     private SongMapperImpl songMapper;
 
     @Autowired
-    public SongFacadeImpl(SongService songService) {
+    public SongFacadeImpl(SongService songService, SongMapperImpl songMapper) {
         this.songService = songService;
+        this.songMapper = songMapper;
     }
 
     @Override

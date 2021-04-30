@@ -25,8 +25,6 @@ public class BandFacadeImpl implements BandFacade {
 
     private BandService bandService;
     private BandMapperImpl bandMapper;
-
-    @Autowired
     private ManagerMapperImpl managerMapper;
 
     @Autowired

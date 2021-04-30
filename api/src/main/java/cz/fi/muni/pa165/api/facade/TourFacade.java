@@ -1,6 +1,8 @@
 package cz.fi.muni.pa165.api.facade;
 
+import cz.fi.muni.pa165.api.dto.tour.TourCreateDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourDTO;
+import cz.fi.muni.pa165.api.dto.tour.TourUpdateDTO;
 
 import java.util.List;
 
@@ -22,13 +24,13 @@ public interface TourFacade {
      * Create a new tour
      * @param tour to be created
      */
-    Long create(TourDTO tour);
+    Long create(TourCreateDTO tour);
 
     /**
      * update existing tour
      * @param tour to be updated
      */
-    TourDTO update(TourDTO tour);
+    TourDTO update(TourUpdateDTO tour);
 
     /**
      * Delete given tour
