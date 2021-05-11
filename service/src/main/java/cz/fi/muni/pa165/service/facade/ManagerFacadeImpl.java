@@ -5,14 +5,19 @@ import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerUpdateDTO;
 import cz.fi.muni.pa165.api.facade.ManagerFacade;
 import cz.fi.muni.pa165.entities.Manager;
-import cz.fi.muni.pa165.service.ManagerService;
+import cz.fi.muni.pa165.service.service.manager.ManagerService;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ManagerMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author Jan Kaláb
  */
+@Service
+@Transactional
 public class ManagerFacadeImpl implements ManagerFacade {
 
     private ManagerService managerService;

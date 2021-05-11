@@ -5,15 +5,16 @@ import cz.fi.muni.pa165.api.dto.tour.TourDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourUpdateDTO;
 import cz.fi.muni.pa165.api.facade.TourFacade;
 import cz.fi.muni.pa165.entities.Tour;
-import cz.fi.muni.pa165.service.TourService;
-import cz.fi.muni.pa165.service.mapping.mapstruct.AlbumMapperImpl;
+import cz.fi.muni.pa165.service.service.tour.TourService;
 import cz.fi.muni.pa165.service.mapping.mapstruct.TourMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class TourFacadeImpl implements TourFacade {
 
     private TourService tourService;

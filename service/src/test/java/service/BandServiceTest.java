@@ -3,9 +3,9 @@ package service;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.enums.Style;
-import cz.fi.muni.pa165.persistance.interfaces.BandDAO;
-import cz.fi.muni.pa165.service.BandService;
-import cz.fi.muni.pa165.service.BandServiceImpl;
+import cz.fi.muni.pa165.persistence.interfaces.BandDAO;
+import cz.fi.muni.pa165.service.service.band.BandService;
+import cz.fi.muni.pa165.service.service.band.BandServiceImpl;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.DataAccessException;
@@ -34,7 +34,7 @@ public class BandServiceTest {
 
     @BeforeMethod
     private void init(){
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         bandService = new BandServiceImpl(bandDAO);
 
 

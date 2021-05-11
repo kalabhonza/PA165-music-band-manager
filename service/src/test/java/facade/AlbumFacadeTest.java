@@ -5,7 +5,7 @@ import cz.fi.muni.pa165.api.dto.album.AlbumDTO;
 import cz.fi.muni.pa165.api.dto.album.AlbumUpdateDTO;
 import cz.fi.muni.pa165.api.facade.AlbumFacade;
 import cz.fi.muni.pa165.entities.Album;
-import cz.fi.muni.pa165.service.AlbumService;
+import cz.fi.muni.pa165.service.service.album.AlbumService;
 import cz.fi.muni.pa165.service.facade.AlbumFacadeImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.AlbumMapperImpl;
 import org.mockito.Mock;
@@ -45,7 +45,7 @@ public class AlbumFacadeTest {
 
     @BeforeMethod
     public void beforeTest() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         albumFacade = new AlbumFacadeImpl(albumService, albumMapper);
 
         albumA = new Album();
@@ -56,7 +56,7 @@ public class AlbumFacadeTest {
         albumB.setId(2L);
         albumB.setName("B");
 
-        albums = new ArrayList<Album>();
+        albums = new ArrayList<>();
         albums.add(albumA);
         albums.add(albumB);
 

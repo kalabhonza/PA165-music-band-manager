@@ -7,13 +7,13 @@ import cz.fi.muni.pa165.api.dto.band.BandUpdateDTO;
 import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
-import cz.fi.muni.pa165.service.BandService;
-import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapper;
+import cz.fi.muni.pa165.service.service.band.BandService;
 import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ManagerMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -21,6 +21,7 @@ import java.util.List;
  * @author Igor Ignác
  */
 @Service
+@Transactional
 public class BandFacadeImpl implements BandFacade {
 
     private BandService bandService;
@@ -62,8 +63,8 @@ public class BandFacadeImpl implements BandFacade {
 
     @Override
     public BandDTO findBandByManager(ManagerDTO manager) {
-        Manager bandMananager = managerMapper.mapToEntity(manager);
-        Band band = bandService.findBandByManager(bandMananager);
+        Manager bandManager = managerMapper.mapToEntity(manager);
+        Band band = bandService.findBandByManager(bandManager);
         return bandMapper.mapToBandDTO(band);
     }
 

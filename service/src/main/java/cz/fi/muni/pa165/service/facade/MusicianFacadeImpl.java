@@ -6,16 +6,20 @@ import cz.fi.muni.pa165.api.dto.musician.MusicianDTO;
 import cz.fi.muni.pa165.api.dto.musician.MusicianUpdateDTO;
 import cz.fi.muni.pa165.api.facade.MusicianFacade;
 import cz.fi.muni.pa165.entities.Musician;
-import cz.fi.muni.pa165.service.MusicianService;
+import cz.fi.muni.pa165.service.service.musician.MusicianService;
 import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import cz.fi.muni.pa165.service.mapping.mapstruct.MusicianMapperImpl;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author Aleš Paroulek
  */
+@Service
+@Transactional
 public class MusicianFacadeImpl implements MusicianFacade {
     private MusicianService musicianService;
     private MusicianMapperImpl musicianMapper;

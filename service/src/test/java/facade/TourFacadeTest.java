@@ -1,15 +1,13 @@
 package facade;
 
-import com.github.dozermapper.core.inject.Inject;
 import cz.fi.muni.pa165.api.dto.concert.ConcertDTO;
-import cz.fi.muni.pa165.api.dto.musician.MusicianDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourCreateDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourUpdateDTO;
 import cz.fi.muni.pa165.api.facade.TourFacade;
 import cz.fi.muni.pa165.entities.Concert;
 import cz.fi.muni.pa165.entities.Tour;
-import cz.fi.muni.pa165.service.TourService;
+import cz.fi.muni.pa165.service.service.tour.TourService;
 import cz.fi.muni.pa165.service.facade.TourFacadeImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ConcertMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.TourMapperImpl;
@@ -35,8 +33,6 @@ public class TourFacadeTest {
     private TourMapperImpl tourMapper;
     @Mock
     private ConcertMapperImpl concertMapper;
-
-
 
     private TourCreateDTO tourCreateDTO;
 
@@ -65,7 +61,7 @@ public class TourFacadeTest {
     @BeforeMethod
     public void init(){
 
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         tourFacade = new TourFacadeImpl(tourService, tourMapper);
 
         this.tour = new Tour();

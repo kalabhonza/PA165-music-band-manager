@@ -5,16 +5,20 @@ import cz.fi.muni.pa165.api.dto.concert.ConcertDTO;
 import cz.fi.muni.pa165.api.dto.concert.ConcertUpdateDTO;
 import cz.fi.muni.pa165.api.facade.ConcertFacade;
 import cz.fi.muni.pa165.entities.Concert;
-import cz.fi.muni.pa165.service.ConcertService;
+import cz.fi.muni.pa165.service.service.concert.ConcertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ConcertMapperImpl;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
 /**
  * @author Aleš Paroulek
  */
+@Service
+@Transactional
 public class ConcertFacadeImpl implements ConcertFacade {
     private ConcertService concertService;
 

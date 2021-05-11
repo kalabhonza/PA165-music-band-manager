@@ -5,7 +5,7 @@ import cz.fi.muni.pa165.api.dto.song.SongDTO;
 import cz.fi.muni.pa165.api.dto.song.SongUpdateDTO;
 import cz.fi.muni.pa165.api.facade.SongFacade;
 import cz.fi.muni.pa165.entities.Song;
-import cz.fi.muni.pa165.service.SongService;
+import cz.fi.muni.pa165.service.service.song.SongService;
 import cz.fi.muni.pa165.service.facade.SongFacadeImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.SongMapperImpl;
 import org.mockito.Mock;
@@ -46,7 +46,7 @@ public class SongFacadeTest {
 
     @BeforeMethod
     public void beforeTest() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         songFacade = new SongFacadeImpl(songService, songMapper);
 
         songA = new Song();
@@ -59,7 +59,7 @@ public class SongFacadeTest {
         songB.setName("B");
         songB.setDuration(new Time(60));
 
-        songs = new ArrayList<Song>();
+        songs = new ArrayList<>();
         songs.add(songA);
         songs.add(songB);
 
@@ -73,7 +73,7 @@ public class SongFacadeTest {
         songBdto.setName(songB.getName());
         songBdto.setDuration(songB.getDuration());
 
-        songDTOs = new ArrayList<SongDTO>();
+        songDTOs = new ArrayList<>();
         songDTOs.add(songAdto);
         songDTOs.add(songBdto);
 
