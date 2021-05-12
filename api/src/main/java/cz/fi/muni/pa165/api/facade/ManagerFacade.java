@@ -13,7 +13,7 @@ public interface ManagerFacade {
     /**
      * Find Manager by its id
      *
-     * @param id
+     * @param id manager id
      * @return Manager or {@code null}, if there is no Manager with requested id
      */
     ManagerDTO findById(long id);
@@ -27,14 +27,14 @@ public interface ManagerFacade {
     /**
      * Stores new manager
      * @param manager to be created
-     * @return
+     * @return id of manager
      */
     Long create(ManagerCreateDTO manager);
 
     /**
      * Updates existing Manager
      * @param manager to be updated
-     * @return
+     * @return created manager
      */
     ManagerDTO update(ManagerUpdateDTO manager);
 

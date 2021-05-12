@@ -9,11 +9,10 @@ import cz.fi.muni.pa165.api.facade.MusicianFacade;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.entities.Musician;
-import cz.fi.muni.pa165.service.MusicianService;
+import cz.fi.muni.pa165.service.service.musician.MusicianService;
 
 
 import cz.fi.muni.pa165.service.facade.MusicianFacadeImpl;
-import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapper;
 import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.MusicianMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ManagerMapperImpl;
@@ -58,7 +57,7 @@ public class MusicianFacadeTest {
 
     @BeforeMethod
     public void unit(){
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         musicianFacade = new MusicianFacadeImpl(musicianService, musicianMapper,bandMapper);
 
         this.musician1 = new Musician(1L, "Bon Jovi", "bjovi", "prague");

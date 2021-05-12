@@ -1,11 +1,10 @@
 package service;
 
 import cz.fi.muni.pa165.entities.Concert;
-import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.entities.Tour;
-import cz.fi.muni.pa165.persistance.interfaces.TourDAO;
-import cz.fi.muni.pa165.service.TourService;
-import cz.fi.muni.pa165.service.TourServiceImpl;
+import cz.fi.muni.pa165.persistence.interfaces.TourDAO;
+import cz.fi.muni.pa165.service.service.tour.TourService;
+import cz.fi.muni.pa165.service.service.tour.TourServiceImpl;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.DataAccessException;
@@ -39,7 +38,7 @@ public class TourServiceTest {
 
     @BeforeMethod
     private void init(){
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         tourService = new TourServiceImpl(tourDAO);
 
         this.tour = new Tour();

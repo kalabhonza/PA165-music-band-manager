@@ -1,9 +1,9 @@
 package service;
 
 import cz.fi.muni.pa165.entities.Concert;
-import cz.fi.muni.pa165.persistance.interfaces.ConcertDAO;
-import cz.fi.muni.pa165.service.ConcertService;
-import cz.fi.muni.pa165.service.ConcertServiceImpl;
+import cz.fi.muni.pa165.persistence.interfaces.ConcertDAO;
+import cz.fi.muni.pa165.service.service.concert.ConcertService;
+import cz.fi.muni.pa165.service.service.concert.ConcertServiceImpl;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.DataAccessException;
@@ -31,7 +31,7 @@ public class ConcertServiceTest {
 
     @BeforeMethod
     private void init(){
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         concertService = new ConcertServiceImpl(concertDAO);
 
         concert = new Concert();

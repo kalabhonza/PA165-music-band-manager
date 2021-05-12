@@ -7,7 +7,7 @@ import cz.fi.muni.pa165.api.dto.band.BandUpdateDTO;
 import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.enums.Style;
-import cz.fi.muni.pa165.service.BandService;
+import cz.fi.muni.pa165.service.service.band.BandService;
 import cz.fi.muni.pa165.service.facade.BandFacadeImpl;
 
 
@@ -51,7 +51,7 @@ public class BandFacadeTest{
 
     @BeforeMethod
     public void init(){
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         bandFacade = new BandFacadeImpl(bandService, bandMapper,managerMapper);
 
         band = new Band(1L, "Sabaton", Style.METAL);
@@ -120,7 +120,7 @@ public class BandFacadeTest{
 
     @Test
     public void removeBand() {
-        bandFacade.deleteBand(bandDTO);;
+        bandFacade.deleteBand(bandDTO);
         then(bandService).should().deleteBand(bandMapper.mapToEntity(bandDTO));
     }
 

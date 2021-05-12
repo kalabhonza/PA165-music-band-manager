@@ -1,8 +1,7 @@
 package cz.fi.muni.pa165;
 
 import cz.fi.muni.pa165.entities.*;
-import cz.fi.muni.pa165.persistance.Impl.BandDAOImpl;
-import cz.fi.muni.pa165.persistance.interfaces.*;
+import cz.fi.muni.pa165.persistence.interfaces.*;
 
 import javax.sql.DataSource;
 
@@ -19,7 +18,6 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
 @EnableTransactionManagement
@@ -45,11 +43,6 @@ public class MusicBandManagerApplicationContext {
         jpaFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         return jpaFactoryBean;
     }
-
-//    @Bean
-//    public LocalValidatorFactoryBean localValidatorFactoryBean() {
-//        return new LocalValidatorFactoryBean();
-//    }
 
     @Bean
     public LoadTimeWeaver instrumentationLoadTimeWeaver() {

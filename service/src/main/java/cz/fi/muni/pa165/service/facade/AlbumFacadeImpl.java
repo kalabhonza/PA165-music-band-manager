@@ -6,14 +6,16 @@ import cz.fi.muni.pa165.api.dto.album.AlbumDTO;
 import cz.fi.muni.pa165.api.dto.album.AlbumUpdateDTO;
 import cz.fi.muni.pa165.api.facade.AlbumFacade;
 import cz.fi.muni.pa165.entities.Album;
-import cz.fi.muni.pa165.service.AlbumService;
+import cz.fi.muni.pa165.service.service.album.AlbumService;
 import cz.fi.muni.pa165.service.mapping.mapstruct.AlbumMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class AlbumFacadeImpl implements AlbumFacade {
 
     private AlbumService albumService;

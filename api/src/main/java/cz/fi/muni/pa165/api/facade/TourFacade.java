@@ -9,7 +9,7 @@ import java.util.List;
 public interface TourFacade {
     /**
      * Finds Tour by id
-     * @param id unique identificator
+     * @param id unique identifier
      * @return Tour or {@code null}, if there is no Tour with requested id
      */
     TourDTO findById(Long id);

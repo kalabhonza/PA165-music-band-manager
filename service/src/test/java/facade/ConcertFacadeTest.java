@@ -9,7 +9,7 @@ import cz.fi.muni.pa165.api.facade.ConcertFacade;
 
 import cz.fi.muni.pa165.entities.Concert;
 
-import cz.fi.muni.pa165.service.ConcertService;
+import cz.fi.muni.pa165.service.service.concert.ConcertService;
 
 import cz.fi.muni.pa165.service.facade.ConcertFacadeImpl;
 
@@ -50,7 +50,7 @@ public class ConcertFacadeTest {
 
     @BeforeMethod
     public void init(){
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         concertFacade = new ConcertFacadeImpl(concertService, concertMapper);
 
         concert = new Concert(1L, "Brno", LocalDate.of(2020,10,10));
@@ -118,7 +118,7 @@ public class ConcertFacadeTest {
 
     @Test
     public void removeConcert() {
-        concertFacade.remove(concertDTO);;
+        concertFacade.remove(concertDTO);
         then(concertService).should().remove(concertMapper.mapToEntity(concertDTO));
     }
 }

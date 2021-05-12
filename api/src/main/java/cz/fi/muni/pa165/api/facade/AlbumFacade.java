@@ -10,7 +10,7 @@ public interface AlbumFacade {
 
     /**
      * Finds album by id
-     * @param id unique identificator
+     * @param id unique identifier
      * @return Album or {@code null}, if there is no Album with requested id
      */
     AlbumDTO findById(Long id);
@@ -23,7 +23,7 @@ public interface AlbumFacade {
     List<AlbumDTO> findAllAlbums();
 
     /**
-     * creates new istance of class album
+     * creates new instance of class album
      * @param album to be created
      */
     Long create(AlbumCreateDTO album);
@@ -46,8 +46,4 @@ public interface AlbumFacade {
      * @return list of all albums having the given name
      */
     List<AlbumDTO> findAlbumsByName(String name);
-
-
-
-
 }

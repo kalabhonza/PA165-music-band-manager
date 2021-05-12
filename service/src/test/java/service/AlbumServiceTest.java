@@ -2,9 +2,9 @@ package service;
 
 import cz.fi.muni.pa165.entities.Album;
 import cz.fi.muni.pa165.entities.Song;
-import cz.fi.muni.pa165.persistance.interfaces.AlbumDAO;
-import cz.fi.muni.pa165.service.AlbumService;
-import cz.fi.muni.pa165.service.AlbumServiceImpl;
+import cz.fi.muni.pa165.persistence.interfaces.AlbumDAO;
+import cz.fi.muni.pa165.service.service.album.AlbumService;
+import cz.fi.muni.pa165.service.service.album.AlbumServiceImpl;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.DataAccessException;
@@ -34,7 +34,7 @@ public class AlbumServiceTest {
 
     @BeforeMethod
     public void beforeTest() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         albumService = new AlbumServiceImpl(albumDAO);
 
         songA = new Song();

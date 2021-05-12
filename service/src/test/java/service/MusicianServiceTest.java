@@ -1,13 +1,11 @@
 package service;
 
-import cz.fi.muni.pa165.api.dto.musician.MusicianDTO;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.entities.Musician;
-import cz.fi.muni.pa165.persistance.interfaces.MusicianDAO;
-import cz.fi.muni.pa165.service.ManagerServiceImpl;
-import cz.fi.muni.pa165.service.MusicianService;
-import cz.fi.muni.pa165.service.MusicianServiceImpl;
+import cz.fi.muni.pa165.persistence.interfaces.MusicianDAO;
+import cz.fi.muni.pa165.service.service.musician.MusicianService;
+import cz.fi.muni.pa165.service.service.musician.MusicianServiceImpl;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.DataAccessException;
@@ -38,7 +36,7 @@ public class MusicianServiceTest {
 
     @BeforeMethod
     private void init() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         musicianService = new MusicianServiceImpl(musicianDAO);
         this.musician1 = new Musician(1L, "Bon Jovi", "bjovi", "prague");
         this.musician2 = new Musician(2L, "John Lock", "jlock", "abcd");

@@ -6,7 +6,7 @@ import cz.fi.muni.pa165.api.dto.manager.ManagerUpdateDTO;
 import cz.fi.muni.pa165.api.facade.ManagerFacade;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
-import cz.fi.muni.pa165.service.ManagerService;
+import cz.fi.muni.pa165.service.service.manager.ManagerService;
 import cz.fi.muni.pa165.service.facade.ManagerFacadeImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ManagerMapperImpl;
@@ -48,7 +48,7 @@ public class ManagerFacadeTest {
 
     @BeforeMethod
     public void init() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         managerFacade = new ManagerFacadeImpl(managerService, managerMapper);
 
         Band band = new Band(2L, "Herders", ALTERNATIVE);
@@ -129,7 +129,7 @@ public class ManagerFacadeTest {
 
     @Test
     public void removeManager() {
-        managerFacade.remove(managerDTO);;
+        managerFacade.remove(managerDTO);
         then(managerService).should().remove(managerMapper.mapToEntity(managerDTO));
     }
 

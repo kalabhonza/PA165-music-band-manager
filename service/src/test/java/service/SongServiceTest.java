@@ -1,9 +1,9 @@
 package service;
 
 import cz.fi.muni.pa165.entities.Song;
-import cz.fi.muni.pa165.persistance.interfaces.SongDAO;
-import cz.fi.muni.pa165.service.SongService;
-import cz.fi.muni.pa165.service.SongServiceImpl;
+import cz.fi.muni.pa165.persistence.interfaces.SongDAO;
+import cz.fi.muni.pa165.service.service.song.SongService;
+import cz.fi.muni.pa165.service.service.song.SongServiceImpl;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.DataAccessException;
@@ -31,7 +31,7 @@ public class SongServiceTest {
 
     @BeforeMethod
     public void beforeTest() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         songService = new SongServiceImpl(songDAO);
 
         songA = new Song();
