@@ -4,7 +4,7 @@ import {HomeComponent} from './shared/components/home/home.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: 'pa165',
     component: HomeComponent,
   },
   {
@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'pa165',
     pathMatch: 'full'
   }
 ];
