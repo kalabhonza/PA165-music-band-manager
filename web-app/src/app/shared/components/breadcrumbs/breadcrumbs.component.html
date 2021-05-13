@@ -1,0 +1,25 @@
+<div class="breadcrumbs-content">
+  <div class="breadcrumbs-route">
+    <mat-icon class="material-icons home" (click)="navigateHome()">home</mat-icon>
+    <mat-icon class="material-icons">keyboard_arrow_right</mat-icon>
+  </div>
+<!--  <mat-label *ngIf="(activeSession$ | async).sessionLoggedIn">{{(activeRoute$ | async) | Breadcrumbs}}</mat-label>-->
+
+  <span class="spacer"></span>
+
+  <div class="user-menu" *ngIf="!(activeSession$ | async) else loggedIn">
+    <button (click)="register()" class="session-buttons" mat-raised-button color="primary">Register</button>
+    <button (click)="login()" class="session-buttons" mat-raised-button color="primary">Log In</button>
+  </div>
+  <ng-template #loggedIn class="user-menu">
+    <button mat-button [matMenuTriggerFor]="appMenu" matTooltip="User menu"><i class="material-icons">account_box</i></button>
+    <mat-menu #appMenu="matMenu">
+      <mat-label id="user-name">{{(activeSession$ | async)}}</mat-label>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="navigateToProfile()">Profile</button>
+      <button mat-menu-item (click)="logout()">Logout<mat-icon id="logout">input</mat-icon></button>
+    </mat-menu>
+  </ng-template>
+</div>
+
+

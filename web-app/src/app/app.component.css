@@ -1,0 +1,35 @@
+.home-page-content {
+  display: flex;
+  align-content: flex-start;
+  background-color: darkgrey;
+  width: 100%;
+}
+
+mat-drawer-container {
+  height: 100%;
+  width: 100%;
+}
+
+mat-drawer {
+  color: white;
+  text-align: center;
+  justify-content: center;
+  width: 140px;
+  background-color: #000000;
+  background-image: linear-gradient(147deg, #03031F 0%, #141F64 250%);
+}
+
+.hide-menu {
+  color: white;
+  position: absolute;
+  bottom: 0;
+}
+
+.hide-menu mat-icon:last-child {
+  margin-left: -13px;
+}
+
+.content {
+  height: 94%;
+  height: 100%;
+}
