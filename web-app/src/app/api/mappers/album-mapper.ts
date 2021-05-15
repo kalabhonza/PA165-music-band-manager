@@ -11,4 +11,14 @@ export class AlbumMapper {
   static fromDTOs(dtos: AlbumDTO[]): Album[] {
     return dtos.map((dto) => AlbumMapper.fromDTO(dto));
   }
+
+  static toDTO(album: Album): AlbumDTO {
+    const result = new AlbumDTO();
+    result.name = album.name;
+    return result;
+  }
+
+  static toDTOs(albums: Album[]): AlbumDTO[] {
+    return albums.map((album) => AlbumMapper.toDTO(album));
+  }
 }

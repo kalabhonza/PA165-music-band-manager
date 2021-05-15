@@ -10,7 +10,7 @@ import {Band} from '../../model/band';
 export class BandApiService {
 
   constructor(private http: HttpClient) { }
-  private readonly javaRestEndpoint = `http://localhost:4200/pa165`; // TODO SPECIFY THIS ACCORDING TO REQUIREMENTS OF MILTESTONE 3
+  private readonly javaRestEndpoint = `http://localhost:8080/pa165/rest`; // TODO SPECIFY THIS ACCORDING TO REQUIREMENTS OF MILTESTONE 3
 
   private static createDefaultHeaders(): HttpHeaders {
     return new HttpHeaders({ Accept: 'application/json' });
@@ -27,5 +27,62 @@ export class BandApiService {
     .pipe(
       map((response) => BandMapper.fromDTOs(response))
     );
+  }
+
+  /**
+   * Sends http request to retrieve band by given id
+   * @param id id of searched band
+   */
+  getById(id: number): Observable<Band> {
+    return this.http
+      .get<BandDTO>(`${this.javaRestEndpoint}/band/${id}`, {
+        headers: BandApiService.createDefaultHeaders()
+      })
+      .pipe(
+        map((response) => BandMapper.fromDTO(response))
+      );
+  }
+
+  /**
+   * Sends http request to delete a band
+   * @param id id of searched band
+   */
+  delete(id: number): Observable<any> {
+    return this.http
+      .delete(`${this.javaRestEndpoint}/band/${id}`, {
+        headers: BandApiService.createDefaultHeaders()
+      });
+  }
+
+  /**
+   * Sends http request to create a band
+   * @param band band to be created
+   */
+  create(band: Band): Observable<Band> {
+    return this.http
+      .post<BandDTO>(
+        `${this.javaRestEndpoint}/band`,
+        BandMapper.toDTO(band),
+        { headers: BandApiService.createDefaultHeaders() }
+      )
+      .pipe(
+        map((response) => BandMapper.fromDTO(response))
+      );
+  }
+
+  /**
+   * Sends http request to update a band
+   * @param band band to be created
+   */
+  update(band: Band): Observable<Band> {
+    return this.http
+      .put<BandDTO>(
+        `${this.javaRestEndpoint}/band`,
+        BandMapper.toDTO(band),
+        { headers: BandApiService.createDefaultHeaders() }
+      )
+      .pipe(
+        map((response) => BandMapper.fromDTO(response))
+      );
   }
 }
