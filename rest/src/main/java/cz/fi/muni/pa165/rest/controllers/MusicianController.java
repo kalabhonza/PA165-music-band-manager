@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,55 +38,35 @@ public class MusicianController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Resources<Resource<MusicianDTO>>> getAll(){
-        try {
-            List<MusicianDTO> musicians = musicianFacade.findAll();
-            List<Resource<MusicianDTO>> musiciansResource = new ArrayList<>();
-            for (MusicianDTO musicianDTO : musicians){
-                musiciansResource.add(musicianResourceAssembler.toResource(musicianDTO));
-            }
-            Resources<Resource<MusicianDTO>> resultResources = new Resources<>(musiciansResource);
-            resultResources.add(linkTo(MusicianController.class).withSelfRel().withType("GET"));
-            return new ResponseEntity<>(resultResources, HttpStatus.OK);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
+        List<MusicianDTO> musicians = musicianFacade.findAll();
+        List<Resource<MusicianDTO>> musiciansResource = new ArrayList<>();
+        for (MusicianDTO musicianDTO : musicians){
+            musiciansResource.add(musicianResourceAssembler.toResource(musicianDTO));
         }
+        Resources<Resource<MusicianDTO>> resultResources = new Resources<>(musiciansResource);
+        resultResources.add(linkTo(MusicianController.class).withSelfRel().withType("GET"));
+        return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Resource<MusicianDTO>> getById(@PathVariable Long id){
-        try {
-            return new ResponseEntity<>(musicianResourceAssembler.toResource(musicianFacade.findById(id)), HttpStatus.OK);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        return new ResponseEntity<>(musicianResourceAssembler.toResource(musicianFacade.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createMusician(@RequestBody @Valid MusicianCreateDTO musicianCreateDTO){
-        try{
-            return new ResponseEntity<>(musicianFacade.create(musicianCreateDTO), HttpStatus.CREATED);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        return new ResponseEntity<>(musicianFacade.create(musicianCreateDTO), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteMusician(@RequestBody @Valid MusicianDTO musicianDTO){
-        try {
-            musicianFacade.remove(musicianDTO);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        musicianFacade.remove(musicianDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateMusician(@RequestBody @Valid MusicianUpdateDTO musicianUpdateDTO){
-        try {
-            musicianFacade.update(musicianUpdateDTO);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        musicianFacade.update(musicianUpdateDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

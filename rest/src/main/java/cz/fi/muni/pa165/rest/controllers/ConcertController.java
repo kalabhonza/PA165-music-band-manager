@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 
 /**
@@ -39,55 +39,35 @@ public class ConcertController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Resources<Resource<ConcertDTO>>> getAll(){
-        try {
-            List<ConcertDTO> concerts = concertFacade.findAll();
-            List<Resource<ConcertDTO>> concertsResource = new ArrayList<>();
-            for (ConcertDTO concertDTO : concerts){
-                concertsResource.add(concertResourceAssembler.toResource(concertDTO));
-            }
-            Resources<Resource<ConcertDTO>> resultResources = new Resources<>(concertsResource);
-            resultResources.add(linkTo(ConcertController.class).withSelfRel().withType("GET"));
-            return new ResponseEntity<>(resultResources, HttpStatus.OK);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
+        List<ConcertDTO> concerts = concertFacade.findAll();
+        List<Resource<ConcertDTO>> concertsResource = new ArrayList<>();
+        for (ConcertDTO concertDTO : concerts){
+            concertsResource.add(concertResourceAssembler.toResource(concertDTO));
         }
+        Resources<Resource<ConcertDTO>> resultResources = new Resources<>(concertsResource);
+        resultResources.add(linkTo(ConcertController.class).withSelfRel().withType("GET"));
+        return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Resource<ConcertDTO>> getById(@PathVariable Long id){
-        try {
-            return new ResponseEntity<>(concertResourceAssembler.toResource(concertFacade.findById(id)), HttpStatus.OK);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        return new ResponseEntity<>(concertResourceAssembler.toResource(concertFacade.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createConcert(@RequestBody @Valid ConcertCreateDTO concertCreateDTO){
-        try{
-            return new ResponseEntity<>(concertFacade.create(concertCreateDTO), HttpStatus.CREATED);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        return new ResponseEntity<>(concertFacade.create(concertCreateDTO), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteConcert(@RequestBody @Valid ConcertDTO concertDTO){
-        try {
-            concertFacade.remove(concertDTO);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        concertFacade.remove(concertDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateConcert(@RequestBody @Valid ConcertUpdateDTO concertUpdateDTO){
-        try {
-            concertFacade.update(concertUpdateDTO);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        concertFacade.update(concertUpdateDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

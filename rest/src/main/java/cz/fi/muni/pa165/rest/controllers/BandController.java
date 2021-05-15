@@ -37,81 +37,52 @@ public class BandController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Resources<Resource<BandDTO>>> getAll(){
-        try {
-            List<BandDTO> bands = bandFacade.findAllBands();
-            List<Resource<BandDTO>> bandsResource = new ArrayList<>();
-            for (BandDTO bandDTO : bands){
-                bandsResource.add(bandResourceAssembler.toResource(bandDTO));
-            }
-            Resources<Resource<BandDTO>> resultResources = new Resources<>(bandsResource);
-            resultResources.add(linkTo(BandController.class).withSelfRel().withType("GET"));
-            return new ResponseEntity<>(resultResources, HttpStatus.OK);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
+        List<BandDTO> bands = bandFacade.findAllBands();
+        List<Resource<BandDTO>> bandsResource = new ArrayList<>();
+        for (BandDTO bandDTO : bands){
+            bandsResource.add(bandResourceAssembler.toResource(bandDTO));
         }
+        Resources<Resource<BandDTO>> resultResources = new Resources<>(bandsResource);
+        resultResources.add(linkTo(BandController.class).withSelfRel().withType("GET"));
+        return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Resource<BandDTO>> getById(@PathVariable Long id){
-        try {
-            return new ResponseEntity<>(bandResourceAssembler.toResource(bandFacade.findBandById(id)), HttpStatus.OK);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        return new ResponseEntity<>(bandResourceAssembler.toResource(bandFacade.findBandById(id)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource<BandDTO>> getByName(@PathVariable String name){
-        try {
-            List<BandDTO> bands = bandFacade.findBandByName(name);
-            List<Resource<BandDTO>> bandsResource = new ArrayList<>();
-            for (BandDTO bandDTO : bands){
-                bandsResource.add(bandResourceAssembler.toResource(bandDTO));
-            }
-            Resources<Resource<BandDTO>> resultResources = new Resources<>(bandsResource);
-            resultResources.add(linkTo(BandController.class).withSelfRel().withType("GET"));
-            return new ResponseEntity<>(resultResources, HttpStatus.OK);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
-    }
+//    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Resource<BandDTO>> getByName(@PathVariable String name){
+//        List<BandDTO> bands = bandFacade.findBandByName(name);
+//        List<Resource<BandDTO>> bandsResource = new ArrayList<>();
+//        for (BandDTO bandDTO : bands){
+//            bandsResource.add(bandResourceAssembler.toResource(bandDTO));
+//        }
+//        Resources<Resource<BandDTO>> resultResources = new Resources<>(bandsResource);
+//        resultResources.add(linkTo(BandController.class).withSelfRel().withType("GET"));
+//        return new ResponseEntity<>(resultResources, HttpStatus.OK);
+//    }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Resource<BandDTO>> getByManager(@RequestBody @Valid ManagerDTO managerDTO){
-        try {
-            return new ResponseEntity<>(bandResourceAssembler.toResource(bandFacade.findBandByManager(managerDTO)), HttpStatus.OK);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        return new ResponseEntity<>(bandResourceAssembler.toResource(bandFacade.findBandByManager(managerDTO)), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createBand(@RequestBody @Valid BandCreateDTO bandCreateDTO){
-        try{
-            return new ResponseEntity<>(bandFacade.createBand(bandCreateDTO), HttpStatus.CREATED);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        return new ResponseEntity<>(bandFacade.createBand(bandCreateDTO), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteBand(@RequestBody @Valid BandDTO bandDTO){
-        try {
-            bandFacade.deleteBand(bandDTO);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        bandFacade.deleteBand(bandDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateBand(@RequestBody @Valid BandUpdateDTO bandUpdateDTO){
-        try {
-            bandFacade.updateBand(bandUpdateDTO);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+        bandFacade.updateBand(bandUpdateDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }

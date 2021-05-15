@@ -28,77 +28,55 @@ public class SongController {
     private SongResourceAssembler songResourceAssembler;
 
     @Autowired
-    public SongController(SongFacade songFacade, SongResourceAssembler songResourceAssembler){
+    public SongController(SongFacade songFacade, SongResourceAssembler songResourceAssembler) {
         this.songFacade = songFacade;
         this.songResourceAssembler = songResourceAssembler;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resources<Resource<SongDTO>>> getAll(){
-        try {
-            List<SongDTO> songs = songFacade.findAllSongs();
-            List<Resource<SongDTO>> songsResource = new ArrayList<>();
-            for (SongDTO songDTO : songs){
-                songsResource.add(songResourceAssembler.toResource(songDTO));
-            }
-            Resources<Resource<SongDTO>> resultResources = new Resources<>(songsResource);
-            resultResources.add(linkTo(SongController.class).withSelfRel().withType("GET"));
-            return new ResponseEntity<>(resultResources, HttpStatus.OK);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
+    public ResponseEntity<Resources<Resource<SongDTO>>> getAll() {
+        List<SongDTO> songs = songFacade.findAllSongs();
+        List<Resource<SongDTO>> songsResource = new ArrayList<>();
+        for (SongDTO songDTO : songs) {
+            songsResource.add(songResourceAssembler.toResource(songDTO));
         }
+        Resources<Resource<SongDTO>> resultResources = new Resources<>(songsResource);
+        resultResources.add(linkTo(SongController.class).withSelfRel().withType("GET"));
+        return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource<SongDTO>> getById(@PathVariable Long id){
-        try {
-            return new ResponseEntity<>(songResourceAssembler.toResource(songFacade.findSongById(id)), HttpStatus.OK);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+    public ResponseEntity<Resource<SongDTO>> getById(@PathVariable Long id) {
+        return new ResponseEntity<>(songResourceAssembler.toResource(songFacade.findSongById(id)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource<SongDTO>> getByName(@PathVariable String name){
-        try {
-            List<SongDTO> songs = songFacade.findSongByName(name);
-            List<Resource<SongDTO>> songsResource = new ArrayList<>();
-            for (SongDTO songDTO : songs){
-                songsResource.add(songResourceAssembler.toResource(songDTO));
-            }
-            Resources<Resource<SongDTO>> resultResources = new Resources<>(songsResource);
-            resultResources.add(linkTo(SongController.class).withSelfRel().withType("GET"));
-            return new ResponseEntity<>(resultResources, HttpStatus.OK);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
-    }
+//    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Resource<SongDTO>> getByName(@PathVariable String name){
+//        List<SongDTO> songs = songFacade.findSongByName(name);
+//        List<Resource<SongDTO>> songsResource = new ArrayList<>();
+//        for (SongDTO songDTO : songs){
+//            songsResource.add(songResourceAssembler.toResource(songDTO));
+//        }
+//        Resources<Resource<SongDTO>> resultResources = new Resources<>(songsResource);
+//        resultResources.add(linkTo(SongController.class).withSelfRel().withType("GET"));
+//        return new ResponseEntity<>(resultResources, HttpStatus.OK);
+//    }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> createSong(@RequestBody @Valid SongCreateDTO songCreateDTO){
-        try{
-            return new ResponseEntity<>(songFacade.createSong(songCreateDTO), HttpStatus.CREATED);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+    public ResponseEntity<Long> createSong(@RequestBody @Valid SongCreateDTO songCreateDTO) {
+        return new ResponseEntity<>(songFacade.createSong(songCreateDTO), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteSong(@RequestBody @Valid SongDTO songDTO){
-        try {
-            songFacade.deleteSong(songDTO);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+    public ResponseEntity<Void> deleteSong(@RequestBody @Valid SongDTO songDTO) {
+        songFacade.deleteSong(songDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateSong(@RequestBody @Valid SongUpdateDTO songUpdateDTO){
-        try {
-            songFacade.updateSong(songUpdateDTO);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }catch (Exception ex){
-            //throw ExceptionSorter.throwException(ex);
-        }
+    public ResponseEntity<Void> updateSong(@RequestBody @Valid SongUpdateDTO songUpdateDTO) {
+        songFacade.updateSong(songUpdateDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+}
