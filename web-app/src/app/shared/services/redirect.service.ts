@@ -11,7 +11,6 @@ export class RedirectService {
    * @param route desired route
    */
   navigateTo(route: string): void {
-    console.log(route)
     this.router.navigate([route]);
   }
 }

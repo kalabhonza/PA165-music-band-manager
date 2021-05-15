@@ -1,1 +1,13 @@
-<p>bands works!</p>
+<div *ngIf="isLoading else loaded">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<ng-template #loaded>
+  <p>bands works!</p>
+  <div class="content">
+    <h1 *ngFor="let band of bands">
+      {{band.name}}
+    </h1>
+  </div>
+</ng-template>
+
