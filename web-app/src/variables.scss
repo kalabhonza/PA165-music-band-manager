@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+
+$annot-base-font: 'Source Sans Pro', sans-serif;
+
+$annot-primary-palette: mat-palette($mat-indigo);
+$annot-accent-palette:  mat-palette($mat-pink, A200, A100, A400);
+$annot-warn-palette:    mat-palette($mat-red);
+$primary: mat-color($annot-primary-palette);
+$accent: mat-color($annot-accent-palette);
+$warn: mat-color($annot-warn-palette);

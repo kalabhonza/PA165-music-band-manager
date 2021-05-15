@@ -1,0 +1,57 @@
+.breadcrumbs-content {
+  height: 6%;
+  background-color: #000d1a;
+  display: flex;
+  align-content: flex-start;
+  color: white;
+  padding-left: 20px;
+}
+
+.material-icons {
+  font-size: 30px;
+}
+
+mat-label {
+  padding-left: 5px;
+  padding-top: 16px;
+}
+
+.breadcrumbs-route {
+  padding-top: 10px;
+}
+
+.user-menu {
+  padding-top: 10px;
+  padding-right: 10px;
+}
+
+#logout {
+  margin-left: 20px;
+  margin-right: 0;
+  color: red;
+  font-size: 20px;
+}
+
+.spacer {
+  flex: 1 0 0;
+}
+
+.home:hover {
+  cursor: pointer;
+}
+
+.session-buttons {
+  margin-left: 5px;
+}
+
+#user-name{
+  padding-left: 24px;
+}
+
+mat-divider {
+  margin: 5px;
+}
+
+mat-menu {
+  margin-right: 10px;
+}

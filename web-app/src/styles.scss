@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import "variables";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.snackbar-design {
+  background: white;
+  color: black;
+  font-size: 20px;
+}
+
+.snackbar-design .mat-simple-snackbar-action {
+  color: #141F64;
+}
+
+.snackbar-error {
+  background: black;
+  font-size: 30px;
+  font-weight: 900;
+  color: darkred;
+}
+
+.snackbar-error .mat-simple-snackbar-action {
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+@media only screen and( -webkit-min-device-pixel-ratio: 1.25 ),
+only screen and(      -o-min-device-pixel-ratio: 5/4 ),
+only screen and( min-resolution: 120dpi ),
+only screen and( min-resolution: 1.25dppx ) {
+  body {
+    font-size: 1rem;
+  }
+}
