@@ -16,10 +16,10 @@ Team members can login to the system and see the offers made by the band manager
     * run server: *To be specified*
     
  * Client (second terminal):
-     * go to client folder: *To be specified* 
+     * go to client folder: `/web-app`
      * install client: `npm install`
      * install angular-cli: `npm install -g @angular/cli`
-     * run client: `ng serve` *To be specified*
+     * run client: `ng serve`
 
 # Login Credentials *Not implemented yet*
 * Admin account 
