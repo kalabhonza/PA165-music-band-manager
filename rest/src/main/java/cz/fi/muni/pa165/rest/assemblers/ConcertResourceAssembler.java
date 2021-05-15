@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.rest.assemblers;
 
 
 import cz.fi.muni.pa165.api.dto.concert.ConcertDTO;
+import cz.fi.muni.pa165.rest.controllers.ConcertController;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
