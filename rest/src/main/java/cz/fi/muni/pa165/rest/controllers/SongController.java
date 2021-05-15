@@ -1,18 +1,13 @@
 package cz.fi.muni.pa165.rest.controllers;
 
-import cz.fi.muni.pa165.api.dto.band.BandCreateDTO;
-import cz.fi.muni.pa165.api.dto.band.BandDTO;
-import cz.fi.muni.pa165.api.dto.band.BandUpdateDTO;
-import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.api.dto.song.SongCreateDTO;
 import cz.fi.muni.pa165.api.dto.song.SongDTO;
 import cz.fi.muni.pa165.api.dto.song.SongUpdateDTO;
-import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.api.facade.SongFacade;
-import cz.fi.muni.pa165.rest.assemblers.BandResourceAssembler;
 import cz.fi.muni.pa165.rest.assemblers.SongResourceAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +17,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -63,7 +58,7 @@ public class SongController {
         }
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Resource<SongDTO>> getByName(@PathVariable String name){
         try {
             List<SongDTO> songs = songFacade.findSongByName(name);

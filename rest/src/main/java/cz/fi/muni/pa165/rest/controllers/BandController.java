@@ -7,7 +7,8 @@ import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.rest.assemblers.BandResourceAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,8 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -58,7 +60,7 @@ public class BandController {
         }
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Resource<BandDTO>> getByName(@PathVariable String name){
         try {
             List<BandDTO> bands = bandFacade.findBandByName(name);
@@ -111,10 +113,5 @@ public class BandController {
             //throw ExceptionSorter.throwException(ex);
         }
     }
-
-
-
-
-
 
 }

@@ -2,10 +2,14 @@ package cz.fi.muni.pa165.rest.assemblers;
 
 import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.rest.controllers.BandController;
-import org.springframework.core.io.Resource;
+
+
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo; //trochu jiny import?
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
 
 @Component
 public class BandResourceAssembler implements ResourceAssembler<BandDTO, Resource<BandDTO>> {
