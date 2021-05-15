@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {BandService} from '../../services/band.service';
-import {Observable} from 'rxjs';
 import {Band} from '../../../model/band';
 
 @Component({

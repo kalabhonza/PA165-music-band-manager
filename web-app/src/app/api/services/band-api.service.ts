@@ -10,7 +10,7 @@ import {Band} from '../../model/band';
 export class BandApiService {
 
   constructor(private http: HttpClient) { }
-  private readonly javaRestEndpoint = `http://localhost:4200/pa165`; // TODO SPECIFY THIS ACCORDING TO REQUIREMENTS OF MILTESTONE 3
+  private readonly javaRestEndpoint = `http://localhost:8080/pa165/rest`; // TODO SPECIFY THIS ACCORDING TO REQUIREMENTS OF MILTESTONE 3
 
   private static createDefaultHeaders(): HttpHeaders {
     return new HttpHeaders({ Accept: 'application/json' });
