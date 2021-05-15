@@ -36,12 +36,12 @@ public class ConcertController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resources<Resource<ConcertDTO>>> findAll(){
+    public ResponseEntity<Resources<Resource<ConcertDTO>>> getAll(){
         try {
             List<ConcertDTO> concerts = concertFacade.findAll();
             List<Resource<ConcertDTO>> concertsResource = new ArrayList<>();
             for (ConcertDTO concertDTO : concerts){
-                concertResource.add(concertResourceAssembler.toResource(concertDTO));
+                concertsResource.add(concertResourceAssembler.toResource(concertDTO));
             }
             Resources<Resource<ConcertDTO>> resultResources = new Resources<>(concertsResource);
             resultResources.add(linkTo(ConcertController.class).withSelfRel().withType("GET"));
@@ -52,7 +52,7 @@ public class ConcertController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource<ConcertDTO>> findById(@PathVariable Long id){
+    public ResponseEntity<Resource<ConcertDTO>> getById(@PathVariable Long id){
         try {
             return new ResponseEntity<>(concertResourceAssembler.toResource(concertFacade.findById(id)), HttpStatus.OK);
         }catch (Exception ex){
