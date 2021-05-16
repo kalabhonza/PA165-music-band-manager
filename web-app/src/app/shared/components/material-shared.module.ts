@@ -13,6 +13,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {CommonModule} from '@angular/common';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
+import { ProfileComponent } from '../../agenda/components/profile/profile.component';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -28,6 +30,7 @@ import {MatDividerModule} from '@angular/material/divider';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    MatDialogModule,
     MatDividerModule,
     CommonModule
   ],
@@ -40,11 +43,13 @@ import {MatDividerModule} from '@angular/material/divider';
     MatFormFieldModule,
     MatTooltipModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatInputModule,
     MatMenuModule,
+    MatDialogModule,
     MatDividerModule,
     ReactiveFormsModule
   ],
-  declarations: []
+  declarations: [ProfileComponent]
 })
 export class MaterialSharedModule { }

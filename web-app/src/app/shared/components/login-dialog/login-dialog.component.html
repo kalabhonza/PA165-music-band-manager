@@ -1,0 +1,25 @@
+<div *ngIf="isLoading else login" class="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<ng-template #login class="register-form-content">
+  <div class="username-content">
+    <mat-form-field>
+      <input matInput placeholder="Username" [formControl]="username" required>
+      <mat-error *ngIf="username.hasError('required')">Username is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="password-content">
+    <mat-form-field>
+      <input class="password-input" type="password" matInput placeholder="Password" [formControl]="password" required>
+      <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
+    </mat-form-field>
+    <button mat-button (click)="show()"><mat-icon [innerHTML]="state"></mat-icon></button>
+  </div>
+
+  <div class="login-buttons">
+    <button mat-raised-button color="warn" (click)="close()">Close</button>
+    <button mat-raised-button color="primary" [disabled]="(username.invalid || password.invalid)" (click)="loginUser()">Login</button>
+  </div>
+</ng-template>
