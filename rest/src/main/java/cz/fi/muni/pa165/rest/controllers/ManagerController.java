@@ -10,9 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 
 import javax.validation.Valid;
@@ -36,20 +36,20 @@ public class ManagerController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resources<Resource<ManagerDTO>>> getAll(){
+    public ResponseEntity<CollectionModel<EntityModel<ManagerDTO>>> getAll(){
         List<ManagerDTO> managers = managerFacade.findAll();
-        List<Resource<ManagerDTO>> managersResource = new ArrayList<>();
+        List<EntityModel<ManagerDTO>> managersResource = new ArrayList<>();
         for (ManagerDTO managerDTO : managers){
-            managersResource.add(managerResourceAssembler.toResource(managerDTO));
+            managersResource.add(managerResourceAssembler.toModel(managerDTO));
         }
-        Resources<Resource<ManagerDTO>> resultResources = new Resources<>(managersResource);
+        CollectionModel<EntityModel<ManagerDTO>> resultResources = new CollectionModel<>(managersResource);
         resultResources.add(linkTo(ManagerController.class).withSelfRel().withType("GET"));
         return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource<ManagerDTO>> getById(@PathVariable Long id){
-        return new ResponseEntity<>(managerResourceAssembler.toResource(managerFacade.findById(id)), HttpStatus.OK);
+    public ResponseEntity<EntityModel<ManagerDTO>> getById(@PathVariable Long id){
+        return new ResponseEntity<>(managerResourceAssembler.toModel(managerFacade.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

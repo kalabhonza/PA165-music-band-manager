@@ -7,8 +7,8 @@ import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.rest.assemblers.BandResourceAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 
 @CrossOrigin(origins = "*")
@@ -36,37 +36,37 @@ public class BandController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resources<Resource<BandDTO>>> getAll(){
+    public ResponseEntity<CollectionModel<EntityModel<BandDTO>>> getAll(){
         List<BandDTO> bands = bandFacade.findAllBands();
-        List<Resource<BandDTO>> bandsResource = new ArrayList<>();
+        List<EntityModel<BandDTO>> bandsResource = new ArrayList<>();
         for (BandDTO bandDTO : bands){
-            bandsResource.add(bandResourceAssembler.toResource(bandDTO));
+            bandsResource.add(bandResourceAssembler.toModel(bandDTO));
         }
-        Resources<Resource<BandDTO>> resultResources = new Resources<>(bandsResource);
+        CollectionModel<EntityModel<BandDTO>> resultResources = new CollectionModel<>(bandsResource);
         resultResources.add(linkTo(BandController.class).withSelfRel().withType("GET"));
         return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource<BandDTO>> getById(@PathVariable Long id){
-        return new ResponseEntity<>(bandResourceAssembler.toResource(bandFacade.findBandById(id)), HttpStatus.OK);
+    public ResponseEntity<EntityModel<BandDTO>> getById(@PathVariable Long id){
+        return new ResponseEntity<>(bandResourceAssembler.toModel(bandFacade.findBandById(id)), HttpStatus.OK);
     }
 
 //    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Resource<BandDTO>> getByName(@PathVariable String name){
+//    public ResponseEntity<EntityModel<BandDTO>> getByName(@PathVariable String name){
 //        List<BandDTO> bands = bandFacade.findBandByName(name);
-//        List<Resource<BandDTO>> bandsResource = new ArrayList<>();
+//        List<EntityModel<BandDTO>> bandsResource = new ArrayList<>();
 //        for (BandDTO bandDTO : bands){
-//            bandsResource.add(bandResourceAssembler.toResource(bandDTO));
+//            bandsResource.add(bandResourceAssembler.toModel(bandDTO));
 //        }
-//        Resources<Resource<BandDTO>> resultResources = new Resources<>(bandsResource);
+//        CollectionModel<EntityModel<BandDTO>> resultResources = new CollectionModel<>(bandsResource);
 //        resultResources.add(linkTo(BandController.class).withSelfRel().withType("GET"));
 //        return new ResponseEntity<>(resultResources, HttpStatus.OK);
 //    }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource<BandDTO>> getByManager(@RequestBody @Valid ManagerDTO managerDTO){
-        return new ResponseEntity<>(bandResourceAssembler.toResource(bandFacade.findBandByManager(managerDTO)), HttpStatus.OK);
+    public ResponseEntity<EntityModel<BandDTO>> getByManager(@RequestBody @Valid ManagerDTO managerDTO){
+        return new ResponseEntity<>(bandResourceAssembler.toModel(bandFacade.findBandByManager(managerDTO)), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

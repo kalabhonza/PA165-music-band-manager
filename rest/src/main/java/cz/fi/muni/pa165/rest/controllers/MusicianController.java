@@ -11,10 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -37,20 +37,20 @@ public class MusicianController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resources<Resource<MusicianDTO>>> getAll(){
+    public ResponseEntity<CollectionModel<EntityModel<MusicianDTO>>> getAll(){
         List<MusicianDTO> musicians = musicianFacade.findAll();
-        List<Resource<MusicianDTO>> musiciansResource = new ArrayList<>();
+        List<EntityModel<MusicianDTO>> musiciansResource = new ArrayList<>();
         for (MusicianDTO musicianDTO : musicians){
-            musiciansResource.add(musicianResourceAssembler.toResource(musicianDTO));
+            musiciansResource.add(musicianResourceAssembler.toModel(musicianDTO));
         }
-        Resources<Resource<MusicianDTO>> resultResources = new Resources<>(musiciansResource);
+        CollectionModel<EntityModel<MusicianDTO>> resultResources = new CollectionModel<>(musiciansResource);
         resultResources.add(linkTo(MusicianController.class).withSelfRel().withType("GET"));
         return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource<MusicianDTO>> getById(@PathVariable Long id){
-        return new ResponseEntity<>(musicianResourceAssembler.toResource(musicianFacade.findById(id)), HttpStatus.OK);
+    public ResponseEntity<EntityModel<MusicianDTO>> getById(@PathVariable Long id){
+        return new ResponseEntity<>(musicianResourceAssembler.toModel(musicianFacade.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
