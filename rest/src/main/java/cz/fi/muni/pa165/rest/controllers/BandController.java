@@ -64,10 +64,10 @@ public class BandController {
 //        return new ResponseEntity<>(resultResources, HttpStatus.OK);
 //    }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityModel<BandDTO>> getByManager(@RequestBody @Valid ManagerDTO managerDTO){
-        return new ResponseEntity<>(bandResourceAssembler.toModel(bandFacade.findBandByManager(managerDTO)), HttpStatus.OK);
-    }
+//    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<EntityModel<BandDTO>> getByManager(@RequestBody @Valid ManagerDTO managerDTO){
+//        return new ResponseEntity<>(bandResourceAssembler.toModel(bandFacade.findBandByManager(managerDTO)), HttpStatus.OK);
+//    }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createBand(@RequestBody @Valid BandCreateDTO bandCreateDTO){

@@ -37,7 +37,6 @@ public class ManagerController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CollectionModel<EntityModel<ManagerDTO>>> getAll(){
-        System.out.println("Get by dfgdfg");
         List<ManagerDTO> managers = managerFacade.findAll();
         List<EntityModel<ManagerDTO>> managersResource = new ArrayList<>();
 

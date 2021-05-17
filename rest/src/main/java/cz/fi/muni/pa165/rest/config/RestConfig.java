@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import cz.fi.muni.pa165.service.config.ServiceConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -17,6 +19,7 @@ import java.util.List;
 
 @EnableWebMvc
 @Configuration
+@Import(ServiceConfig.class)
 @ComponentScan(basePackages = {"cz.fi.muni.pa165.rest.controllers", "cz.fi.muni.pa165.rest.assemblers"})
 public class RestConfig implements WebMvcConfigurer {
 
