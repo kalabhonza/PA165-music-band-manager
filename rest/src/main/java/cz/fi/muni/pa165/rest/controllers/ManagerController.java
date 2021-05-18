@@ -24,7 +24,7 @@ import java.util.List;
  */
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/rest/manager")
+@RequestMapping("/rest/managers")
 public class ManagerController {
     private ManagerFacade managerFacade;
     private ManagerResourceAssembler managerResourceAssembler;
@@ -46,9 +46,6 @@ public class ManagerController {
         }
         CollectionModel<EntityModel<ManagerDTO>> resultResources = new CollectionModel<>(managersResource);
         resultResources.add(linkTo(ManagerController.class).withSelfRel().withType("GET"));
-
-        ManagerDTO managerDTO = new ManagerDTO();
-        managerDTO.setName("john");
         return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 

@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.rest.controllers;
 
+import cz.fi.muni.pa165.api.facade.PresentationDataFacade;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -10,17 +11,22 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/rest/test")
 public class TestController {
 
-    @GetMapping
-    public String helloWorld(){
-        System.out.println("Workds");
-        return "works";
+    private PresentationDataFacade presentationDataFacade;
+
+    public TestController(PresentationDataFacade presentationDataFacade) {
+        this.presentationDataFacade = presentationDataFacade;
     }
 
-//    /**
-//     * Creates test data and logs as admin
-//     */
-//    @PostMapping
-//    public void createTestData() {
-//        testDataFacade.createTestData();
+//    @GetMapping
+//    public String helloWorld(){
+//        return "works";
 //    }
+
+    /**
+     * Creates test data and logs as admin
+     */
+    @PostMapping
+    public void createTestData() {
+        presentationDataFacade.createData();
+    }
 }
