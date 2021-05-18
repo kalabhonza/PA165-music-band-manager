@@ -7,8 +7,8 @@ import cz.fi.muni.pa165.api.dto.tour.TourDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourUpdateDTO;
 import cz.fi.muni.pa165.api.facade.TourFacade;
 import cz.fi.muni.pa165.rest.assemblers.TourResourceAssembler;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -33,20 +33,20 @@ public class TourController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resources<Resource<TourDTO>>> getAll(){
+    public ResponseEntity<CollectionModel<EntityModel<TourDTO>>> getAll(){
         List<TourDTO> tours = tourFacade.findAllTours();
-        List<Resource<TourDTO>> tourResource = new ArrayList<>();
+        List<EntityModel<TourDTO>> tourResource = new ArrayList<>();
         for (TourDTO tourDTO : tours){
-            tourResource.add(tourResourceAssembler.toResource(tourDTO));
+            tourResource.add(tourResourceAssembler.toModel(tourDTO));
         }
-        Resources<Resource<TourDTO>> resultResources = new Resources<>(tourResource);
+        CollectionModel<EntityModel<TourDTO>> resultResources = new CollectionModel<>(tourResource);
         resultResources.add(linkTo(TourController.class).withSelfRel().withType("GET"));
         return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource<TourDTO>> getById(@PathVariable Long id){
-        return new ResponseEntity<>(tourResourceAssembler.toResource(tourFacade.findById(id)), HttpStatus.OK);
+    public ResponseEntity<EntityModel<TourDTO>> getById(@PathVariable Long id){
+        return new ResponseEntity<>(tourResourceAssembler.toModel(tourFacade.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -10,11 +10,3 @@ button {
 button:first-child {
   padding-top: 0;
 }
-
-.hide-sidenav {
-  width: 0;
-}
-
-.hide-menu mat-icon:last-child {
-  margin-left: -13px;
-}

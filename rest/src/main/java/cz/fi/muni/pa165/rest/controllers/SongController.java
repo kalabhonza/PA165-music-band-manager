@@ -6,8 +6,8 @@ import cz.fi.muni.pa165.api.dto.song.SongUpdateDTO;
 import cz.fi.muni.pa165.api.facade.SongFacade;
 import cz.fi.muni.pa165.rest.assemblers.SongResourceAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -34,30 +34,30 @@ public class SongController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resources<Resource<SongDTO>>> getAll() {
+    public ResponseEntity<CollectionModel<EntityModel<SongDTO>>> getAll() {
         List<SongDTO> songs = songFacade.findAllSongs();
-        List<Resource<SongDTO>> songsResource = new ArrayList<>();
+        List<EntityModel<SongDTO>> songsResource = new ArrayList<>();
         for (SongDTO songDTO : songs) {
-            songsResource.add(songResourceAssembler.toResource(songDTO));
+            songsResource.add(songResourceAssembler.toModel(songDTO));
         }
-        Resources<Resource<SongDTO>> resultResources = new Resources<>(songsResource);
+        CollectionModel<EntityModel<SongDTO>> resultResources = new CollectionModel<>(songsResource);
         resultResources.add(linkTo(SongController.class).withSelfRel().withType("GET"));
         return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource<SongDTO>> getById(@PathVariable Long id) {
-        return new ResponseEntity<>(songResourceAssembler.toResource(songFacade.findSongById(id)), HttpStatus.OK);
+    public ResponseEntity<EntityModel<SongDTO>> getById(@PathVariable Long id) {
+        return new ResponseEntity<>(songResourceAssembler.toModel(songFacade.findSongById(id)), HttpStatus.OK);
     }
 
 //    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Resource<SongDTO>> getByName(@PathVariable String name){
+//    public ResponseEntity<EntityModel<SongDTO>> getByName(@PathVariable String name){
 //        List<SongDTO> songs = songFacade.findSongByName(name);
-//        List<Resource<SongDTO>> songsResource = new ArrayList<>();
+//        List<EntityModel<SongDTO>> songsResource = new ArrayList<>();
 //        for (SongDTO songDTO : songs){
-//            songsResource.add(songResourceAssembler.toResource(songDTO));
+//            songsResource.add(songResourceAssembler.toModel(songDTO));
 //        }
-//        Resources<Resource<SongDTO>> resultResources = new Resources<>(songsResource);
+//        CollectionModel<EntityModel<SongDTO>> resultResources = new CollectionModel<>(songsResource);
 //        resultResources.add(linkTo(SongController.class).withSelfRel().withType("GET"));
 //        return new ResponseEntity<>(resultResources, HttpStatus.OK);
 //    }

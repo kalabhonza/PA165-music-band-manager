@@ -6,8 +6,8 @@ import cz.fi.muni.pa165.api.dto.album.AlbumUpdateDTO;
 import cz.fi.muni.pa165.api.facade.AlbumFacade;
 import cz.fi.muni.pa165.rest.assemblers.AlbumResourceAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -33,20 +33,20 @@ public class AlbumController {
         this.albumResourceAssembler = albumResourceAssembler;
     }
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resources<Resource<AlbumDTO>>> getAll(){
+    public ResponseEntity<CollectionModel<EntityModel<AlbumDTO>>> getAll(){
         List<AlbumDTO> albums = albumFacade.findAllAlbums();
-        List<Resource<AlbumDTO>> albumResource = new ArrayList<>();
+        List<EntityModel<AlbumDTO>> albumResource = new ArrayList<>();
         for (AlbumDTO albumDTO : albums){
-            albumResource.add(albumResourceAssembler.toResource(albumDTO));
+            albumResource.add(albumResourceAssembler.toModel(albumDTO));
         }
-        Resources<Resource<AlbumDTO>> resultResources = new Resources<>(albumResource);
+        CollectionModel<EntityModel<AlbumDTO>> resultResources = new CollectionModel<>(albumResource);
         resultResources.add(linkTo(AlbumController.class).withSelfRel().withType("GET"));
         return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource<AlbumDTO>> getById(@PathVariable Long id){
-        return new ResponseEntity<>(albumResourceAssembler.toResource(albumFacade.findById(id)), HttpStatus.OK);
+    public ResponseEntity<EntityModel<AlbumDTO>> getById(@PathVariable Long id){
+        return new ResponseEntity<>(albumResourceAssembler.toModel(albumFacade.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

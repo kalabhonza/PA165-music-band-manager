@@ -10,14 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 
 /**
@@ -38,20 +38,20 @@ public class ConcertController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resources<Resource<ConcertDTO>>> getAll(){
+    public ResponseEntity<CollectionModel<EntityModel<ConcertDTO>>> getAll(){
         List<ConcertDTO> concerts = concertFacade.findAll();
-        List<Resource<ConcertDTO>> concertsResource = new ArrayList<>();
+        List<EntityModel<ConcertDTO>> concertsResource = new ArrayList<>();
         for (ConcertDTO concertDTO : concerts){
-            concertsResource.add(concertResourceAssembler.toResource(concertDTO));
+            concertsResource.add(concertResourceAssembler.toModel(concertDTO));
         }
-        Resources<Resource<ConcertDTO>> resultResources = new Resources<>(concertsResource);
+        CollectionModel<EntityModel<ConcertDTO>> resultResources = new CollectionModel<>(concertsResource);
         resultResources.add(linkTo(ConcertController.class).withSelfRel().withType("GET"));
         return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource<ConcertDTO>> getById(@PathVariable Long id){
-        return new ResponseEntity<>(concertResourceAssembler.toResource(concertFacade.findById(id)), HttpStatus.OK);
+    public ResponseEntity<EntityModel<ConcertDTO>> getById(@PathVariable Long id){
+        return new ResponseEntity<>(concertResourceAssembler.toModel(concertFacade.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

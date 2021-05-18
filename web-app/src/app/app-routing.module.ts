@@ -14,6 +14,24 @@ const routes: Routes = [
     data: {breadcrumb: 'Bands'}
   },
   {
+    path: 'musicians',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./agenda/components/musicians/musicians.module').then(m => m.MusiciansModule),
+    data: {breadcrumb: 'Musicians'}
+  },
+  {
+    path: 'band',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./agenda/components/band/band.module').then(m => m.BandModule),
+    data: {breadcrumb: 'Band'}
+  },
+  {
+    path: 'profile',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./agenda/components/profile/profile.module').then(m => m.ProfileModule),
+    data: {breadcrumb: 'Profile'}
+  },
+  {
     path: '',
     redirectTo: 'pa165',
     pathMatch: 'full'

@@ -3,11 +3,11 @@
     <mat-icon class="material-icons home" (click)="navigateHome()">home</mat-icon>
     <mat-icon class="material-icons">keyboard_arrow_right</mat-icon>
   </div>
-<!--  <mat-label *ngIf="(activeSession$ | async).sessionLoggedIn">{{(activeRoute$ | async) | Breadcrumbs}}</mat-label>-->
+  <mat-label *ngIf="(activeSession$ | async).sessionLoggedIn">{{(activeRoute$ | async) | Breadcrumbs}}</mat-label>
 
   <span class="spacer"></span>
 
-  <div class="user-menu" *ngIf="!(activeSession$ | async) else loggedIn">
+  <div class="user-menu" *ngIf="!(activeSession$ | async).sessionLoggedIn else loggedIn">
     <button (click)="register()" class="session-buttons" mat-raised-button color="primary">Register</button>
     <button (click)="login()" class="session-buttons" mat-raised-button color="primary">Log In</button>
   </div>

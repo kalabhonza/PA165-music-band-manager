@@ -4,18 +4,18 @@ import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.rest.controllers.BandController;
 
 
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 
 @Component
-public class BandResourceAssembler implements ResourceAssembler<BandDTO, Resource<BandDTO>> {
+public class BandResourceAssembler implements RepresentationModelAssembler<BandDTO, EntityModel<BandDTO>> {
     @Override
-    public Resource<BandDTO> toResource(BandDTO bandDTO) {
-        Resource<BandDTO> bandResource = new Resource<>(bandDTO);
+    public EntityModel<BandDTO> toModel(BandDTO bandDTO) {
+        EntityModel<BandDTO> bandResource = new EntityModel<>(bandDTO);
         try {
             bandResource.add(linkTo(BandController.class).slash(bandDTO.getId()).withSelfRel().withType("GET"));
         } catch (Exception ex){
