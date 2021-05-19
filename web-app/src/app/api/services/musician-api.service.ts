@@ -6,6 +6,7 @@ import {Musician} from '../../model/musician';
 import {MusicianMapper} from '../mappers/musician-mapper';
 import {MusicianDTO} from '../dtos/musician-dto';
 import {Style} from '../../model/style';
+import {Band} from '../../model/band';
 
 @Injectable()
 export class MusicianApiService {
@@ -54,5 +55,35 @@ export class MusicianApiService {
     //   .pipe(
     //     map((response) => MusicianMapper.fromDTO(response))
     //   );
+  }
+
+  /**
+   * Sends http request to accept given offer
+   * @param musicianId musician id
+   * @param bandId band id to which musician should be added
+   */
+  accept(musicianId: number, bandId: number): Observable<any> {
+    return this.http
+      .post(
+        `${this.javaRestEndpoint}/musicians/offer`,
+        {musician_id: musicianId, band_id: bandId},
+        {
+        headers: MusicianApiService.createDefaultHeaders()
+      });
+  }
+
+  /**
+   * Sends http request to decline given offer
+   * @param musicianId musician id
+   * @param bandId id of offer which should be rejected
+   */
+  decline(musicianId: number, bandId: number): Observable<any> {
+    return this.http
+      .put(
+        `${this.javaRestEndpoint}/musicians/offer`,
+        {musician_id: musicianId, band_id: bandId},
+        {
+          headers: MusicianApiService.createDefaultHeaders()
+        });
   }
 }

@@ -21,7 +21,7 @@ export class AuthService {
     const credentials = new UserCredentials();
     credentials.username = username;
     credentials.password = password;
-    return this.http.post<UserCredentials>(`${environment.backendApi}/authentication/register`, credentials);
+    return this.http.post<UserCredentials>(`${environment.backendApi}/auth/register`, credentials);
   }
 
   /**
@@ -33,7 +33,7 @@ export class AuthService {
     const credentials = new UserCredentials();
     credentials.username = username;
     credentials.password = password;
-    return this.http.post<UserCredentials>(`${environment.backendApi}/authentication/login`, credentials)
+    return this.http.post<UserCredentials>(`${environment.backendApi}/auth/login`, credentials)
       .pipe(
         tap(
           session => this.sessionService.createSession(session)
@@ -45,7 +45,7 @@ export class AuthService {
    * Log's out current session on server side
    */
   logout(): Observable<any> {
-    return this.http.get(`${environment.backendApi}/authentication/logout`)
+    return this.http.get(`${environment.backendApi}/auth/logout`)
       .pipe(
         tap(
           session => this.sessionService.endSession()

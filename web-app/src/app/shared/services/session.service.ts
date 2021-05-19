@@ -3,9 +3,6 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import {Session} from '../models/session';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BandDTO} from '../../api/dtos/band-dto';
-import {BandMapper} from '../../api/mappers/band-mapper';
-import {map} from 'rxjs/operators';
 
 @Injectable()
 export class SessionService {

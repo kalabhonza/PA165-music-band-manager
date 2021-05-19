@@ -2,7 +2,7 @@
 <div class="offers-content">
   <h2>My offers</h2>
   <div class="offer-item-content" *ngIf="offers && offers.length > 0 else noOffers">
-    <div class="offer-content" *ngFor="let offer of offers">
+    <div class="offer-content" *ngFor="let offer of offers; index as i;">
       <div matTooltip="Band logo" class="offer-box">
         <mat-icon *ngIf="!offer.logo else logo">email</mat-icon>
         <ng-template #logo>
@@ -29,8 +29,8 @@
           <span class="spacer"></span>
         </div>
         <div id="offer-worth">
-          <button mat-raised-button matTooltip="Decline" color="warn"><mat-icon>clear</mat-icon></button>
-          <button mat-raised-button matTooltip="Accept" color="primary"><mat-icon>done_all</mat-icon></button>
+          <button mat-raised-button matTooltip="Decline" color="warn" (click)="decline(i)"><mat-icon>clear</mat-icon></button>
+          <button mat-raised-button matTooltip="Accept" color="primary" (click)="accept(i)"><mat-icon>done_all</mat-icon></button>
         </div>
       </div>
     </div>
