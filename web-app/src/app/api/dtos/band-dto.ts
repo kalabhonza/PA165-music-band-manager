@@ -7,7 +7,7 @@ import {ManagerDTO} from './manager-dto';
 export class BandDTO {
   id: number;
   name: string;
-  logo: string;
+  logo?: string;
   style: Style;
   members: MusicianDTO[];
   albums: AlbumDTO[];

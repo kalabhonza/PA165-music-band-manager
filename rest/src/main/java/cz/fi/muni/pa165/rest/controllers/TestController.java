@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/rest/test")
+@RequestMapping("/rest/populate")
 public class TestController {
 
     private PresentationDataFacade presentationDataFacade;
@@ -17,10 +17,10 @@ public class TestController {
         this.presentationDataFacade = presentationDataFacade;
     }
 
-//    @GetMapping
-//    public String helloWorld(){
-//        return "works";
-//    }
+    @GetMapping
+    public String helloWorld(){
+        return "works";
+    }
 
     /**
      * Creates test data and logs as admin

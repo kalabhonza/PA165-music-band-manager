@@ -7,7 +7,7 @@ import {Style} from './style';
 export class Band {
   id: number;
   name: string;
-  logo: string;
+  logo?: string;
   style: Style;
   members: Musician[];
   albums: Album[];

@@ -32,6 +32,12 @@ const routes: Routes = [
     data: {breadcrumb: 'Profile'}
   },
   {
+    path: 'offers',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./agenda/components/offers/offers.module').then(m => m.OffersModule),
+    data: {breadcrumb: 'Offers'}
+  },
+  {
     path: '',
     redirectTo: 'pa165',
     pathMatch: 'full'

@@ -1,0 +1,44 @@
+<!--  OFFERS  -->
+<div class="offers-content">
+  <h2>My offers</h2>
+  <div class="offer-item-content" *ngIf="offers && offers.length > 0 else noOffers">
+    <div class="offer-content" *ngFor="let offer of offers">
+      <div matTooltip="Band logo" class="offer-box">
+        <mat-icon *ngIf="!offer.logo else logo">email</mat-icon>
+        <ng-template #logo>
+          <img [src]="offer.logo">
+        </ng-template>
+      </div>
+      <div>
+        <div class="offer-name">
+          <h3>Band name: </h3>
+          <mat-label>{{offer.name}}</mat-label>
+          <span class="spacer"></span>
+        </div>
+        <div class="offer-name">
+          <h3>Band Style: </h3>
+          <mat-label>{{offer.style}}</mat-label>
+          <span class="spacer"></span>
+        </div>
+        <div class="offer-name">
+          <h3>Band members: </h3>
+          <div *ngFor="let member of offer.members">
+            <mat-label>{{member.name}}</mat-label>
+          </div>
+          <mat-label>{{offer.name}}</mat-label>
+          <span class="spacer"></span>
+        </div>
+        <div id="offer-worth">
+          <button mat-raised-button matTooltip="Decline" color="warn"><mat-icon>clear</mat-icon></button>
+          <button mat-raised-button matTooltip="Accept" color="primary"><mat-icon>done_all</mat-icon></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noOffers>
+    <h4>* No Offers...</h4>
+  </ng-template>
+</div>
+
+
+

@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import {Session} from '../models/session';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {BandDTO} from '../../api/dtos/band-dto';
+import {BandMapper} from '../../api/mappers/band-mapper';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class SessionService {
@@ -11,7 +15,7 @@ export class SessionService {
 
   sessionActive: boolean;
 
-  constructor(private cookieService: CookieService) { }
+  constructor(private cookieService: CookieService, private http: HttpClient) { }
 
   /**
    * Creates session in @sessionStorage and set cookies with for logged user
@@ -53,12 +57,29 @@ export class SessionService {
     }
   }
 
+  getUserId(): number {
+    if (sessionStorage.length !== 0) {
+      return (JSON.parse(this.cookieService.get('active_user'))).sessionID;
+    } else {
+      return -1;
+    }
+  }
+
+  populateSession(): Observable<any> {
+    return this.http
+      .post(
+        `http://localhost:8080/pa165/rest/populate`,
+        {},
+        { headers: new HttpHeaders({ Accept: 'application/json' }) }
+      );
+  }
+
   /**
    * Creates inner structure for user's session
    * @param id user id
    * @param username user's name
    */
-  private createSessionObject(id: number, username: string) {
+  private createSessionObject(id: number, username: string): any {
     const session = new Session();
     session.sessionID = id;
     session.sessionLoggedIn = true;
