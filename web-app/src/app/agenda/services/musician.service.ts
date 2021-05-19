@@ -19,19 +19,6 @@ export class MusicianService {
   ) { }
 
   /**
-   * Return musician by given id
-   * @param id id of searched musician
-   */
-  getMusicianById(id: number): Observable<Musician> {
-    return this.musicianApiService.getById(id).pipe(
-      tap(
-        _ => _,
-        err => this.errorAlertService.handleError(err)
-      )
-    );
-  }
-
-  /**
    * Retrieves musician offers
    * @param id musician id
    */
@@ -76,5 +63,56 @@ export class MusicianService {
           err => this.errorAlertService.handleError(err)
         )
       );
+  }
+  /**
+   * Returns musician of given id
+   * @param id id of searched musician
+   */
+  getMusicianById(id: number): Observable<Musician> {
+    return this.musicianApiService.getById(id).pipe(
+      tap(
+        _ => _,
+        err => this.errorAlertService.handleError(err)
+      )
+    );
+  }
+
+  /**
+   * Deletes musician of given id
+   * @param id id of musician to be deleted
+   */
+  deleteMusician(id: number): Observable<Musician> {
+    return this.musicianApiService.delete(id).pipe(
+      tap(
+        _ => _,
+        err => this.errorAlertService.handleError(err)
+      )
+    );
+  }
+
+  /**
+   * Creates a musician
+   * @param musician musician to be created
+   */
+  createMusician(musician: Musician): Observable<Musician> {
+    return this.musicianApiService.create(musician).pipe(
+      tap(
+        _ => _,
+        err => this.errorAlertService.handleError(err)
+      )
+    );
+  }
+
+  /**
+   * Updates musician of given id
+   * @param musician musician to be updated
+   */
+  updateMusician(musician: Musician): Observable<Musician> {
+    return this.musicianApiService.update(musician).pipe(
+      tap(
+        _ => _,
+        err => this.errorAlertService.handleError(err)
+      )
+    );
   }
 }

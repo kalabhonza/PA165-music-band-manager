@@ -4,7 +4,12 @@ import {MusicianDTO} from '../dtos/musician-dto';
 export class MusicianMapper {
   static fromDTO(dto: MusicianDTO): Musician {
     const musician = new Musician();
+    musician.id = dto.id;
     musician.name = dto.name;
+    musician.username = dto.username;
+    musician.password = dto.password;
+    musician.offers = dto.offers;
+    musician.band = dto.band;
     return musician;
   }
 
@@ -14,7 +19,12 @@ export class MusicianMapper {
 
   static toDTO(musician: Musician): MusicianDTO {
     const result = new MusicianDTO();
+    result.id = musician.id;
     result.name = musician.name;
+    result.username = musician.username;
+    result.password = musician.name;
+    result.offers = musician.offers;
+    result.band = musician.band;
     return result;
   }
 
