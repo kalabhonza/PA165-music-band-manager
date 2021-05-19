@@ -1,8 +1,7 @@
 <div class="content">
   <button mat-button (click)="navigateTo('/pa165')">Home</button>
-  <button mat-button (click)="navigateTo('bands')">Band</button>
-  <button mat-button (click)="navigateTo('band')">My band</button>
-  <button mat-button (click)="navigateTo('musicians')">Musicians</button>
-  <button mat-button (click)="navigateTo('profile')">My Profile</button>
-  <button mat-button (click)="navigateTo('offers')">My Offers</button>
+  <button *ngIf="managerUser" mat-button (click)="navigateTo('bands')">Manage Band</button>
+  <button *ngIf="!managerUser" mat-button (click)="navigateTo('band')">My band</button>
+  <button *ngIf="managerUser" mat-button (click)="navigateTo('musicians')">Musicians</button>
+  <button *ngIf="!managerUser" mat-button (click)="navigateTo('offers')">My Offers</button>
 </div>

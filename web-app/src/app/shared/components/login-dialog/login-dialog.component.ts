@@ -13,6 +13,7 @@ import {AlertMessageService} from '../../services/message-alert.service';
 export class LoginDialogComponent {
 
   isLoading: boolean;
+  managerLogin: boolean;
   state = 'visibility';
 
   username = new FormControl(
@@ -26,15 +27,20 @@ export class LoginDialogComponent {
     public dialogRef: MatDialogRef<LoginDialogComponent>,
     private authService: AuthService,
     private alertMessageService: AlertMessageService) {
+    this.managerLogin = false;
   }
 
   close(): void {
     this.dialogRef.close();
   }
 
+  setChecked(checked: boolean): void {
+    this.managerLogin = checked;
+  }
+
   loginUser(): void {
     this.isLoading = true;
-    this.authService.login(this.username.value, this.password.value)
+    this.authService.login(this.username.value, this.password.value, this.managerLogin)
       .subscribe(
       () => {
         this.isLoading = false;

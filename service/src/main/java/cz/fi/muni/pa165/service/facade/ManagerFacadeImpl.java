@@ -71,4 +71,10 @@ public class ManagerFacadeImpl implements ManagerFacade {
         List<Manager> manager = managerService.findByName(name);
         return managerMapper.mapToListDTO(manager);
     }
+
+    @Override
+    public ManagerDTO login(String username, String password) {
+        Manager manager = managerService.login(username, password);
+        return managerMapper.mapToManagerDTO(manager);
+    }
 }

@@ -6,6 +6,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {ErrorAlertService} from '../../shared/services/error-alert.service';
 import {SessionService} from '../../shared/services/session.service';
 import {Musician} from '../../model/musician';
+import {AlertMessageService} from '../../shared/services/message-alert.service';
 
 @Injectable()
 export class MusicianService {
@@ -13,6 +14,7 @@ export class MusicianService {
   constructor(
     private musicianApiService: MusicianApiService,
     private errorAlertService: ErrorAlertService,
+    private alertMessageService: AlertMessageService,
     private sessionService: SessionService
   ) { }
 
@@ -43,6 +45,25 @@ export class MusicianService {
       );
   }
 
+  acceptOffer(musicianId: number, bandId: number): Observable<any> {
+    return this.musicianApiService.accept(musicianId, bandId)
+      .pipe(
+        tap(
+          _ => this.alertMessageService.display('Offer was accepted'),
+          err => this.errorAlertService.handleError(err)
+        )
+      );
+  }
+
+  declineOffer(musicianId: number, bandId: number): Observable<any> {
+    return this.musicianApiService.decline(musicianId, bandId)
+      .pipe(
+        tap(
+          _ => this.alertMessageService.display('Offer was declined'),
+          err => this.errorAlertService.handleError(err)
+        )
+      );
+  }
   /**
    * Returns musician of given id
    * @param id id of searched musician

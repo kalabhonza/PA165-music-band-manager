@@ -52,7 +52,7 @@ public class ManagerFacadeTest {
         managerFacade = new ManagerFacadeImpl(managerService, managerMapper);
 
         Band band = new Band(2L, "Herders", ALTERNATIVE);
-        manager = new Manager(1L, "John Doe", "johan123", "passwd", band);
+        manager = new Manager(1L, "John Doe", "johan123", "passwd", band.getId());
         band.setManager(manager);
 
         managerDTO = new ManagerDTO();
@@ -60,21 +60,21 @@ public class ManagerFacadeTest {
         managerDTO.setName(manager.getName());
         managerDTO.setUserName(manager.getUserName());
         managerDTO.setPassword(manager.getPassword());
-        managerDTO.setBand(bandMapper.mapToBandDTO(manager.getBand()));
+        managerDTO.setBand(manager.getBand());
 
         managerCreateDTO = new ManagerCreateDTO();
         //managerCreateDTO.setId(manager.getId());
         managerCreateDTO.setName(manager.getName());
         managerCreateDTO.setUserName(manager.getUserName());
         managerCreateDTO.setPassword(manager.getPassword());
-        managerCreateDTO.setBand(bandMapper.mapToBandDTO(manager.getBand()));
+        managerCreateDTO.setBand(manager.getBand());
 
         managerUpdateDTO = new ManagerUpdateDTO();
         managerUpdateDTO.setId(manager.getId());
         managerUpdateDTO.setName(manager.getName());
         managerUpdateDTO.setUserName(manager.getUserName());
         managerUpdateDTO.setPassword(manager.getPassword());
-        managerUpdateDTO.setBand(bandMapper.mapToBandDTO(manager.getBand()));
+        managerUpdateDTO.setBand(manager.getBand());
     }
 
     @Test

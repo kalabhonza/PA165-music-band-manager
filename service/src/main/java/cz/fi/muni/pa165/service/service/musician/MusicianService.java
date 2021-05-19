@@ -55,4 +55,12 @@ public interface MusicianService {
      * @param musician Musician to be removed
      */
     void remove(Musician musician);
+
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    Musician login(String username, String password);
 }

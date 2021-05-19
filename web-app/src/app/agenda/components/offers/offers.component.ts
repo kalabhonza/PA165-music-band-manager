@@ -17,8 +17,24 @@ export class OffersComponent implements OnInit {
   constructor(private musicianService: MusicianService, private sessionService: SessionService) { }
 
   ngOnInit(): void {
-    this.musicianId = 1// this.sessionService.getUserId();
+    this.musicianId = this.sessionService.getUserId();
     this.getCurrentOffers();
+  }
+
+  decline(offerIndex: number): void {
+    this.isLoading = true;
+    this.musicianService.declineOffer(this.musicianId, this.offers[offerIndex].id).subscribe(
+      () => this.isLoading = false,
+      () => this.isLoading = false
+    );
+  }
+
+  accept(offerIndex: number): void {
+    this.isLoading = true;
+    this.musicianService.acceptOffer(this.musicianId, this.offers[offerIndex].id).subscribe(
+      () => this.isLoading = false,
+      () => this.isLoading = false
+    );
   }
 
   private getCurrentOffers(): void {

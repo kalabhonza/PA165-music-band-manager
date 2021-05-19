@@ -74,4 +74,10 @@ public class MusicianFacadeImpl implements MusicianFacade {
     public void remove(MusicianDTO musician) {
         musicianService.remove(musicianMapper.mapToEntity(musician));
     }
+
+    @Override
+    public MusicianDTO login(String username, String password) {
+        Musician loggedMusician = musicianService.login(username, password);
+        return musicianMapper.mapToMusicianDTO(loggedMusician);
+    }
 }

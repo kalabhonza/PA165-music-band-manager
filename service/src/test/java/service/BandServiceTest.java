@@ -43,7 +43,7 @@ public class BandServiceTest {
         band.setId(1L);
         band.setName("1D");
         band.setStyle(Style.POP);
-        manager = new Manager(1L,"Frank", "Frank08","xdxdxdxd", band);
+        manager = new Manager(1L,"Frank", "Frank08","xdxdxdxd", band.getId());
         band.setManager(manager);
         bandList.add(0, band);
     }

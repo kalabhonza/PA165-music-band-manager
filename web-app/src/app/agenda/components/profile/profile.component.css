@@ -1,0 +1,57 @@
+.example-card {
+  max-width: 400px;
+}
+
+.mat-card {
+  min-height: 140px;
+  margin-bottom: 10px;
+}
+
+.mat-card #user-icon {
+  font-size: 60px;
+  color: #141F64;
+}
+
+.mat-card-title {
+  color: grey;
+}
+
+.mat-card-content h2 {
+  padding-left: 30px;
+}
+
+.card-action {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-action button{
+  margin-top: 5px;
+  height: 40px;
+  margin-left: 10px;
+}
+
+.card-action h3 {
+  color: grey;
+  font-size: medium;
+  font-style: oblique;
+  padding-left: 180px;
+}
+
+.profile-items {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-column {
+  padding-left: 10px;
+}
+
+.icon-change {
+  padding-left: 330px;
+}
+
+#username-change {
+  padding-left: 295px;
+  padding-top: 20px;
+}

@@ -52,7 +52,7 @@ public class MusicianServiceTest {
         this.manager.setPassword("1234");
 
         this.band.setManager(this.manager);
-        this.manager.setBand(this.band);
+        this.manager.setBand(this.band.getId());
 
         this.allMusicians = new ArrayList<>();
         this.allMusicians.add(this.musician1);

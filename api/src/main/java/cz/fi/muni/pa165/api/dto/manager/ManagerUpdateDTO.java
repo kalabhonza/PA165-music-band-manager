@@ -8,7 +8,7 @@ public class ManagerUpdateDTO {
     private String name;
     private String userName;
     private String password;
-    private BandDTO band;
+    private Long bandId;
 
     public Long getId() {
         return id;
@@ -43,12 +43,12 @@ public class ManagerUpdateDTO {
         this.password = password;
     }
 
-    public BandDTO getBand() {
-        return band;
+    public Long getBand() {
+        return bandId;
     }
 
-    public void setBand(BandDTO band) {
-        this.band = band;
+    public void setBand(Long bandId) {
+        this.bandId = bandId;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ManagerUpdateDTO {
                 ", name='" + name + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", band=" + band.getName() +
+                ", bandId=" + bandId +
                 '}';
     }
 }

@@ -21,15 +21,15 @@ public class Manager {
     @Column(nullable = false)
     private String password;
 
-    @OneToOne
-    private Band band;
+    @Column
+    private Long bandId;
 
-    public Manager(Long id, String name, String userName, String password, Band band) {
+    public Manager(Long id, String name, String userName, String password, Long bandId) {
         this.id = id;
         this.name = name;
         this.userName = userName;
         this.password = password;
-        this.band = band;
+        this.bandId = bandId;
     }
 
     public Manager() {}
@@ -66,12 +66,12 @@ public class Manager {
         this.password = password;
     }
 
-    public Band getBand() {
-        return band;
+    public Long getBand() {
+        return bandId;
     }
 
-    public void setBand(Band band) {
-        this.band = band;
+    public void setBand(Long bandId) {
+        this.bandId = bandId;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class Manager {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, userName, password, band);
+        return Objects.hash(name, userName, password, bandId);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class Manager {
                 ", name='" + name + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", band=" + band +
+                ", band=" + bandId +
                 '}';
     }
 }

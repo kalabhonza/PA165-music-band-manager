@@ -18,6 +18,11 @@
     <button mat-button (click)="show()"><mat-icon [innerHTML]="state"></mat-icon></button>
   </div>
 
+  <div class="login-option">
+    <mat-label>Login as Manager</mat-label>
+    <mat-checkbox (change)="setChecked($event.checked)" matTooltip="Manager login"></mat-checkbox>
+  </div>
+
   <div class="login-buttons">
     <button mat-raised-button color="warn" (click)="close()">Close</button>
     <button mat-raised-button color="primary" [disabled]="(username.invalid || password.invalid)" (click)="loginUser()">Login</button>

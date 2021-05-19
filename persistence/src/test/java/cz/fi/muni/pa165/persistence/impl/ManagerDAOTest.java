@@ -80,7 +80,7 @@ public class ManagerDAOTest extends AbstractTestNGSpringContextTests {
         musician.setUsername("repter");
         em.persist(musician);
 
-        manager.setBand(band);
+        manager.setBand(band.getId());
     }
 
     @Test

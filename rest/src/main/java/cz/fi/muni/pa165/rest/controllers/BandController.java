@@ -5,11 +5,7 @@ import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.dto.band.BandUpdateDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.api.facade.BandFacade;
-import cz.fi.muni.pa165.rest.assemblers.BandResourceAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +14,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -27,29 +21,21 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 public class BandController {
 
     private BandFacade bandFacade;
-    private BandResourceAssembler bandResourceAssembler;
 
     @Autowired
-    public BandController(BandFacade bandFacade, BandResourceAssembler bandResourceAssembler){
+    public BandController(BandFacade bandFacade) {
         this.bandFacade = bandFacade;
-        this.bandResourceAssembler = bandResourceAssembler;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CollectionModel<EntityModel<BandDTO>>> getAll(){
+    public ResponseEntity<List<BandDTO>> getAll(){
         List<BandDTO> bands = bandFacade.findAllBands();
-        List<EntityModel<BandDTO>> bandsResource = new ArrayList<>();
-        for (BandDTO bandDTO : bands){
-            bandsResource.add(bandResourceAssembler.toModel(bandDTO));
-        }
-        CollectionModel<EntityModel<BandDTO>> resultResources = new CollectionModel<>(bandsResource);
-        resultResources.add(linkTo(BandController.class).withSelfRel().withType("GET"));
-        return new ResponseEntity<>(resultResources, HttpStatus.OK);
+        return ResponseEntity.ok(bands);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityModel<BandDTO>> getById(@PathVariable Long id){
-        return new ResponseEntity<>(bandResourceAssembler.toModel(bandFacade.findBandById(id)), HttpStatus.OK);
+    public ResponseEntity<BandDTO> getById(@PathVariable Long id){
+        return ResponseEntity.ok(bandFacade.findBandById(id));
     }
 
 //    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -65,24 +51,24 @@ public class BandController {
 //    }
 
     @GetMapping(value = "/{id}/managers", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityModel<BandDTO>> getByManager(@RequestBody @Valid ManagerDTO managerDTO){
-        return new ResponseEntity<>(bandResourceAssembler.toModel(bandFacade.findBandByManager(managerDTO)), HttpStatus.OK);
+    public ResponseEntity<BandDTO> getByManager(@RequestBody @Valid ManagerDTO managerDTO){
+        return ResponseEntity.ok(bandFacade.findBandByManager(managerDTO));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createBand(@RequestBody @Valid BandCreateDTO bandCreateDTO){
-        return new ResponseEntity<>(bandFacade.createBand(bandCreateDTO), HttpStatus.CREATED);
+        return ResponseEntity.ok(bandFacade.createBand(bandCreateDTO));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteBand(@RequestBody @Valid BandDTO bandDTO){
         bandFacade.deleteBand(bandDTO);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateBand(@RequestBody @Valid BandUpdateDTO bandUpdateDTO){
         bandFacade.updateBand(bandUpdateDTO);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }
