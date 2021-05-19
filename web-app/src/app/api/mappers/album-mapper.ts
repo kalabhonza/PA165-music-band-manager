@@ -4,7 +4,9 @@ import {Album} from '../../model/album';
 export class AlbumMapper {
   static fromDTO(dto: AlbumDTO): Album {
     const album = new Album();
+    album.id = dto.id;
     album.name = dto.name;
+    album.songs = dto.songs;
     return album;
   }
 
@@ -14,7 +16,9 @@ export class AlbumMapper {
 
   static toDTO(album: Album): AlbumDTO {
     const result = new AlbumDTO();
+    result.id = album.id;
     result.name = album.name;
+    result.songs = album.songs;
     return result;
   }
 
