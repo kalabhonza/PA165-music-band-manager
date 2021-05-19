@@ -35,4 +35,8 @@ export class BandMapper {
     result.albums = AlbumMapper.toDTOs(band.albums);
     return result;
   }
+
+  static toDTOs(bands: Band[]): BandDTO[] {
+    return bands.map((band) => BandMapper.toDTO(band));
+  }
 }
