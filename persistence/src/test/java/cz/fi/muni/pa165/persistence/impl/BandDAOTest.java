@@ -48,7 +48,7 @@ public class BandDAOTest extends AbstractTestNGSpringContextTests {
         manager.setName("Franta");
         manager.setUserName("Franta 07");
         manager.setPassword("xd123");
-        manager.setBand(band);
+        manager.setBand(band.getId());
         entityManager.persist(manager);
 
         band.setManager(manager);

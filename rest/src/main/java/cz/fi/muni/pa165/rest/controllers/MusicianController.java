@@ -22,16 +22,15 @@ import java.util.List;
 @RequestMapping("/rest/musicians")
 public class MusicianController {
     private MusicianFacade musicianFacade;
-    private MusicianResourceAssembler musicianResourceAssembler;
 
     @Autowired
-    public MusicianController(MusicianFacade musicianFacade, MusicianResourceAssembler musicianResourceAssembler) {
+    public MusicianController(MusicianFacade musicianFacade) {
         this.musicianFacade = musicianFacade;
-        this.musicianResourceAssembler = musicianResourceAssembler;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MusicianDTO>> getAll(){
+        System.out.println("hERE");
         List<MusicianDTO> musicians = musicianFacade.findAll();
         return ResponseEntity.ok(musicians);
     }

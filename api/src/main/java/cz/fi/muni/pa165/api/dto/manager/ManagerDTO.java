@@ -1,7 +1,5 @@
 package cz.fi.muni.pa165.api.dto.manager;
 
-import cz.fi.muni.pa165.api.dto.band.BandDTO;
-
 import java.util.Objects;
 
 /**
@@ -12,7 +10,7 @@ public class ManagerDTO {
     private String name;
     private String userName;
     private String password;
-    private BandDTO band;
+    private Long bandId;
 
     public Long getId() {
         return id;
@@ -46,12 +44,12 @@ public class ManagerDTO {
         this.password = password;
     }
 
-    public BandDTO getBand() {
-        return band;
+    public Long getBand() {
+        return bandId;
     }
 
-    public void setBand(BandDTO band) {
-        this.band = band;
+    public void setBand(Long bandId) {
+        this.bandId = bandId;
     }
 
     @Override
@@ -78,7 +76,7 @@ public class ManagerDTO {
                 ", name='" + name + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", band=" + band +
+                ", bandId=" + bandId +
                 '}';
     }
 }

@@ -76,14 +76,22 @@ public class PresentationDataServiceImpl implements PresentationDataService {
         album1.setSongs(songs);
         albumDAO.create(album1);
 
-//        Album album2 = new Album();
-//        album2.setName("Album 2");
-//        album2.setSongs(songs);
-//        albumDAO.create(album2);
+        Song song3 = new Song();
+        song3.setName("Song 3");
+        song3.setDuration(new Time(65));
+        songDAO.create(song3);
+
+        Set<Song> songs2 = new HashSet<>();
+        songs2.add(song3);
+
+        Album album2 = new Album();
+        album2.setName("Album 2");
+        album2.setSongs(songs2);
+        albumDAO.create(album2);
 
         Set<Album> albums = new HashSet<>();
         albums.add(album1);
-//        albums.add(album2);
+        albums.add(album2);
         Set<Band> bands = new HashSet<>();
         bands.add(band);
 

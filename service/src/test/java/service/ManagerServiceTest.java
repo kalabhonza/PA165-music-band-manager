@@ -49,7 +49,7 @@ public class ManagerServiceTest {
         manager.setName("John Doe");
         manager.setUserName("johnny10");
         manager.setPassword("passwd");
-        manager.setBand(band);
+        manager.setBand(band.getId());
 
         managerList.add(0, manager);
 
@@ -119,7 +119,7 @@ public class ManagerServiceTest {
 
     @Test(expectedExceptions = DataAccessException.class)
     public void updateNonExisting() {
-        Manager manger1 = new Manager(20L, "Peter", "peete21", "passwd", band);
+        Manager manger1 = new Manager(20L, "Peter", "peete21", "passwd", band.getId());
         given(managerDAO.update(manger1)).willReturn(null);
         managerService.update(manger1);
     }

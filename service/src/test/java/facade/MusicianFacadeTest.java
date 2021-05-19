@@ -74,7 +74,7 @@ public class MusicianFacadeTest {
         this.manager.setPassword("1234");
 
         this.band.setManager(this.manager);
-        this.manager.setBand(this.band);
+        this.manager.setBand(this.band.getId());
 
         this.allMusicians = new ArrayList<>();
         this.allMusicians.add(this.musician1);
@@ -120,7 +120,7 @@ public class MusicianFacadeTest {
         this.managerDTO.setName(manager.getName());
         this.managerDTO.setUserName(manager.getUserName());
         this.managerDTO.setPassword(manager.getPassword());
-        this.managerDTO.setBand(bandMapper.mapToBandDTO(this.band));
+        this.managerDTO.setBand(this.band.getId());
 
         this.bandDTO.setManager(managerMapper.mapToManagerDTO(this.manager));
 
