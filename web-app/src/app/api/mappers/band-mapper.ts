@@ -15,7 +15,7 @@ export class BandMapper {
     band.albums = AlbumMapper.fromDTOs(dto.albums);
     band.manager = ManagerMapper.fromDTO(dto.manager);
     band.members = MusicianMapper.fromDTOs(dto.members);
-    band.tours = MusicianMapper.fromDTOs(dto.tours);
+    band.tours = TourMapper.fromDTOs(dto.tours);
     return band;
   }
 
