@@ -4,7 +4,9 @@ import {Tour} from '../../model/tour';
 export class TourMapper {
   static fromDTO(dto: TourDTO): Tour {
     const tour = new Tour();
+    tour.id = dto.id;
     tour.name = dto.name;
+    tour.concerts = dto.concerts;
     return tour;
   }
 
@@ -14,7 +16,9 @@ export class TourMapper {
 
   static toDTO(tour: Tour): TourDTO {
     const result = new TourDTO();
+    result.id = tour.id;
     result.name = tour.name;
+    result.concerts = tour.concerts;
     return result;
   }
 
