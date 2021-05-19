@@ -17,7 +17,7 @@ export class OffersComponent implements OnInit {
   constructor(private musicianService: MusicianService, private sessionService: SessionService) { }
 
   ngOnInit(): void {
-    this.musicianId = 1// this.sessionService.getUserId();
+    this.musicianId = this.sessionService.getUserId();
     this.getCurrentOffers();
   }
 

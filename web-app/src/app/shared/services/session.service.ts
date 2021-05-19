@@ -3,6 +3,8 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import {Session} from '../models/session';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Musician} from '../../model/musician';
+import {Manager} from '../../model/manager';
 
 @Injectable()
 export class SessionService {
@@ -10,7 +12,7 @@ export class SessionService {
   private activeSessionSubject$: Subject<Session> = new BehaviorSubject(new Session());
   activeSession$ = this.activeSessionSubject$.asObservable();
 
-  sessionActive: boolean;
+  sessionActive: string;
 
   constructor(private cookieService: CookieService, private http: HttpClient) { }
 
@@ -18,12 +20,12 @@ export class SessionService {
    * Creates session in @sessionStorage and set cookies with for logged user
    * @param userSession session details from back end
    */
-  createSession(userSession: any): void {
-    const session = this.createSessionObject(userSession.login.id, userSession.login.username);
+  createSession(userSession: Manager | Musician): void {
+    const session = this.createSessionObject(userSession.id, userSession.username, userSession instanceof Musician);
     this.cookieService.set('active_user', JSON.stringify(session));
     this.activeSessionSubject$.next(session);
-    this.sessionActive = true;
-    sessionStorage.setItem(userSession.login.id, userSession.login.id);
+    this.sessionActive = userSession instanceof Musician ? 'USER_ROLE' : 'MANAGER_ROLE';
+    sessionStorage.setItem(`${userSession.id}`, `${userSession.id}`);
   }
 
   /**
@@ -32,7 +34,7 @@ export class SessionService {
   endSession(): void {
     this.activeSessionSubject$.next(new Session());
     sessionStorage.clear();
-    this.sessionActive = false;
+    this.sessionActive = '';
   }
 
   /**
@@ -41,16 +43,8 @@ export class SessionService {
   reloadSession(): void {
     if (sessionStorage.length !== 0) {
       const session = JSON.parse(this.cookieService.get('active_user'));
-      this.activeSessionSubject$.next(this.createSessionObject(session.sessionID, session.sessionUsername));
-      this.sessionActive = true;
-    }
-  }
-
-  getUserToken(): string {
-    if (sessionStorage.length !== 0) {
-      return (JSON.parse(this.cookieService.get('active_user'))).token;
-    } else {
-      return '';
+      this.activeSessionSubject$.next(this.createSessionObject(session.sessionID, session.sessionUsername, session.commonUser));
+      this.sessionActive = session.commonUser ? 'USER_ROLE' : 'MANAGER_ROLE';
     }
   }
 
@@ -76,11 +70,12 @@ export class SessionService {
    * @param id user id
    * @param username user's name
    */
-  private createSessionObject(id: number, username: string): any {
+  private createSessionObject(id: number, username: string, commonUser: boolean): any {
     const session = new Session();
     session.sessionID = id;
     session.sessionLoggedIn = true;
     session.sessionUsername = username;
+    session.commonUser = commonUser;
 
     return session;
   }

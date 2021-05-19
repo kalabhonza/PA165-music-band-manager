@@ -57,4 +57,12 @@ public interface MusicianFacade {
      * @param musician Musician to be removed
      */
     void remove(MusicianDTO musician);
+
+    /**
+     * Login musician into the system
+     * @param username musician username
+     * @param password musician password
+     * @return musician object
+     */
+    MusicianDTO login(String username, String password);
 }

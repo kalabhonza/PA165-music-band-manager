@@ -57,4 +57,12 @@ public interface ManagerFacade {
      * @return Manager or {@code null}, if there is no Manager with given name
      */
     List<ManagerDTO> findByName(String name);
+
+    /**
+     * Login of manager to system
+     * @param username
+     * @param password
+     * @return
+     */
+    ManagerDTO login(String username, String password);
 }

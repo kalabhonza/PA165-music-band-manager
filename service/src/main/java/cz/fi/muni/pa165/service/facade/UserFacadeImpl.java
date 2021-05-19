@@ -8,7 +8,7 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public UserDTO login(String name, String password) {
-        User user = userService.login(name, password);
-        return beanMapper.mapTo(user, UserDTO.class);
+//        User user = userService.login(name, password);
+        return null;
     }
 }

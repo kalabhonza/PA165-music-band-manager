@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.service.service.manager;
 
+import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.entities.Manager;
 import java.util.List;
 
@@ -52,4 +53,12 @@ public interface ManagerService {
      * @return Manager or {@code null}, if there is no Manager with given name
      */
     List<Manager> findByName(String name);
+
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    Manager login(String username, String password);
 }
