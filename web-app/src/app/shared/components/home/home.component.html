@@ -1,8 +1,10 @@
 <div class="home-root-content">
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
   <div class="about-content">
     <h3>Music band manager</h3>
 <!--    <button class="login-button" mat-button color="primary" (click)="navigateTo('login')">Login</button>-->
     <button class="register-button" mat-button color="primary" (click)="navigateTo('register')">Register now</button>
+    <button [disabled]="disablePopulate" class="register-button" mat-button color="primary" (click)="populateData()">Create template data</button>
   </div>
   <div class="divider-content">
     <mat-divider class="mat-divider"></mat-divider>

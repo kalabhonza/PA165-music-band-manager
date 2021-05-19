@@ -18,6 +18,7 @@ import {LoadingService} from './shared/services/loading.service';
 import {LoginDialogComponent} from './shared/components/login-dialog/login-dialog.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {AlertMessageService} from './shared/services/message-alert.service';
+import {ErrorAlertService} from './shared/services/error-alert.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {AlertMessageService} from './shared/services/message-alert.service';
     AuthService,
     SessionService,
     LoadingService,
-    AlertMessageService
+    AlertMessageService,
+    ErrorAlertService
   ],
   entryComponents: [
     LoginDialogComponent

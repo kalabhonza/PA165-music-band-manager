@@ -10,7 +10,7 @@ import {Band} from '../../model/band';
 export class BandApiService {
 
   constructor(private http: HttpClient) { }
-  private readonly javaRestEndpoint = `http://localhost:8080/pa165/rest`; // TODO SPECIFY THIS ACCORDING TO REQUIREMENTS OF MILTESTONE 3
+  private readonly javaRestEndpoint = `http://localhost:8080/pa165/rest`;
 
   private static createDefaultHeaders(): HttpHeaders {
     return new HttpHeaders({ Accept: 'application/json' });
@@ -35,7 +35,7 @@ export class BandApiService {
    */
   getById(id: number): Observable<Band> {
     return this.http
-      .get<BandDTO>(`${this.javaRestEndpoint}/band/${id}`, {
+      .get<BandDTO>(`${this.javaRestEndpoint}/bands/${id}`, {
         headers: BandApiService.createDefaultHeaders()
       })
       .pipe(
@@ -49,7 +49,7 @@ export class BandApiService {
    */
   delete(id: number): Observable<any> {
     return this.http
-      .delete(`${this.javaRestEndpoint}/band/${id}`, {
+      .delete(`${this.javaRestEndpoint}/bands/${id}`, {
         headers: BandApiService.createDefaultHeaders()
       });
   }
@@ -61,7 +61,7 @@ export class BandApiService {
   create(band: Band): Observable<Band> {
     return this.http
       .post<BandDTO>(
-        `${this.javaRestEndpoint}/band`,
+        `${this.javaRestEndpoint}/bands`,
         BandMapper.toDTO(band),
         { headers: BandApiService.createDefaultHeaders() }
       )
@@ -77,7 +77,7 @@ export class BandApiService {
   update(band: Band): Observable<Band> {
     return this.http
       .put<BandDTO>(
-        `${this.javaRestEndpoint}/band`,
+        `${this.javaRestEndpoint}/bands`,
         BandMapper.toDTO(band),
         { headers: BandApiService.createDefaultHeaders() }
       )
