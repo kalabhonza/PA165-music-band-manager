@@ -12,8 +12,8 @@ Team members can login to the system and see the offers made by the band manager
 
 * Server (first terminal):
     * from root of project: `mvn clean install`
-    * go to server folder: *To be specified*
-    * run server: *To be specified*
+    * go to server folder: `/rest`
+    * run server: `mvn cargo:run`
     
  * Client (second terminal):
      * go to client folder: `/web-app`
