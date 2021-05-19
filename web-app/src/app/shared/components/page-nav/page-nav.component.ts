@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {RedirectService} from '../../services/redirect.service';
 import {SessionService} from '../../services/session.service';
+import {Session} from '../../models/session';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-page-nav',
@@ -9,12 +11,14 @@ import {SessionService} from '../../services/session.service';
 })
 export class PageNavComponent implements OnInit {
 
+  activeSession$: Observable<Session>;
+
   constructor(private redirectService: RedirectService, private sessionService: SessionService) { }
 
   managerUser: boolean;
 
   ngOnInit(): void {
-    console.log(this.sessionService.sessionActive);
+    this.activeSession$ = this.sessionService.activeSession$;
     this.managerUser = this.sessionService.sessionActive === 'ROLE_MANAGER';
   }
 
