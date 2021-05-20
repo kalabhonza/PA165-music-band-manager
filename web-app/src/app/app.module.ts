@@ -18,6 +18,7 @@ import {LoginDialogComponent} from './shared/components/login-dialog/login-dialo
 import {AlertMessageService} from './shared/services/message-alert.service';
 import {ErrorAlertService} from './shared/services/error-alert.service';
 import {AuthUserGuard} from './shared/services/auth-user-guard.service';
+import {AuthManagerGuard} from './shared/services/auth-manager-guard.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {AuthUserGuard} from './shared/services/auth-user-guard.service';
     LoadingService,
     AlertMessageService,
     ErrorAlertService,
-    AuthUserGuard
+    AuthUserGuard,
+    AuthManagerGuard
   ],
   entryComponents: [
     LoginDialogComponent

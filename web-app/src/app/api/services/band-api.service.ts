@@ -17,7 +17,7 @@ export class BandApiService {
   }
 
   /**
-   * Sends http request to retrieve all bands
+   * Sends http request to retrieve all band-manage
    */
   getAll(): Observable<Band[]> {
     return this.http

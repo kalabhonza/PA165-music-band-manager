@@ -7,6 +7,7 @@ export class Session {
   sessionUsername: string;
   sessionLoggedIn: boolean;
   commonUser: boolean;
+  bandID?: number;
 
   constructor() {
     this.sessionLoggedIn = false;

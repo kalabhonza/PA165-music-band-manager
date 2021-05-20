@@ -13,6 +13,7 @@ export class InterceptorService implements HttpInterceptor {
     const httpRequest = req.clone({
       headers: new HttpHeaders({
         'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Access-Control-Allow-Origin': '*',
         Pragma: 'no-cache',
         Expires: '0',
       })

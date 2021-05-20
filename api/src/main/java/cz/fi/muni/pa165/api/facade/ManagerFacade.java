@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.api.facade;
 
+import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerCreateDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerUpdateDTO;
@@ -23,6 +24,13 @@ public interface ManagerFacade {
      * @return List of all Managers
      */
     List<ManagerDTO> findAll();
+
+    /**
+     *
+     * @param bandId
+     * @return
+     */
+    BandDTO getManagerBand(Long bandId);
 
     /**
      * Stores new manager

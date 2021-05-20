@@ -2,8 +2,9 @@ package cz.fi.muni.pa165.service.service.manager;
 
 import cz.fi.muni.pa165.api.exceptions.BandManagerServiceException;
 import cz.fi.muni.pa165.api.exceptions.ErrorStatus;
+import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
-import cz.fi.muni.pa165.entities.Musician;
+import cz.fi.muni.pa165.persistence.interfaces.BandDAO;
 import cz.fi.muni.pa165.persistence.interfaces.ManagerDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,9 +22,11 @@ import java.util.List;
 public class ManagerServiceImpl implements ManagerService{
 
     private ManagerDAO managerDAO;
+    private BandDAO bandDAO;
 
-    public ManagerServiceImpl(ManagerDAO managerDAO){
+    public ManagerServiceImpl(ManagerDAO managerDAO, BandDAO bandDAO){
         this.managerDAO = managerDAO;
+        this.bandDAO = bandDAO;
     }
 
     @Override
@@ -33,6 +36,15 @@ public class ManagerServiceImpl implements ManagerService{
             throw new DataAccessException("Manager with id: " + id + "was not found") {};
         }
         return manager;
+    }
+
+    @Override
+    public Band getManagerBand(Long bandId) {
+        Band band = bandDAO.findBandById(bandId);
+        if (band == null) {
+            throw new DataAccessException("Band with id: " + bandId + "was not found") {};
+        }
+        return band;
     }
 
     @Override

@@ -59,8 +59,8 @@ public class MusicianServiceTest {
         this.allMusicians.add(this.musician2);
 
         this.band.setMembers(new HashSet<>(allMusicians));
-        this.musician1.setBand(this.band);
-        this.musician2.setBand(this.band);
+        this.musician1.setBand(this.band.getId());
+        this.musician2.setBand(this.band.getId());
     }
 
     @Test
@@ -109,10 +109,10 @@ public class MusicianServiceTest {
 
     @Test
     public void findMusiciansByBandTest() {
-        given(musicianDAO.findAllByBand(band)).willReturn(allMusicians);
-        List<Musician> musicians = musicianService.findAllByBand(band);
+        given(musicianDAO.findAllByBand(band.getId())).willReturn(allMusicians);
+        List<Musician> musicians = musicianService.findAllByBand(band.getId());
         assertEquals(musicians, allMusicians);
-        then(musicianDAO).should().findAllByBand(band);
+        then(musicianDAO).should().findAllByBand(band.getId());
     }
 
     @Test(expectedExceptions = DataAccessException.class)

@@ -53,8 +53,8 @@ public class MusicianFacadeImpl implements MusicianFacade {
     }
 
     @Override
-    public List<MusicianDTO> findAllByBand(BandDTO band) {
-        List<Musician> musicians = musicianService.findAllByBand(bandMapper.mapToEntity(band));
+    public List<MusicianDTO> findAllByBand(Long bandId) {
+        List<Musician> musicians = musicianService.findAllByBand(bandId);
         return musicianMapper.mapToListDTO(musicians);
     }
 

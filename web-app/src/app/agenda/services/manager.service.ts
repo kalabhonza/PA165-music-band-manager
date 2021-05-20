@@ -4,11 +4,21 @@ import {tap} from 'rxjs/operators';
 import {ErrorAlertService} from '../../shared/services/error-alert.service';
 import {ManagerApiService} from '../../api/services/manager-api.service';
 import {Manager} from '../../model/manager';
+import {Band} from '../../model/band';
 
 @Injectable()
 export class ManagerService {
 
   constructor(private managerApiService: ManagerApiService, private errorAlertService: ErrorAlertService) { }
+
+  getManagerBand(bandId: number): Observable<Band> {
+    return this.managerApiService.getBand(bandId).pipe(
+      tap(
+        _ => _,
+        err => this.errorAlertService.handleError(err)
+      )
+    );
+  }
 
   /**
    * Return all managers present in system

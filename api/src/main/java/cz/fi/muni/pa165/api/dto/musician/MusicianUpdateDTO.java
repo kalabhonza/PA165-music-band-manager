@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.api.dto.musician;
 
 import cz.fi.muni.pa165.api.dto.band.BandDTO;
+import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.enums.Instrument;
 
 import javax.validation.constraints.NotEmpty;
@@ -24,8 +25,8 @@ public class MusicianUpdateDTO {
     private String password;
     @NotEmpty(message = "Instruments can not be empty")
     private List<Instrument> instruments;
-    private Set<BandDTO> offers = new HashSet<>();
-    private BandDTO band;
+    private Set<Band> offers = new HashSet<>();
+    private Long bandId;
 
     public Long getId() {
         return id;
@@ -67,20 +68,20 @@ public class MusicianUpdateDTO {
         this.instruments = instruments;
     }
 
-    public Set<BandDTO> getOffers() {
+    public Set<Band> getOffers() {
         return offers;
     }
 
-    public void setOffers(Set<BandDTO> offers) {
+    public void setOffers(Set<Band> offers) {
         this.offers = offers;
     }
 
-    public BandDTO getBand() {
-        return band;
+    public Long getBand() {
+        return bandId;
     }
 
-    public void setBand(BandDTO band) {
-        this.band = band;
+    public void setBand(Long bandId) {
+        this.bandId = bandId;
     }
 
     @Override
@@ -108,7 +109,7 @@ public class MusicianUpdateDTO {
                 ", username='" + username + '\'' +
                 ", instruments=" + instruments +
                 ", offers=" + offers +
-                ", band=" + band +
+                ", band=" + bandId +
                 '}';
     }
 }

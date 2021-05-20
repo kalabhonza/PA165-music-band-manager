@@ -7,5 +7,5 @@ export class MusicianDTO {
   password: string;
   // TO DO: instruments
   offers: BandDTO[];
-  band?: BandDTO;
+  band?: number;
 }

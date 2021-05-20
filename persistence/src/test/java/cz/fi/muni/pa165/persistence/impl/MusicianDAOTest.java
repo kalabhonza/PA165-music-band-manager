@@ -136,11 +136,11 @@ public class MusicianDAOTest extends AbstractTestNGSpringContextTests {
         return axelRose;
     }
 
-    private Band getDefaultBand(){
+    private Long getDefaultBand(){
         Band band = new Band();
         band.setName("Queen");
         em.persist(band);
-        return band;
+        return band.getId();
     }
 
 

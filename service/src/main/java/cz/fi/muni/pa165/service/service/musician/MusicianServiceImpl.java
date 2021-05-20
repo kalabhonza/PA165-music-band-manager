@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.api.exceptions.BandManagerServiceException;
 import cz.fi.muni.pa165.api.exceptions.ErrorStatus;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Musician;
+import cz.fi.muni.pa165.persistence.interfaces.BandDAO;
 import cz.fi.muni.pa165.persistence.interfaces.MusicianDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -24,10 +25,12 @@ import java.util.List;
 @Service
 public class MusicianServiceImpl implements MusicianService {
     private MusicianDAO musicianDAO;
+    private BandDAO bandDAO;
 
     @Autowired
-    public MusicianServiceImpl(MusicianDAO musicianDAO) {
+    public MusicianServiceImpl(MusicianDAO musicianDAO, BandDAO bandDAO) {
         this.musicianDAO = musicianDAO;
+        this.bandDAO = bandDAO;
     }
 
     @Override
@@ -37,6 +40,18 @@ public class MusicianServiceImpl implements MusicianService {
             throw new DataAccessException("Musician with id " + id + " was not found.") {};
         }
         return musician;
+    }
+
+    @Override
+    public Musician acceptOffer(Long id, Band band) {
+        Musician musician = musicianDAO.findById(id);
+        musician.acceptOffer(band);
+
+        Band musicianBand = bandDAO.findBandById(band.getId());
+        musicianBand.getMembers().add(musician);
+        bandDAO.update(musicianBand);
+
+        return musicianDAO.update(musician);
     }
 
     @Override
@@ -54,8 +69,8 @@ public class MusicianServiceImpl implements MusicianService {
     }
 
     @Override
-    public List<Musician> findAllByBand(Band band) {
-        return musicianDAO.findAllByBand(band);
+    public List<Musician> findAllByBand(Long bandId) {
+        return musicianDAO.findAllByBand(bandId);
     }
 
     @Override

@@ -81,8 +81,8 @@ public class MusicianFacadeTest {
         this.allMusicians.add(this.musician2);
 
         this.band.setMembers(new HashSet<>(allMusicians));
-        this.musician1.setBand(this.band);
-        this.musician2.setBand(this.band);
+        this.musician1.setBand(this.band.getId());
+        this.musician2.setBand(this.band.getId());
 
         this.musicianCreateDTO = new MusicianCreateDTO();
         this.musicianCreateDTO.setName(musician1.getName());
@@ -93,13 +93,13 @@ public class MusicianFacadeTest {
         this.musicianDTO.setName(musician1.getName());
         this.musicianDTO.setUsername(musician1.getUsername());
         this.musicianDTO.setPassword(musician1.getPassword());
-        this.musicianDTO.setBand(bandMapper.mapToBandDTO(this.band));
+        this.musicianDTO.setBand(this.band.getId());
 
         this.musicianDTO2 = new MusicianDTO();
         this.musicianDTO2.setName(musician2.getName());
         this.musicianDTO2.setUsername(musician2.getUsername());
         this.musicianDTO2.setPassword(musician2.getPassword());
-        this.musicianDTO2.setBand(bandMapper.mapToBandDTO(this.band));
+        this.musicianDTO2.setBand(this.band.getId());
 
         this.allMusiciansDTO = new ArrayList<>();
         this.allMusiciansDTO.add(musicianDTO);
@@ -109,7 +109,7 @@ public class MusicianFacadeTest {
         this.musicianUpdateDTO.setName(musician1.getName());
         this.musicianUpdateDTO.setUsername(musician1.getUsername());
         this.musicianUpdateDTO.setPassword(musician1.getPassword());
-        this.musicianUpdateDTO.setBand(bandMapper.mapToBandDTO(this.band));
+        this.musicianUpdateDTO.setBand(this.band.getId());
 
         this.bandDTO = new BandDTO();
         this.bandDTO.setId(band.getId());
@@ -177,11 +177,11 @@ public class MusicianFacadeTest {
 
     @Test
     public void findAllMusicianByBandTest(){
-        given(musicianService.findAllByBand(band)).willReturn(allMusicians);
+        given(musicianService.findAllByBand(band.getId())).willReturn(allMusicians);
         given(bandMapper.mapToEntity(bandDTO)).willReturn(band);
         given(musicianMapper.mapToListDTO(allMusicians)).willReturn(allMusiciansDTO);
-        List<MusicianDTO> result = musicianFacade.findAllByBand(bandDTO);
+        List<MusicianDTO> result = musicianFacade.findAllByBand(bandDTO.getId());
         assertEquals(allMusiciansDTO, result);
-        then(musicianService).should().findAllByBand(band);
+        then(musicianService).should().findAllByBand(band.getId());
     }
 }

@@ -1,6 +1,8 @@
 package cz.fi.muni.pa165.service.service.manager;
 
+import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
+import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
 import java.util.List;
 
@@ -15,6 +17,13 @@ public interface ManagerService {
      * @return Manager or {@code null}, if there is no Manager with requested id
      */
     Manager findById(long id);
+
+    /**
+     *
+     * @param bandId
+     * @return
+     */
+    Band getManagerBand(Long bandId);
 
     /**
      * Find all Managers

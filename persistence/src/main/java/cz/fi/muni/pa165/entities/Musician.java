@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.entities;
 
 import cz.fi.muni.pa165.enums.Instrument;
+import org.springframework.dao.DataAccessException;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -32,8 +33,8 @@ public class Musician {
     @ManyToMany
     private Set<Band> offers = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Band band;
+    @Column
+    private Long bandId;
 
     public Musician() {}
 
@@ -44,14 +45,18 @@ public class Musician {
         this.password = password;
     }
 
-    public void acceptOffer(Band band) {
-        if (offers.contains(band)) {
-            this.band = band;
+    public Set<Band> acceptOffer(Band band ) {
+        if (this.offers.contains(band)) {
+            this.offers.remove(band);
+            this.bandId = band.getId();
+            return this.offers;
+        } else {
+            throw new DataAccessException("Band " + band.getId() + " is not in offers of musician " + this.id) {};
         }
     }
 
-    public void setBand(Band band) {
-        this.band = band;
+    public void setBand(Long bandId) {
+        this.bandId = bandId;
     }
 
     public void declineOffer(Band band) {
@@ -106,8 +111,8 @@ public class Musician {
         this.offers = offers;
     }
 
-    public Band getBand() {
-        return band;
+    public Long getBand() {
+        return bandId;
     }
 
     @Override
@@ -136,7 +141,7 @@ public class Musician {
                 ", username='" + username + '\'' +
                 ", instruments=" + instruments +
                 ", offers=" + offers +
-                ", band=" + band +
+                ", band=" + bandId +
                 '}';
     }
 }

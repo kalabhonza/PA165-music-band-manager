@@ -102,6 +102,8 @@ public class PresentationDataServiceImpl implements PresentationDataService {
         band.setAlbums(albums);
         band.setManager(manager);
         musician.setOffers(bands);
+
+        manager.setBand(band.getId());
     }
 
     private String hashPassword(String password){

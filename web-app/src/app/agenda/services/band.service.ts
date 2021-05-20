@@ -11,7 +11,7 @@ export class BandService {
   constructor(private bandApiService: BandApiService, private errorAlertService: ErrorAlertService) { }
 
   /**
-   * Return all bands present in system
+   * Return all band-manage present in system
    */
   getAllBands(): Observable<Band[]> {
     return this.bandApiService.getAll().pipe(

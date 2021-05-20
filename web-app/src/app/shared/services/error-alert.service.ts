@@ -13,8 +13,8 @@ export class ErrorAlertService {
   handleError(error: any): void {
     switch (error.status) {
       case 404:
-        if (error.error.message === 'No bands found') {
-          this.snackBar.open('No bands', 'Close', {
+        if (error.error.message === 'No band-manage found') {
+          this.snackBar.open('No band-manage', 'Close', {
             duration: 4000,
             panelClass: ['snackbar-design']
           });
