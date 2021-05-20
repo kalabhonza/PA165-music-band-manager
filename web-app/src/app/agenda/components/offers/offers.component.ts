@@ -29,13 +29,13 @@ export class OffersComponent implements OnInit {
     );
   }
 
-  accept(offerIndex: number): void {
-    this.isLoading = true;
-    this.musicianService.acceptOffer(this.musicianId, this.offers[offerIndex].id).subscribe(
-      () => this.isLoading = false,
-      () => this.isLoading = false
-    );
-  }
+  // accept(offerIndex: number): void {
+  //   this.isLoading = true;
+  //   this.musicianService.acceptOffer(this.musicianId, this.offers[offerIndex].id).subscribe(
+  //     () => this.isLoading = false,
+  //     () => this.isLoading = false
+  //   );
+  // }
 
   private getCurrentOffers(): void {
     this.isLoading = true;

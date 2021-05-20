@@ -13,8 +13,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {CommonModule} from '@angular/common';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule} from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -33,6 +35,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatDialogModule,
     MatDividerModule,
     MatCheckboxModule,
+    MatExpansionModule,
+    MatSelectModule,
     CommonModule
   ],
   exports: [
@@ -50,6 +54,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatDialogModule,
     MatDividerModule,
     MatCheckboxModule,
+    MatExpansionModule,
+    MatSelectModule,
     ReactiveFormsModule
   ],
   declarations: []
