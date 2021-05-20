@@ -33,10 +33,10 @@ public interface MusicianFacade {
 
     /**
      * Finds all musicians of given band
-     * @param band Band of which musicians will be found
+     * @param bandId Band of which musicians will be found
      * @return Musicians of given band
      */
-    List<MusicianDTO> findAllByBand(BandDTO band);
+    List<MusicianDTO> findAllByBand(Long bandId);
 
     /**
      * Creates a new musician

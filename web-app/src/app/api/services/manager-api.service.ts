@@ -5,15 +5,28 @@ import {map} from 'rxjs/operators';
 import {ManagerDTO} from '../dtos/manager-dto';
 import {Manager} from '../../model/manager';
 import {ManagerMapper} from '../mappers/manager-mapper';
+import {Band} from '../../model/band';
+import {BandDTO} from '../dtos/band-dto';
+import {BandMapper} from '../mappers/band-mapper';
 
 @Injectable()
 export class ManagerApiService {
 
   constructor(private http: HttpClient) { }
-  private readonly javaRestEndpoint = `http://localhost:8080/pa165/rest`; // TODO SPECIFY THIS ACCORDING TO REQUIREMENTS OF MILTESTONE 3
+  private readonly javaRestEndpoint = `http://localhost:8080/pa165/rest`;
 
   private static createDefaultHeaders(): HttpHeaders {
     return new HttpHeaders({ Accept: 'application/json' });
+  }
+
+  getBand(bandId: number): Observable<Band> {
+    return this.http
+      .get<BandDTO>(`${this.javaRestEndpoint}/managers/${bandId}/bands`, {
+        headers: ManagerApiService.createDefaultHeaders()
+      })
+      .pipe(
+        map((response) => BandMapper.fromDTO(response))
+      );
   }
 
   /**
@@ -35,7 +48,7 @@ export class ManagerApiService {
    */
   getById(id: number): Observable<Manager> {
     return this.http
-      .get<ManagerDTO>(`${this.javaRestEndpoint}/manager/${id}`, {
+      .get<ManagerDTO>(`${this.javaRestEndpoint}/managers/${id}`, {
         headers: ManagerApiService.createDefaultHeaders()
       })
       .pipe(
@@ -49,7 +62,7 @@ export class ManagerApiService {
    */
   delete(id: number): Observable<any> {
     return this.http
-      .delete(`${this.javaRestEndpoint}/manager/${id}`, {
+      .delete(`${this.javaRestEndpoint}/managers/${id}`, {
         headers: ManagerApiService.createDefaultHeaders()
       });
   }
@@ -61,7 +74,7 @@ export class ManagerApiService {
   create(manager: Manager): Observable<Manager> {
     return this.http
       .post<ManagerDTO>(
-        `${this.javaRestEndpoint}/manager`,
+        `${this.javaRestEndpoint}/managers`,
         ManagerMapper.toDTO(manager),
         { headers: ManagerApiService.createDefaultHeaders() }
       )
@@ -77,7 +90,7 @@ export class ManagerApiService {
   update(manager: Manager): Observable<Manager> {
     return this.http
       .put<ManagerDTO>(
-        `${this.javaRestEndpoint}/manager`,
+        `${this.javaRestEndpoint}/managers`,
         ManagerMapper.toDTO(manager),
         { headers: ManagerApiService.createDefaultHeaders() }
       )

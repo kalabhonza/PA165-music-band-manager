@@ -27,6 +27,7 @@ export class BandComponent implements OnInit {
 
   ngOnInit(): void {
     this.musicianId = this.sessionService.getUserId();
+    this.getBand();
   }
 
   private getBand(): void {
@@ -36,7 +37,7 @@ export class BandComponent implements OnInit {
         exhaustMap(
           (musician) => {
             if (musician.band) {
-              return this.bandService.getBandById(musician.band.id);
+              return this.bandService.getBandById(musician.band);
             } else {
               this.alertMessageService.display('You are not member of any band currently');
               this.isLoading = false;

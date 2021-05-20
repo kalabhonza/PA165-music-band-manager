@@ -21,7 +21,7 @@ export class SessionService {
    * @param userSession session details from back end
    */
   createSession(userSession: Manager | Musician): void {
-    const session = this.createSessionObject(userSession.id, userSession.username, userSession instanceof Musician);
+    const session: Session = this.createSessionObject(userSession.id, userSession.username, userSession instanceof Musician);
     this.cookieService.set('active_user', JSON.stringify(session));
     this.activeSessionSubject$.next(session);
     this.sessionActive = userSession instanceof Musician ? 'USER_ROLE' : 'MANAGER_ROLE';
@@ -69,6 +69,7 @@ export class SessionService {
    * Creates inner structure for user's session
    * @param id user id
    * @param username user's name
+   * @param commonUser
    */
   private createSessionObject(id: number, username: string, commonUser: boolean): any {
     const session = new Session();

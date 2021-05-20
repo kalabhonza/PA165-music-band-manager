@@ -49,7 +49,7 @@ public class ManagerFacadeTest {
     @BeforeMethod
     public void init() {
         MockitoAnnotations.initMocks(this);
-        managerFacade = new ManagerFacadeImpl(managerService, managerMapper);
+        managerFacade = new ManagerFacadeImpl(managerService, managerMapper, bandMapper);
 
         Band band = new Band(2L, "Herders", ALTERNATIVE);
         manager = new Manager(1L, "John Doe", "johan123", "passwd", band.getId());

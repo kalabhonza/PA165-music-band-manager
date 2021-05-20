@@ -1,10 +1,13 @@
 package cz.fi.muni.pa165.service.facade;
 
+import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerCreateDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerUpdateDTO;
 import cz.fi.muni.pa165.api.facade.ManagerFacade;
+import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
+import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
 import cz.fi.muni.pa165.service.service.manager.ManagerService;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ManagerMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +25,13 @@ public class ManagerFacadeImpl implements ManagerFacade {
 
     private ManagerService managerService;
     private ManagerMapperImpl managerMapper;
+    private BandMapperImpl bandMapper;
 
     @Autowired
-    public ManagerFacadeImpl(ManagerService managerService, ManagerMapperImpl managerMapper) {
+    public ManagerFacadeImpl(ManagerService managerService, ManagerMapperImpl managerMapper, BandMapperImpl bandMapper) {
         this.managerService = managerService;
         this.managerMapper = managerMapper;
+        this.bandMapper = bandMapper;
     }
 
     @Override
@@ -39,6 +44,12 @@ public class ManagerFacadeImpl implements ManagerFacade {
     public List<ManagerDTO> findAll() {
         List<Manager> manager = managerService.findAll();
         return managerMapper.mapToListDTO(manager);
+    }
+
+    @Override
+    public BandDTO getManagerBand(Long bandId) {
+        Band band = managerService.getManagerBand(bandId);
+        return bandMapper.mapToBandDTO(band);
     }
 
     @Override

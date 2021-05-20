@@ -4,9 +4,7 @@ import cz.fi.muni.pa165.api.dto.musician.MusicianCreateDTO;
 import cz.fi.muni.pa165.api.dto.musician.MusicianDTO;
 import cz.fi.muni.pa165.api.dto.musician.MusicianUpdateDTO;
 import cz.fi.muni.pa165.api.facade.MusicianFacade;
-import cz.fi.muni.pa165.rest.assemblers.MusicianResourceAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +28,6 @@ public class MusicianController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MusicianDTO>> getAll(){
-        System.out.println("hERE");
         List<MusicianDTO> musicians = musicianFacade.findAll();
         return ResponseEntity.ok(musicians);
     }

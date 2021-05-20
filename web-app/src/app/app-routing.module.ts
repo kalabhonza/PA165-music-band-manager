@@ -10,10 +10,10 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'bands',
+    path: 'band-manage',
     canActivate: [AuthManagerGuard],
-    loadChildren: () => import('./agenda/components/bands/bands.module').then(m => m.BandsModule),
-    data: {breadcrumb: 'Bands'}
+    loadChildren: () => import('./agenda/components/band-manage/bands.module').then(m => m.BandsModule),
+    data: {breadcrumb: 'Manage band'}
   },
   {
     path: 'musicians',

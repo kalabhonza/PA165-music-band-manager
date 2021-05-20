@@ -32,9 +32,9 @@ public class MusicianDAOImpl implements MusicianDAO {
         return em.createQuery("SELECT m FROM musicians m", Musician.class).getResultList();
     }
 
-    public List<Musician> findAllByBand(Band band) {
-        return em.createQuery("SELECT m FROM musicians m WHERE m.band = :band", Musician.class)
-                .setParameter("band", band)
+    public List<Musician> findAllByBand(Long bandId) {
+        return em.createQuery("SELECT m FROM musicians m WHERE m.bandId = :bandId", Musician.class)
+                .setParameter("bandId", bandId)
                 .getResultList();
     }
 
