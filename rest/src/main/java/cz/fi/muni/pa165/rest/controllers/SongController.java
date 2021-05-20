@@ -34,15 +34,9 @@ public class SongController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CollectionModel<EntityModel<SongDTO>>> getAll() {
+    public ResponseEntity<List<SongDTO>> getAll() {
         List<SongDTO> songs = songFacade.findAllSongs();
-        List<EntityModel<SongDTO>> songsResource = new ArrayList<>();
-        for (SongDTO songDTO : songs) {
-            songsResource.add(songResourceAssembler.toModel(songDTO));
-        }
-        CollectionModel<EntityModel<SongDTO>> resultResources = new CollectionModel<>(songsResource);
-        resultResources.add(linkTo(SongController.class).withSelfRel().withType("GET"));
-        return new ResponseEntity<>(resultResources, HttpStatus.OK);
+        return ResponseEntity.ok(songs);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
