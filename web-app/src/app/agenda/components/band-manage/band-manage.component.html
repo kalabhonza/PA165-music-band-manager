@@ -52,7 +52,7 @@
 
 
         <div class="albums-content">
-          <div class="album-content" *ngFor="let albumGroup of albums.controls; index as albumIndex" [formGroupName]="albumIndex">
+          <div class="album-content" *ngFor="let albumGroup of albums.controls; index as albumIndex" formGroupName="{{albumIndex}}">
             <mat-accordion>
               <mat-expansion-panel [expanded]="true">
                 <mat-expansion-panel-header>
@@ -108,13 +108,42 @@
           <button class="add-button" mat-button mat-raised-button color="primary" matTooltip="Add album" (click)="addAlbum()">Add</button>
         </div>
         <div class="save-content">
-          <button [disabled]="bandManageFormGroup.formGroup.pristine || !bandManageFormGroup.formGroup.valid" id="save-button" mat-button mat-raised-button color="primary" matTooltip="Save changes" (click)="save()">Save</button>
+          <button [disabled]="!bandManageFormGroup.formGroup.dirty || !bandManageFormGroup.formGroup.valid" id="save-button" mat-button mat-raised-button color="primary" matTooltip="Save changes" (click)="save()">Save</button>
           <mat-error *ngIf="!bandManageFormGroup.formGroup.valid">*Required fields must be<br> filled before saving</mat-error>
         </div>
 
       </div>
+      <div class="band-info members-info">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Members
+              </mat-panel-title>
+              <mat-panel-description>
+                Members of the {{bandName.value}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="card-content">
+              <div *ngIf="band.members.length > 0 else noMembers">
+                <div *ngFor="let member of band.members">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Member name</mat-label>
+                    <input [disabled]="true" matInput placeholder="Member name" required value="{{member.name}}">
+                  </mat-form-field>
+                </div>
+              </div>
+              <ng-template #noMembers>
+                <h3>Band does not have any members yet</h3>
+              </ng-template>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
+
       <div class="tour-content">
-        <div class="tour-content" *ngFor="let tourGroup of tours.controls; index as tourIndex" [formGroupName]="tourIndex">
+        <div class="tour-content" *ngFor="let tourGroup of tours.controls; index as tourIndex" formGroupName="{{tourIndex}}">
           <mat-accordion>
             <mat-expansion-panel [expanded]="false">
               <mat-expansion-panel-header>

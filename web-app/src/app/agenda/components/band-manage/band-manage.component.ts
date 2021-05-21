@@ -112,21 +112,25 @@ export class BandManageComponent implements OnInit {
   removeSong(bandIndex: number, songIndex: number): void {
     this.band.albums[bandIndex].songs.splice(songIndex, 1);
     this.updateForm();
+    this.bandManageFormGroup.formGroup.markAsDirty();
   }
 
   removeAlbum(albumIndex: number): void {
     this.band.albums.splice(albumIndex, 1);
     this.updateForm();
+    this.bandManageFormGroup.formGroup.markAsDirty();
   }
 
   removeTour(tourIndex: number): void {
     this.band.tours.splice(tourIndex, 1);
     this.updateForm();
+    this.bandManageFormGroup.formGroup.markAsDirty();
   }
 
   removeConcert(tourIndex: number, concertIndex: number): void {
     this.band.tours[tourIndex].concerts.splice(concertIndex, 1);
     this.updateForm();
+    this.bandManageFormGroup.formGroup.markAsDirty();
   }
 
   addConcert(tourIndex: number): void {
