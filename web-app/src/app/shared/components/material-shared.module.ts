@@ -17,6 +17,8 @@ import { MatDialogModule} from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -36,6 +38,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatDividerModule,
     MatCheckboxModule,
     MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatSelectModule,
     CommonModule
   ],
@@ -56,6 +60,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatCheckboxModule,
     MatExpansionModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ReactiveFormsModule
   ],
   declarations: []
