@@ -14,7 +14,7 @@
   <ng-template #loggedIn class="user-menu">
     <button mat-button [matMenuTriggerFor]="appMenu" matTooltip="User menu"><i class="material-icons">account_box</i></button>
     <mat-menu #appMenu="matMenu">
-      <mat-label id="user-name">{{(activeSession$ | async)}}</mat-label>
+      <mat-label id="user-name">{{(activeSession$ | async).sessionUsername}}</mat-label>
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="navigateToProfile()">Profile</button>
       <button mat-menu-item (click)="logout()">Logout<mat-icon id="logout">input</mat-icon></button>

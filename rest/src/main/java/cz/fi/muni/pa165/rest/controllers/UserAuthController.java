@@ -41,7 +41,6 @@ public class UserAuthController {
      * @param pass password of hero
      * @return Resource<UserDTO>
      */
-    @RolesAllowed("ROLE_USER")
     @GetMapping("/user-login/{name}/password/{pass}")
     public ResponseEntity<MusicianDTO> loginUser(@PathVariable String name, @PathVariable String pass){
         MusicianDTO musicianDTO = musicianFacade.login(name, pass);
@@ -55,7 +54,6 @@ public class UserAuthController {
      * @param pass password of hero
      * @return Resource<UserDTO>
      */
-    @RolesAllowed("ROLE_ADMIN")
     @GetMapping("/manager-login/{name}/password/{pass}")
     public ResponseEntity<ManagerDTO> loginManager(@PathVariable String name, @PathVariable String pass){
         ManagerDTO managerDTO = managerFacade.login(name, pass);
