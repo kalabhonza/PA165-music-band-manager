@@ -21,14 +21,14 @@ Team members can login to the system and see the offers made by the band manager
      * install angular-cli: `npm install -g @angular/cli`
      * run client: `ng serve`
 
-# Login Credentials *Not implemented yet*
+# Login Credentials 
 * Admin account 
     * Username: admin
     * Password: admin
 
-* Regular account 1
-    * Username: user1
-    * Password: user1
+* Regular account
+    * Username: user
+    * Password: user
 
 ## Use Case Diagram
 

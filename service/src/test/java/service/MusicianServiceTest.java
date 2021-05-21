@@ -3,6 +3,7 @@ package service;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.entities.Musician;
+import cz.fi.muni.pa165.persistence.interfaces.BandDAO;
 import cz.fi.muni.pa165.persistence.interfaces.MusicianDAO;
 import cz.fi.muni.pa165.service.service.musician.MusicianService;
 import cz.fi.muni.pa165.service.service.musician.MusicianServiceImpl;
@@ -33,11 +34,12 @@ public class MusicianServiceTest {
 
     @Mock
     private MusicianDAO musicianDAO;
+    private BandDAO bandDAO;
 
     @BeforeMethod
     private void init() {
         MockitoAnnotations.initMocks(this);
-        musicianService = new MusicianServiceImpl(musicianDAO);
+        musicianService = new MusicianServiceImpl(musicianDAO, bandDAO);
         this.musician1 = new Musician(1L, "Bon Jovi", "bjovi", "prague");
         this.musician2 = new Musician(2L, "John Lock", "jlock", "abcd");
 

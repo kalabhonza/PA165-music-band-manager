@@ -58,7 +58,7 @@ public class MusicianFacadeTest {
     @BeforeMethod
     public void unit(){
         MockitoAnnotations.initMocks(this);
-        musicianFacade = new MusicianFacadeImpl(musicianService, musicianMapper,bandMapper);
+        musicianFacade = new MusicianFacadeImpl(musicianService, musicianMapper, bandMapper);
 
         this.musician1 = new Musician(1L, "Bon Jovi", "bjovi", "prague");
         this.musician2 = new Musician(2L, "John Lock", "jlock", "abcd");

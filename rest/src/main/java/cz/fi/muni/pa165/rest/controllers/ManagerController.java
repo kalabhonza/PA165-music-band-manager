@@ -1,15 +1,19 @@
 package cz.fi.muni.pa165.rest.controllers;
 
 import cz.fi.muni.pa165.api.dto.band.BandDTO;
-import cz.fi.muni.pa165.api.dto.manager.ManagerCreateDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
+import cz.fi.muni.pa165.api.dto.manager.ManagerCreateDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerUpdateDTO;
+
 import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.api.facade.ManagerFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import javax.validation.Valid;
@@ -34,34 +38,63 @@ public class ManagerController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ManagerDTO>> getAll(){
-        List<ManagerDTO> managers = managerFacade.findAll();
-        return ResponseEntity.ok(managers);
+        try {
+            return ResponseEntity.ok(managerFacade.findAll());
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ManagerDTO> getById(@PathVariable Long id){
-        return ResponseEntity.ok(managerFacade.findById(id));
+        try {
+            return ResponseEntity.ok(managerFacade.findById(id));
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 
     @GetMapping(value = "/{id}/bands", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BandDTO> getByBandId(@PathVariable Long id){
-        return ResponseEntity.ok(managerFacade.getManagerBand(id));
+        try {
+            return ResponseEntity.ok(bandFacade.findBandById(id));
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createManager(@RequestBody @Valid ManagerCreateDTO managerCreateDTO){
-        return ResponseEntity.ok(managerFacade.create(managerCreateDTO));
+        try {
+            return ResponseEntity.ok(managerFacade.create(managerCreateDTO));
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteManager(@RequestBody @Valid ManagerDTO managerDTO){
-        managerFacade.remove(managerDTO);
+        try {
+            managerFacade.remove(managerDTO);;
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+        }
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateManager(@RequestBody @Valid ManagerUpdateDTO managerUpdateDTO){
-        managerFacade.update(managerUpdateDTO);
+        try {
+            managerFacade.update(managerUpdateDTO);;
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+        }
         return ResponseEntity.noContent().build();
     }
 }

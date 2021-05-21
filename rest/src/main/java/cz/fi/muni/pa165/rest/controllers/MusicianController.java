@@ -1,8 +1,10 @@
 package cz.fi.muni.pa165.rest.controllers;
 
+import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.dto.musician.MusicianCreateDTO;
 import cz.fi.muni.pa165.api.dto.musician.MusicianDTO;
 import cz.fi.muni.pa165.api.dto.musician.MusicianUpdateDTO;
+import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.api.facade.MusicianFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -23,16 +25,22 @@ import java.util.List;
 @RequestMapping("/rest/musicians")
 public class MusicianController {
     private MusicianFacade musicianFacade;
+    private BandFacade bandFacade;
 
     @Autowired
-    public MusicianController(MusicianFacade musicianFacade) {
+    public MusicianController(MusicianFacade musicianFacade, BandFacade bandFacade) {
         this.musicianFacade = musicianFacade;
+        this.bandFacade = bandFacade;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MusicianDTO>> getAll(){
-        List<MusicianDTO> musicians = musicianFacade.findAll();
-        return ResponseEntity.ok(musicians);
+        try {
+            return ResponseEntity.ok(musicianFacade.findAll());
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,18 +56,46 @@ public class MusicianController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createMusician(@RequestBody @Valid MusicianCreateDTO musicianCreateDTO){
-        return ResponseEntity.ok(musicianFacade.create(musicianCreateDTO));
+        try {
+            return ResponseEntity.ok(musicianFacade.create(musicianCreateDTO));
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteMusician(@RequestBody @Valid MusicianDTO musicianDTO){
-        musicianFacade.remove(musicianDTO);
+        try {
+            musicianFacade.remove(musicianDTO);;
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+        }
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateMusician(@RequestBody @Valid MusicianUpdateDTO musicianUpdateDTO){
-        musicianFacade.update(musicianUpdateDTO);
+        try {
+            musicianFacade.update(musicianUpdateDTO);;
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+        }
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{musicianID}/offers/{bandID}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    public ResponseEntity<MusicianDTO> acceptOffer(@PathVariable Long musicianID, @PathVariable Long bandID){
+        try {
+            MusicianDTO musician = musicianFacade.findById(musicianID);
+            BandDTO band = bandFacade.findBandById(bandID);
+            return ResponseEntity.ok(musicianFacade.acceptOffer(musician, band));
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 }

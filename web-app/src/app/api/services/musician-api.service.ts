@@ -51,7 +51,7 @@ export class MusicianApiService {
   accept(musicianId: number, bandId: number): Observable<any> {
     return this.http
       .post(
-        `${this.javaRestEndpoint}/musicians/offer`,
+        `${this.javaRestEndpoint}/musicians/{musicianId}/offers/{bandId}`,
         {musician_id: musicianId, band_id: bandId},
         {
         headers: MusicianApiService.createDefaultHeaders()
