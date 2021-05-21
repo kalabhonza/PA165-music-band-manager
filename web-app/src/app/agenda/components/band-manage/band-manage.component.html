@@ -37,7 +37,7 @@
 
                 <mat-form-field appearance="fill">
                   <mat-label>{{bandStyle.value}}</mat-label>
-                  <mat-select required (selectionChange)="bandStyle.setValue($event.value)">
+                  <mat-select [formControl]="bandStyle" required (selectionChange)="bandStyle.setValue($event.value)">
                     <mat-option *ngFor="let style of availableStyles" [value]="style">
                       {{style}}
                     </mat-option>

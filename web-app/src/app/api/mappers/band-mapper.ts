@@ -8,6 +8,7 @@ import {TourMapper} from './tour-mapper';
 export class BandMapper {
   static fromDTO(dto: BandDTO): Band {
     const band = new Band();
+    console.log(dto)
     band.id = dto.id;
     band.name = dto.name;
     band.logo = dto.logo;
@@ -24,6 +25,7 @@ export class BandMapper {
   }
 
   static toDTO(band: Band): BandDTO {
+    console.log(band)
     const result = new BandDTO();
     result.id = band.id;
     result.name = band.name;

@@ -58,15 +58,12 @@ export class BandApiService {
    * Sends http request to create a band
    * @param band band to be created
    */
-  create(band: Band): Observable<Band> {
+  create(band: Band): Observable<any> {
     return this.http
       .post<BandDTO>(
         `${this.javaRestEndpoint}/bands`,
         BandMapper.toDTO(band),
         { headers: BandApiService.createDefaultHeaders() }
-      )
-      .pipe(
-        map((response) => BandMapper.fromDTO(response))
       );
   }
 

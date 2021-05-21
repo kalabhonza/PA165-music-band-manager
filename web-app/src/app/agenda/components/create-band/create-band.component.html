@@ -5,50 +5,56 @@
 <ng-template #creator>
   <div class="band-info">
     <h2>Create your own Band</h2>
-    <mat-accordion>
-      <mat-expansion-panel [expanded]="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{bandName.value}}
-          </mat-panel-title>
-          <mat-panel-description>
-            Band details
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="card-content">
-          <mat-label>Band logo:</mat-label>
-          <div class="band-logo">
-            <mat-icon *ngIf="!band.logo else bandLogo">group</mat-icon>
-            <ng-template #bandLogo>
-              <img [src]="band.logo" height="200"> <br/>
-            </ng-template>
-            <div id="upload-button">
-              <button type="button" mat-raised-button (click)="fileInput.click()">Choose Logo</button>
-              <input hidden (change)="onSelectFile($event)" #fileInput type="file" id="file">
+    <div *ngIf="manager.bandId && manager.bandId !== null else noBand">
+      <h4>You already have a band</h4>
+    </div>
+    <ng-template #noBand>
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{bandName.value}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Band details
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="card-content">
+            <mat-label>Band logo:</mat-label>
+            <div class="band-logo">
+              <mat-icon *ngIf="!band.logo else bandLogo">group</mat-icon>
+              <ng-template #bandLogo>
+                <img [src]="band.logo" height="200"> <br/>
+              </ng-template>
+              <div id="upload-button">
+                <button type="button" mat-raised-button (click)="fileInput.click()">Choose Logo</button>
+                <input hidden (change)="onSelectFile($event)" #fileInput type="file" id="file">
+              </div>
             </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Band name</mat-label>
+              <input matInput placeholder="Band name" [formControl]="bandName" required>
+              <mat-error *ngIf="bandName.hasError('required')">Band name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>{{bandStyle.value}}</mat-label>
+              <mat-select required (selectionChange)="bandStyle.setValue($event.value)">
+                <mat-option *ngFor="let style of availableStyles" [value]="style">
+                  {{style}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-label>Manager: <a class="year-content">{{manager.name}}</a></mat-label>
           </div>
-          <mat-form-field appearance="outline">
-            <mat-label>Band name</mat-label>
-            <input matInput placeholder="Band name" [formControl]="bandName" required>
-            <mat-error *ngIf="bandName.hasError('required')">Band name is required</mat-error>
-          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
 
-          <mat-form-field appearance="fill">
-            <mat-label>{{bandStyle.value}}</mat-label>
-            <mat-select required (selectionChange)="bandStyle.setValue($event.value)">
-              <mat-option *ngFor="let style of availableStyles" [value]="style">
-                {{style}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-label>Manager: <a class="year-content">{{manager.name}}</a></mat-label>
-        </div>
-      </mat-expansion-panel>
-    </mat-accordion>
     <div class="save-content">
       <button [disabled]="!createBandFormGroup.formGroup.dirty || !createBandFormGroup.formGroup.valid" id="save-button" mat-button mat-raised-button color="primary" matTooltip="Create band" (click)="create()">Create</button>
       <mat-error *ngIf="!createBandFormGroup.formGroup.valid">*Required fields must be filled before band<br> can be created</mat-error>
     </div>
+    </ng-template>
   </div>
 </ng-template>

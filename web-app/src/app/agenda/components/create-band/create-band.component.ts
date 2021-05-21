@@ -46,10 +46,11 @@ export class CreateBandComponent implements OnInit {
 
   create(): void {
     this.isLoading = true;
-    this.createBandFormGroup.setToBand(this.band);
+    this.createBandFormGroup.setToBand(this.band, this.manager);
     this.bandService.createBand(this.band).subscribe(
       _ => {
         this.alertService.display('Band was created an registered to you');
+        this.createBandFormGroup = new CreateBandFormGroup(new Band());
         this.isLoading = false;
       },
       _ => this.isLoading = false

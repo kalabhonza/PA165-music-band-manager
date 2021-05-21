@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerCreateDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerUpdateDTO;
 
+import cz.fi.muni.pa165.api.dto.musician.MusicianDTO;
 import cz.fi.muni.pa165.api.facade.BandFacade;
 import cz.fi.muni.pa165.api.facade.ManagerFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,5 +104,17 @@ public class ManagerController {
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/{bandId}/offers/{musicianId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    public ResponseEntity<MusicianDTO> setOffer(@PathVariable Long musicianId, @PathVariable Long bandId){
+        try {
+            managerFacade.setOffer(musicianId, bandId);
+            return ResponseEntity.noContent().build();
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 }

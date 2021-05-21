@@ -24,7 +24,10 @@ export class OffersComponent implements OnInit {
   decline(offerIndex: number): void {
     this.isLoading = true;
     this.musicianService.declineOffer(this.musicianId, this.offers[offerIndex].id).subscribe(
-      () => this.isLoading = false,
+      () => {
+        this.isLoading = false;
+        this.ngOnInit();
+      },
       () => this.isLoading = false
     );
   }
@@ -32,7 +35,10 @@ export class OffersComponent implements OnInit {
   accept(offerIndex: number): void {
     this.isLoading = true;
     this.musicianService.acceptOffer(this.musicianId, this.offers[offerIndex].id).subscribe(
-      () => this.isLoading = false,
+      () => {
+        this.isLoading = false;
+        this.ngOnInit();
+      },
       () => this.isLoading = false
     );
   }

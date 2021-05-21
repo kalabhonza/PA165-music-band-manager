@@ -15,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -54,17 +53,6 @@ public class BandController {
         }
     }
 
-//    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<EntityModel<BandDTO>> getByName(@PathVariable String name){
-//        List<BandDTO> bands = bandFacade.findBandByName(name);
-//        List<EntityModel<BandDTO>> bandsResource = new ArrayList<>();
-//        for (BandDTO bandDTO : bands){
-//            bandsResource.add(bandResourceAssembler.toModel(bandDTO));
-//        }
-//        CollectionModel<EntityModel<BandDTO>> resultResources = new CollectionModel<>(bandsResource);
-//        resultResources.add(linkTo(BandController.class).withSelfRel().withType("GET"));
-//        return new ResponseEntity<>(resultResources, HttpStatus.OK);
-//    }
 
     @RolesAllowed({"ROLE_USER"})
     @GetMapping(value = "/{id}/managers", produces = MediaType.APPLICATION_JSON_VALUE)

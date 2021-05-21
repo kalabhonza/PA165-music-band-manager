@@ -38,7 +38,7 @@ export class ManagerApiService {
   sendOffer(musicianId: number, bandId: number): Observable<any> {
     return this.http
       .post(
-        `${this.javaRestEndpoint}/manager/${bandId}/offer/${musicianId}`,
+        `${this.javaRestEndpoint}/managers/${bandId}/offers/${musicianId}`,
         {musician_id: musicianId, band_id: bandId},
         {
           headers: ManagerApiService.createDefaultHeaders()
