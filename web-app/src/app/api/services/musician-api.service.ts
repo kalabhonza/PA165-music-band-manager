@@ -21,7 +21,7 @@ export class MusicianApiService {
    */
   getAll(): Observable<Musician[]> {
     return this.http
-      .get<MusicianDTO[]>(`${this.javaRestEndpoint}/musicians`, {
+      .get<MusicianDTO[]>(`${this.javaRestEndpoint}/musicians/free`, {
         headers: MusicianApiService.createDefaultHeaders()
       })
       .pipe(
