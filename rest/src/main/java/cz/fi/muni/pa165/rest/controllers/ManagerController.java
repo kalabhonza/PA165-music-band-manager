@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class ManagerController {
         this.bandFacade = bandFacade;
     }
 
+    @RolesAllowed({"ROLE_USER"})
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ManagerDTO>> getAll(){
         try {
@@ -46,6 +48,7 @@ public class ManagerController {
         }
     }
 
+    @RolesAllowed({"ROLE_USER"})
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ManagerDTO> getById(@PathVariable Long id){
         try {
@@ -56,6 +59,7 @@ public class ManagerController {
         }
     }
 
+    @RolesAllowed({"ROLE_USER"})
     @GetMapping(value = "/{id}/bands", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BandDTO> getByBandId(@PathVariable Long id){
         try {
@@ -66,6 +70,7 @@ public class ManagerController {
         }
     }
 
+    @RolesAllowed("ROLE_ADMIN")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createManager(@RequestBody @Valid ManagerCreateDTO managerCreateDTO){
         try {
@@ -76,6 +81,7 @@ public class ManagerController {
         }
     }
 
+    @RolesAllowed("ROLE_ADMIN")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteManager(@RequestBody @Valid ManagerDTO managerDTO){
         try {
@@ -87,6 +93,7 @@ public class ManagerController {
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed("ROLE_ADMIN")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateManager(@RequestBody @Valid ManagerUpdateDTO managerUpdateDTO){
         try {

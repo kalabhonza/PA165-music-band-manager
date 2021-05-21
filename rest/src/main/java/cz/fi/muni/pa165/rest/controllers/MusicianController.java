@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class MusicianController {
         this.bandFacade = bandFacade;
     }
 
+    @RolesAllowed({"ROLE_USER"})
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MusicianDTO>> getAll(){
         try {
@@ -43,6 +45,7 @@ public class MusicianController {
         }
     }
 
+    @RolesAllowed({"ROLE_USER"})
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     public ResponseEntity<MusicianDTO> getById(@PathVariable Long id){
@@ -53,7 +56,7 @@ public class MusicianController {
                     HttpStatus.NOT_FOUND, ex.getMessage(), ex);
         }
     }
-
+    @RolesAllowed("ROLE_USER")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createMusician(@RequestBody @Valid MusicianCreateDTO musicianCreateDTO){
         try {
@@ -64,6 +67,7 @@ public class MusicianController {
         }
     }
 
+    @RolesAllowed("ROLE_USER")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteMusician(@RequestBody @Valid MusicianDTO musicianDTO){
         try {
@@ -75,6 +79,7 @@ public class MusicianController {
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed("ROLE_USER")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateMusician(@RequestBody @Valid MusicianUpdateDTO musicianUpdateDTO){
         try {

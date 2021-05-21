@@ -41,19 +41,27 @@ public class PresentationDataServiceImpl implements PresentationDataService {
     @Override
     public void createData() {
         Manager manager = new Manager();
-        manager.setName("John");
+        manager.setName("John Lock");
         manager.setUserName("admin");
         manager.setPassword(hashPassword("admin"));
         managerDAO.create(manager);
 
+        //manager with no band - test create band
+        Manager manager2 = new Manager();
+        manager2.setName("Alton Rock");
+        manager2.setUserName("admin2");
+        manager2.setPassword(hashPassword("admin2"));
+        managerDAO.create(manager2);
+
         Band band = new Band();
-        band.setName("Band 1");
+        band.setName("Linkin Park");
         band.setStyle(Style.ROCK);
         bandDAO.create(band);
 
+
         Musician musician = new Musician();
         musician.setUsername("user");
-        musician.setName("Peter");
+        musician.setName("Peter Hrubý");
         musician.setPassword(hashPassword("user"));
         List<Instrument> instruments = new ArrayList<>();
         instruments.add(Instrument.GUITAR);
@@ -61,14 +69,29 @@ public class PresentationDataServiceImpl implements PresentationDataService {
         musician.setInstruments(instruments);
         musicianDAO.create(musician);
 
+        Musician musician2 = new Musician();
+        musician2.setUsername("user2");
+        musician2.setName("Jan Kotel");
+        musician2.setPassword(hashPassword("user2"));
+        List<Instrument> instruments2 = new ArrayList<>();
+        instruments2.add(Instrument.GUITAR);
+        musician2.setInstruments(instruments2);
+        musicianDAO.create(musician2);
+
+        Musician musician3 = new Musician();
+        musician3.setUsername("user3");
+        musician3.setName("Josef Vojtek");
+        musician3.setPassword(hashPassword("user3"));
+        musicianDAO.create(musician3);
+
         Song song1 = new Song();
-        song1.setName("Song 1");
-        song1.setDuration(new Time(65));
+        song1.setName("In the End");
+        song1.setDuration(new Time(217));
         songDAO.create(song1);
 
         Song song2 = new Song();
-        song2.setName("Song 2");
-        song2.setDuration(new Time(49));
+        song2.setName("Numb");
+        song2.setDuration(new Time(186));
         songDAO.create(song2);
 
         Set<Song> songs = new HashSet<>();

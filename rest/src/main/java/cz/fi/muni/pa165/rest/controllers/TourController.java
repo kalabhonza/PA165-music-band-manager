@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class TourController {
         this.tourFacade = tourFacade;
     }
 
+    @RolesAllowed({"ROLE_USER"})
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TourDTO>> getAll(){
         try {
@@ -40,6 +42,7 @@ public class TourController {
         }
     }
 
+    @RolesAllowed({"ROLE_USER"})
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TourDTO> getById(@PathVariable Long id){
         try {
@@ -50,6 +53,7 @@ public class TourController {
         }
     }
 
+    @RolesAllowed("ROLE_ADMIN")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createTour(@RequestBody @Valid TourCreateDTO tourCreateDTO){
         try {
@@ -59,6 +63,7 @@ public class TourController {
                     HttpStatus.NOT_FOUND, ex.getMessage(), ex);
         }    }
 
+    @RolesAllowed("ROLE_ADMIN")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteTour(@RequestBody @Valid TourDTO tourDTO){
         try {
@@ -69,7 +74,7 @@ public class TourController {
         }
         return ResponseEntity.noContent().build();
     }
-
+    @RolesAllowed("ROLE_ADMIN")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateTour(@RequestBody @Valid TourUpdateDTO tourUpdateDTO){
         try {

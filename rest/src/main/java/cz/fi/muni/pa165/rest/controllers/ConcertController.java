@@ -14,6 +14,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class ConcertController {
         this.concertFacade = concertFacade;
     }
 
+    @RolesAllowed({"ROLE_USER"})
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ConcertDTO>> getAll(){
         try {
@@ -46,6 +48,7 @@ public class ConcertController {
         }
     }
 
+    @RolesAllowed({"ROLE_USER"})
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ConcertDTO> getById(@PathVariable Long id){
         try {
@@ -55,6 +58,7 @@ public class ConcertController {
                     HttpStatus.NOT_FOUND, ex.getMessage(), ex);
         }    }
 
+    @RolesAllowed("ROLE_ADMIN")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createConcert(@RequestBody @Valid ConcertCreateDTO concertCreateDTO){
         try {
@@ -64,6 +68,7 @@ public class ConcertController {
                     HttpStatus.NOT_FOUND, ex.getMessage(), ex);
         }    }
 
+    @RolesAllowed("ROLE_ADMIN")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteConcert(@RequestBody @Valid ConcertDTO concertDTO){
         try {
@@ -76,6 +81,7 @@ public class ConcertController {
 
     }
 
+    @RolesAllowed("ROLE_ADMIN")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateConcert(@RequestBody @Valid ConcertUpdateDTO concertUpdateDTO){
         try {
