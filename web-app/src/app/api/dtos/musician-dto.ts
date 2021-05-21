@@ -5,7 +5,6 @@ export class MusicianDTO {
   name: string;
   username: string;
   password: string;
-  // TO DO: instruments
   offers: BandDTO[];
   band?: number;
 }
