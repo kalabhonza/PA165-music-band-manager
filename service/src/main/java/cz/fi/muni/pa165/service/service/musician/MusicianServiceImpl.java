@@ -43,14 +43,10 @@ public class MusicianServiceImpl implements MusicianService {
     }
 
     @Override
-    public Musician acceptOffer(Long id, Band band) {
-        Musician musician = musicianDAO.findById(id);
+    public Musician acceptOffer(Musician musician, Band band) {
         musician.acceptOffer(band);
-
-        Band musicianBand = bandDAO.findBandById(band.getId());
-        musicianBand.getMembers().add(musician);
-        bandDAO.update(musicianBand);
-
+        band.getMembers().add(musician);
+        bandDAO.update(band);
         return musicianDAO.update(musician);
     }
 

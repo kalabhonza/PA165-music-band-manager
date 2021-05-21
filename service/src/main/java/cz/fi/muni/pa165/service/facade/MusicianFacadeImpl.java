@@ -76,6 +76,11 @@ public class MusicianFacadeImpl implements MusicianFacade {
     }
 
     @Override
+    public MusicianDTO acceptOffer(MusicianDTO musician, BandDTO band) {
+        return musicianService.acceptOffer(musicianMapper.mapToEntity(musician), bandMapper.mapToEntity(band));
+    }
+
+    @Override
     public MusicianDTO login(String username, String password) {
         Musician loggedMusician = musicianService.login(username, password);
         return musicianMapper.mapToMusicianDTO(loggedMusician);
