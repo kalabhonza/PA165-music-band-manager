@@ -9,7 +9,7 @@ export class ManagerMapper {
     const manager = new Manager();
     manager.id = dto.id;
     manager.name = dto.name;
-    manager.username = dto.username;
+    manager.username = dto.userName;
     manager.password = dto.password;
     manager.bandId = dto.band;
     return manager;
@@ -23,7 +23,7 @@ export class ManagerMapper {
     const result = new ManagerDTO();
     result.id = manager.id;
     result.name = manager.name;
-    result.username = manager.username;
+    result.userName = manager.username;
     result.password = manager.password;
     result.band = manager.bandId;
     return result;

@@ -11,9 +11,10 @@ export class MusicianMapper {
     const musician = new Musician();
     musician.id = dto.id;
     musician.name = dto.name;
-    musician.username = dto.username;
+    musician.username = dto.userName;
     musician.password = dto.password;
     musician.offers = MusicianMapper.fromBandDTOs(dto.offers);
+    musician.instruments = dto.instruments;
     musician.band = dto.band;
     return musician;
   }
@@ -26,7 +27,8 @@ export class MusicianMapper {
     const result = new MusicianDTO();
     result.id = musician.id;
     result.name = musician.name;
-    result.username = musician.username;
+    result.userName = musician.username;
+    result.instruments = musician.instruments;
     result.password = musician.name;
     result.offers = MusicianMapper.toBandDTOs(musician.offers);
     result.band = musician.band;

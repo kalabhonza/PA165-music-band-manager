@@ -1,7 +1,7 @@
 export class ManagerDTO {
   id: number;
   name: string;
-  username: string;
+  userName: string;
   password: string;
   band: number;
 }

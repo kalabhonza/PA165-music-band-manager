@@ -1,1 +1,181 @@
-<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<div *ngIf="isLoading else loaded">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<ng-template #loaded>
+    <div *ngIf="band else noBand" class="band-container">
+      <div class="band-content">
+        <div class="band-info">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{band.name}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  Band details
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="card-content">
+                <mat-label>Band logo:</mat-label>
+                <div class="band-logo">
+                  <mat-icon *ngIf="!band.logo else bandLogo">group</mat-icon>
+                  <ng-template #bandLogo>
+                    <img [src]="band.logo" height="200"> <br/>
+                  </ng-template>
+                </div>
+                <mat-form-field appearance="outline">
+                  <mat-label>Band name</mat-label>
+                  <input [readonly]="true" matInput placeholder="Band name" [value]="band.name">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                  <mat-label>{{band.style}}</mat-label>
+                  <mat-select [disabled]="true">
+                    <mat-option [value]="band.style">
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-label>Manager: <a class="year-content">{{band.manager.name}}</a></mat-label>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+
+
+        <div class="albums-content">
+          <div class="album-content" *ngFor="let album of band.albums; index as albumIndex">
+            <mat-accordion>
+              <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{album.name}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Album details
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="card-content">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Album name</mat-label>
+                    <input [readonly]="true" matInput placeholder="Album name" [value]="album.name">
+                  </mat-form-field>
+
+                  <mat-label class="song-label">Songs:</mat-label>
+                  <mat-accordion>
+                    <mat-expansion-panel [expanded]="false">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Album songs
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="card-content">
+                        <div *ngFor="let song of album.songs; index as songIndex">
+                          <div class="song-content">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Song name</mat-label>
+                              <input [readonly]="true" matInput placeholder="Song name" [value]="song.duration">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                              <mat-label>Song duration</mat-label>
+                              <input [readonly]="true" matInput placeholder="Song duration" [value]="song.duration">
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+      <div class="band-info members-info">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Members
+              </mat-panel-title>
+              <mat-panel-description>
+                Members of the {{band.name}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="card-content">
+              <div *ngIf="band.members.length > 0 else noMembers">
+                <div *ngFor="let member of band.members">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Member name</mat-label>
+                    <input [readonly]="true" matInput placeholder="Member name" value="{{member.name}}">
+                  </mat-form-field>
+                </div>
+              </div>
+              <ng-template #noMembers>
+                <h3>Band does not have any members yet</h3>
+              </ng-template>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
+
+      <div class="tour-content">
+        <div class="tour-content" *ngFor="let tour of band.tours; index as tourIndex">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{tour.name}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  Tour details
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="card-content">
+                <mat-form-field appearance="outline">
+                  <mat-label>Tour name</mat-label>
+                  <input [readonly]="true" matInput placeholder="Tour name" [value]="tour.name">
+                </mat-form-field>
+
+                <mat-label class="song-label">Concerts:</mat-label>
+                <mat-accordion>
+                  <mat-expansion-panel [expanded]="false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Tour Concerts
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="card-content">
+                      <div *ngFor="let concert of tour.concerts; index as concertIndex">
+                        <div class="song-content">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Concert name</mat-label>
+                            <input [readonly]="true" matInput placeholder="Concert name" [value]="concert.name">
+                          </mat-form-field>
+
+                          <mat-form-field appearance="fill">
+                            <mat-label>Choose a date</mat-label>
+                            <input [readonly]="true" matInput [matDatepicker]="picker" [value]="concert.date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+  <ng-template #noBand>
+    <div class="band-container">
+      <h2>You are not member of any band right now</h2>
+      <h4>Check your offers maybe there is some waiting band for you...</h4>
+    </div>
+  </ng-template>
+</ng-template>

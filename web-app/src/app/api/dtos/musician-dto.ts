@@ -3,8 +3,9 @@ import {BandDTO} from './band-dto';
 export class MusicianDTO {
   id: number;
   name: string;
-  username: string;
+  userName: string;
   password: string;
+  instruments: string[];
   offers: BandDTO[];
   band?: number;
 }

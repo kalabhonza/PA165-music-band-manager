@@ -4,11 +4,14 @@
   flex-direction: column;
 }
 
+.band-container {
+  margin-left: 100px;
+  margin-top: 100px;
+}
+
 .band-content {
   display: flex;
   flex-direction: row;
-  margin-left: 100px;
-  margin-top: 100px;
 }
 
 .card-content {
@@ -30,6 +33,7 @@
 
 .band-info {
   width: 600px;
+  padding-right: 200px;
 }
 
 .band-logo mat-icon{
@@ -42,13 +46,17 @@
   margin-bottom: 20px;
 }
 
-.albums-content {
+.tour-content, .albums-content{
   display: flex;
   flex-direction: column;
-  margin-left: 100px;
 }
 
-#song-label {
+.tour-content {
+  width: 650px;
+  margin-bottom: 20px;
+}
+
+.song-label {
   margin-bottom: 10px;
 }
 
@@ -65,4 +73,26 @@
 .remove-button {
   margin-top: 18px;
   height: 40px;
+}
+
+#save-button {
+  margin-left: 50px;
+  height: 40px;
+  width: 80px;
+}
+
+.save-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.save-content mat-error {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.members-info {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 650px;
 }

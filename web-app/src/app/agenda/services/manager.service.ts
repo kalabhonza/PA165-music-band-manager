@@ -5,14 +5,28 @@ import {ErrorAlertService} from '../../shared/services/error-alert.service';
 import {ManagerApiService} from '../../api/services/manager-api.service';
 import {Manager} from '../../model/manager';
 import {Band} from '../../model/band';
+import {AlertMessageService} from '../../shared/services/message-alert.service';
 
 @Injectable()
 export class ManagerService {
 
-  constructor(private managerApiService: ManagerApiService, private errorAlertService: ErrorAlertService) { }
+  constructor(
+    private managerApiService: ManagerApiService,
+    private errorAlertService: ErrorAlertService,
+    private alertMessageService: AlertMessageService
+  ) { }
 
   getManagerBand(bandId: number): Observable<Band> {
     return this.managerApiService.getBand(bandId).pipe(
+      tap(
+        _ => _,
+        err => this.errorAlertService.handleError(err)
+      )
+    );
+  }
+
+  sendOffer(musicianId: number, bandId: number): Observable<any> {
+    return this.managerApiService.sendOffer(musicianId, bandId).pipe(
       tap(
         _ => _,
         err => this.errorAlertService.handleError(err)

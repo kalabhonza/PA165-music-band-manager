@@ -4,4 +4,5 @@
   <button *ngIf="(activeSession$ | async).commonUser" mat-button (click)="navigateTo('band')">My band</button>
   <button *ngIf="!(activeSession$ | async).commonUser" mat-button (click)="navigateTo('musicians')">Musicians</button>
   <button *ngIf="(activeSession$ | async).commonUser" mat-button (click)="navigateTo('offers')">My Offers</button>
+  <button *ngIf="!(activeSession$ | async).commonUser" mat-button (click)="navigateTo('create-band')">Band Creator</button>
 </div>

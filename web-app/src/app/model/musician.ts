@@ -5,6 +5,7 @@ export class Musician {
   name: string;
   username: string;
   password: string;
+  instruments: string[];
   offers: Band[];
   band?: number;
 }
