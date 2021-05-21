@@ -6,13 +6,12 @@ import cz.fi.muni.pa165.api.dto.tour.TourCreateDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourUpdateDTO;
 import cz.fi.muni.pa165.api.facade.TourFacade;
-import cz.fi.muni.pa165.rest.assemblers.TourResourceAssembler;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.CollectionModel;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -25,44 +24,60 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RequestMapping("/rest/tours")
 public class TourController {
     private TourFacade tourFacade;
-    private TourResourceAssembler tourResourceAssembler;
 
-    public TourController(TourFacade tourFacade, TourResourceAssembler tourResourceAssembler) {
+
+    public TourController(TourFacade tourFacade) {
         this.tourFacade = tourFacade;
-        this.tourResourceAssembler = tourResourceAssembler;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CollectionModel<EntityModel<TourDTO>>> getAll(){
-        List<TourDTO> tours = tourFacade.findAllTours();
-        List<EntityModel<TourDTO>> tourResource = new ArrayList<>();
-        for (TourDTO tourDTO : tours){
-            tourResource.add(tourResourceAssembler.toModel(tourDTO));
+    public ResponseEntity<List<TourDTO>> getAll(){
+        try {
+            return ResponseEntity.ok(tourFacade.findAllTours());
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
         }
-        CollectionModel<EntityModel<TourDTO>> resultResources = new CollectionModel<>(tourResource);
-        resultResources.add(linkTo(TourController.class).withSelfRel().withType("GET"));
-        return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityModel<TourDTO>> getById(@PathVariable Long id){
-        return new ResponseEntity<>(tourResourceAssembler.toModel(tourFacade.findById(id)), HttpStatus.OK);
+    public ResponseEntity<TourDTO> getById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(tourFacade.findById(id));
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createTour(@RequestBody @Valid TourCreateDTO tourCreateDTO){
-        return new ResponseEntity<>(tourFacade.create(tourCreateDTO), HttpStatus.CREATED);
-    }
+        try {
+            return ResponseEntity.ok(tourFacade.create(tourCreateDTO));
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }    }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteTour(@RequestBody @Valid TourDTO tourDTO){
-        tourFacade.remove(tourDTO);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            tourFacade.remove(tourDTO);;
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateTour(@RequestBody @Valid TourUpdateDTO tourUpdateDTO){
-        tourFacade.update(tourUpdateDTO);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            tourFacade.update(tourUpdateDTO);;
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+        }
+        return ResponseEntity.noContent().build();
     }
 }

@@ -4,14 +4,15 @@ import cz.fi.muni.pa165.api.dto.concert.ConcertCreateDTO;
 import cz.fi.muni.pa165.api.dto.concert.ConcertDTO;
 import cz.fi.muni.pa165.api.dto.concert.ConcertUpdateDTO;
 import cz.fi.muni.pa165.api.facade.ConcertFacade;
-import cz.fi.muni.pa165.rest.assemblers.ConcertResourceAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -29,45 +30,60 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 public class ConcertController {
 
     private ConcertFacade concertFacade;
-    private ConcertResourceAssembler concertResourceAssembler;
 
     @Autowired
-    public ConcertController(ConcertFacade concertFacade, ConcertResourceAssembler concertResourceAssembler) {
+    public ConcertController(ConcertFacade concertFacade) {
         this.concertFacade = concertFacade;
-        this.concertResourceAssembler = concertResourceAssembler;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CollectionModel<EntityModel<ConcertDTO>>> getAll(){
-        List<ConcertDTO> concerts = concertFacade.findAll();
-        List<EntityModel<ConcertDTO>> concertsResource = new ArrayList<>();
-        for (ConcertDTO concertDTO : concerts){
-            concertsResource.add(concertResourceAssembler.toModel(concertDTO));
+    public ResponseEntity<List<ConcertDTO>> getAll(){
+        try {
+            return ResponseEntity.ok(concertFacade.findAll());
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
         }
-        CollectionModel<EntityModel<ConcertDTO>> resultResources = new CollectionModel<>(concertsResource);
-        resultResources.add(linkTo(ConcertController.class).withSelfRel().withType("GET"));
-        return new ResponseEntity<>(resultResources, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityModel<ConcertDTO>> getById(@PathVariable Long id){
-        return new ResponseEntity<>(concertResourceAssembler.toModel(concertFacade.findById(id)), HttpStatus.OK);
-    }
+    public ResponseEntity<ConcertDTO> getById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(concertFacade.findById(id));
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }    }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createConcert(@RequestBody @Valid ConcertCreateDTO concertCreateDTO){
-        return new ResponseEntity<>(concertFacade.create(concertCreateDTO), HttpStatus.CREATED);
-    }
+        try {
+            return ResponseEntity.ok(concertFacade.create(concertCreateDTO));
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }    }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteConcert(@RequestBody @Valid ConcertDTO concertDTO){
-        concertFacade.remove(concertDTO);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            concertFacade.remove(concertDTO);;
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+        }
+        return ResponseEntity.noContent().build();
+
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateConcert(@RequestBody @Valid ConcertUpdateDTO concertUpdateDTO){
-        concertFacade.update(concertUpdateDTO);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            concertFacade.update(concertUpdateDTO);;
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+        }
+        return ResponseEntity.noContent().build();
     }
 }
