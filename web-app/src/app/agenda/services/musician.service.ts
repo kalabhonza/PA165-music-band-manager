@@ -45,15 +45,15 @@ export class MusicianService {
       );
   }
 
-  acceptOffer(musicianId: number, bandId: number): Observable<any> {
-    return this.musicianApiService.accept(musicianId, bandId)
-      .pipe(
-        tap(
-          _ => this.alertMessageService.display('Offer was accepted'),
-          err => this.errorAlertService.handleError(err)
-        )
-      );
-  }
+  // acceptOffer(musicianId: number, bandId: number): Observable<any> {
+  //   return this.musicianApiService.accept(musicianId, bandId)
+  //     .pipe(
+  //       tap(
+  //         _ => this.alertMessageService.display('Offer was accepted'),
+  //         err => this.errorAlertService.handleError(err)
+  //       )
+  //     );
+  // }
 
   declineOffer(musicianId: number, bandId: number): Observable<any> {
     return this.musicianApiService.decline(musicianId, bandId)

@@ -3,3 +3,66 @@
   justify-content: center;
   flex-direction: column;
 }
+
+.band-content {
+  display: flex;
+  flex-direction: row;
+  margin-left: 100px;
+  margin-top: 100px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  max-width: 800px;
+}
+
+.year-content {
+  margin-bottom: 15px;
+  font-style: oblique;
+}
+
+.album-content {
+  margin-bottom: 15px;
+  width: 600px;
+}
+
+.band-info {
+  width: 600px;
+}
+
+.band-logo mat-icon{
+  font-size: 70px;
+  margin-bottom: 5px;
+}
+
+#upload-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.albums-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+}
+
+#song-label {
+  margin-bottom: 10px;
+}
+
+.song-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.add-button {
+  width: 100px;
+}
+
+.remove-button {
+  margin-top: 18px;
+  height: 40px;
+}

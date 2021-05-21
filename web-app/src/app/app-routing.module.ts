@@ -24,7 +24,7 @@ const routes: Routes = [
   {
     path: 'band',
     canActivate: [AuthUserGuard],
-    loadChildren: () => import('./agenda/components/band/band.module').then(m => m.BandModule),
+    loadChildren: () => import('./agenda/components/band/band-manage.module').then(m => m.BandManageModule),
     data: {breadcrumb: 'Band'}
   },
   {

@@ -22,4 +22,4 @@ import {MusicianApiService} from '../../../api/services/musician-api.service';
   ],
   providers: [BandService, BandApiService, MusicianService, AlertMessageService, MusicianApiService]
 })
-export class BandModule { }
+export class BandManageModule { }

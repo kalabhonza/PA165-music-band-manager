@@ -3,11 +3,109 @@
 </div>
 
 <ng-template #loaded>
-  <p>bands works!</p>
-  <div class="content">
-    <h1 *ngFor="let band of bands">
-      {{band.name}}
-    </h1>
+  <div class="band-content">
+    <div class="band-info">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{band.name}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Band details
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="card-content">
+            <mat-label>Band logo:</mat-label>
+            <div class="band-logo">
+              <mat-icon *ngIf="!band.logo else bandLogo">group</mat-icon>
+              <ng-template #bandLogo>
+                <img [src]="band.logo" height="200"> <br/>
+              </ng-template>
+              <div id="upload-button">
+                <button type="button" mat-raised-button (click)="fileInput.click()">Choose Logo</button>
+                <input hidden (change)="onSelectFile($event)" #fileInput type="file" id="file">
+              </div>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Band name</mat-label>
+              <input matInput placeholder="Band name" [formControl]="bandName" required value="{{band.name}}">
+              <mat-error *ngIf="bandName.hasError('required')">Band name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>{{band.style}}</mat-label>
+              <mat-select required (selectionChange)="selected($event.value)">
+                <mat-option *ngFor="let style of availableStyles" [value]="style">
+                  {{style}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-label>Manager: <a class="year-content">{{managerName}}</a></mat-label>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+
+    <div class="albums-content">
+      <div class="album-content" *ngFor="let album of band.albums; index as albumIndex">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{album.name}}
+              </mat-panel-title>
+              <mat-panel-description>
+                Album details
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="card-content">
+              <mat-form-field appearance="outline">
+                <mat-label>Album name</mat-label>
+                <input matInput id="albumName" placeholder="Album name" required value="{{album.name}}">
+                <mat-error *ngIf="albumName.errors?.required">Album name is required</mat-error>
+              </mat-form-field>
+
+              <mat-label id="song-label">Songs:</mat-label>
+              <mat-accordion>
+                <mat-expansion-panel [expanded]="false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Album songs
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="card-content">
+                    <div *ngFor="let song of album.songs; index as songIndex">
+                      <div class="song-content">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Song name</mat-label>
+                          <input matInput placeholder="Song name" required value="{{song.name}}">
+                          <mat-error *ngIf="albumName.errors?.required">Song name is required</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                          <mat-label>Song duration</mat-label>
+                          <input matInput placeholder="Song duration" required value="{{song.duration}}">
+                          <mat-error *ngIf="albumName.errors?.required">Song name is required</mat-error>
+                        </mat-form-field>
+
+                        <button class="remove-button" mat-button color="warn" matTooltip="Remove song from album" (click)="removeSong(albumIndex, songIndex)">Remove</button>
+                      </div>
+                    </div>
+                    <button class="add-button" matTooltip="Add song to album" mat-raised-button color="primary" (click)="addSong(albumIndex)">Add</button>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <button class="remove-button" mat-button color="warn" matTooltip="Remove album from band" (click)="removeAlbum(albumIndex)">Remove</button>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <button class="add-button" mat-button mat-raised-button color="primary" matTooltip="Add album" (click)="addAlbum()">Add</button>
+    </div>
+
   </div>
 </ng-template>
 
