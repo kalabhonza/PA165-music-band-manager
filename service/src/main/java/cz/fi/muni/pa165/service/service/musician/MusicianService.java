@@ -37,6 +37,12 @@ public interface MusicianService {
     List<Musician> findAllByBand(Long bandId);
 
     /**
+     * Finds all musicians who don't have a band
+     * @return musicians without a band
+     */
+    List<Musician> findAllWithoutBand();
+
+    /**
      * Creates a new musician
      * @param musician Musician to be created
      * @return id of created musician

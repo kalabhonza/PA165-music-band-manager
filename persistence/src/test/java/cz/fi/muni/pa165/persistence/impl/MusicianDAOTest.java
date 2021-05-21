@@ -109,6 +109,18 @@ public class MusicianDAOTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void getAllWithoutBandTest() {
+        Musician musician1 = createBonJoviMusician();
+        Musician musician2 = createAxelRoseMusician();
+        musicianDAO.create(musician1);
+        musicianDAO.create(musician2);
+        List<Musician> results = musicianDAO.findAllWithoutBand();
+        Assert.assertNotNull(results);
+        Assert.assertEquals(results.size(), 1);
+        Assert.assertEquals(results.get(0), musician2);
+    }
+
+    @Test
     public void removeTest(){
         Musician musician = createBonJoviMusician();
         musicianDAO.create(musician);

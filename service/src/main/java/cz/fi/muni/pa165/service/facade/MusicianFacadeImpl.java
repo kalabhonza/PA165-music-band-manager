@@ -60,6 +60,12 @@ public class MusicianFacadeImpl implements MusicianFacade {
     }
 
     @Override
+    public List<MusicianDTO> findAllWithoutBand() {
+        List<Musician> musicians = musicianService.findAllWithoutBand();
+        return musicianMapper.mapToListDTO(musicians);
+    }
+
+    @Override
     public Long create(MusicianCreateDTO musician) {
         return musicianService.create(musicianMapper.mapToEntity(musician));
     }
