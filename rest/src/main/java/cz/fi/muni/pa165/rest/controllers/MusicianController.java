@@ -35,8 +35,12 @@ public class MusicianController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MusicianDTO>> getAll(){
-        List<MusicianDTO> musicians = musicianFacade.findAll();
-        return ResponseEntity.ok(musicians);
+        try {
+            return ResponseEntity.ok(musicianFacade.findAll());
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,18 +56,33 @@ public class MusicianController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createMusician(@RequestBody @Valid MusicianCreateDTO musicianCreateDTO){
-        return ResponseEntity.ok(musicianFacade.create(musicianCreateDTO));
+        try {
+            return ResponseEntity.ok(musicianFacade.create(musicianCreateDTO));
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteMusician(@RequestBody @Valid MusicianDTO musicianDTO){
-        musicianFacade.remove(musicianDTO);
+        try {
+            musicianFacade.remove(musicianDTO);;
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+        }
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateMusician(@RequestBody @Valid MusicianUpdateDTO musicianUpdateDTO){
-        musicianFacade.update(musicianUpdateDTO);
+        try {
+            musicianFacade.update(musicianUpdateDTO);;
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+        }
         return ResponseEntity.noContent().build();
     }
 
