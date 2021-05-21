@@ -45,7 +45,7 @@ public class Musician {
         this.password = password;
     }
 
-    public Set<Band> acceptOffer(Band band ) {
+    public Set<Band> acceptOffer(Band band) {
         if (this.offers.contains(band)) {
             this.offers.remove(band);
             this.bandId = band.getId();

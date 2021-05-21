@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.api.dto.musician.MusicianCreateDTO;
 import cz.fi.muni.pa165.api.dto.musician.MusicianDTO;
 import cz.fi.muni.pa165.api.dto.musician.MusicianUpdateDTO;
 import cz.fi.muni.pa165.api.facade.MusicianFacade;
+import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Musician;
 import cz.fi.muni.pa165.service.service.musician.MusicianService;
 import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
@@ -73,6 +74,13 @@ public class MusicianFacadeImpl implements MusicianFacade {
     @Override
     public void remove(MusicianDTO musician) {
         musicianService.remove(musicianMapper.mapToEntity(musician));
+    }
+
+    @Override
+    public MusicianDTO acceptOffer(MusicianDTO musician, BandDTO band) {
+        Musician m = musicianMapper.mapToEntity(musician);
+        Band b = bandMapper.mapToEntity(band);
+        return musicianMapper.mapToMusicianDTO(musicianService.acceptOffer(m, b));
     }
 
     @Override
