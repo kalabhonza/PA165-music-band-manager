@@ -39,6 +39,12 @@ const routes: Routes = [
     data: {breadcrumb: 'Offers'}
   },
   {
+    path: 'create-band',
+    canActivate: [AuthManagerGuard],
+    loadChildren: () => import('./agenda/components/create-band/create-band.module').then(m => m.CreateBandModule),
+    data: {breadcrumb: 'Create Band'}
+  },
+  {
     path: '',
     redirectTo: 'pa165',
     pathMatch: 'full'

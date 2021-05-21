@@ -10,7 +10,11 @@ import {AlertMessageService} from '../../shared/services/message-alert.service';
 @Injectable()
 export class ManagerService {
 
-  constructor(private managerApiService: ManagerApiService, private errorAlertService: ErrorAlertService, private alertMessageService: AlertMessageService) { }
+  constructor(
+    private managerApiService: ManagerApiService,
+    private errorAlertService: ErrorAlertService,
+    private alertMessageService: AlertMessageService
+  ) { }
 
   getManagerBand(bandId: number): Observable<Band> {
     return this.managerApiService.getBand(bandId).pipe(
@@ -21,13 +25,13 @@ export class ManagerService {
     );
   }
 
-  updateManagerBand(band: Band): Observable<any> {
-    return this.managerApiService.updateBand(band).pipe(
+  sendOffer(musicianId: number, bandId: number): Observable<any> {
+    return this.managerApiService.sendOffer(musicianId, bandId).pipe(
       tap(
-      _ => this.alertMessageService.display('Band information was updated'),
-      err => this.errorAlertService.handleError(err)
-    )
-  );
+        _ => _,
+        err => this.errorAlertService.handleError(err)
+      )
+    );
   }
 
   /**

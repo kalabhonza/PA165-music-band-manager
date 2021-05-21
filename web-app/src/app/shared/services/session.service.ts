@@ -11,7 +11,6 @@ export class SessionService {
 
   private activeSessionSubject$: Subject<Session> = new BehaviorSubject(new Session());
   activeSession$ = this.activeSessionSubject$.asObservable();
-
   sessionActive: string;
 
   constructor(private cookieService: CookieService, private http: HttpClient) { }
@@ -56,6 +55,14 @@ export class SessionService {
     }
   }
 
+  getUser(): any {
+    if (sessionStorage.length !== 0) {
+      return (JSON.parse(this.cookieService.get('active_user')));
+    } else {
+      return undefined;
+    }
+  }
+
   populateSession(): Observable<any> {
     return this.http
       .post(
@@ -69,7 +76,7 @@ export class SessionService {
    * Creates inner structure for user's session
    * @param id user id
    * @param username user's name
-   * @param commonUser
+   * @param commonUser set to True if user is Musician
    */
   private createSessionObject(id: number, username: string, commonUser: boolean): any {
     const session = new Session();

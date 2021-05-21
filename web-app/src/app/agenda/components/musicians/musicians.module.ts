@@ -6,6 +6,9 @@ import {MaterialSharedModule} from '../../../shared/components/material-shared.m
 import {MusicianService} from '../../services/musician.service';
 import {ErrorAlertService} from '../../../shared/services/error-alert.service';
 import {MusicianApiService} from '../../../api/services/musician-api.service';
+import {ManagerService} from '../../services/manager.service';
+import {ManagerApiService} from '../../../api/services/manager-api.service';
+import {AlertMessageService} from '../../../shared/services/message-alert.service';
 
 
 
@@ -19,6 +22,9 @@ import {MusicianApiService} from '../../../api/services/musician-api.service';
   providers: [
     MusicianService,
     MusicianApiService,
+    ManagerService,
+    ManagerApiService,
+    AlertMessageService,
     ErrorAlertService
   ]
 })

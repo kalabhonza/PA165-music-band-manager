@@ -15,7 +15,7 @@ import {AlertMessageService} from '../../../shared/services/message-alert.servic
 export class BandComponent implements OnInit {
 
   isLoading: boolean;
-  musicianBand: Band;
+  band: Band;
   musicianId: number;
 
   constructor(
@@ -47,7 +47,7 @@ export class BandComponent implements OnInit {
         )
     ).subscribe(
       (band) => {
-        this.musicianBand = band;
+        this.band = band;
         this.isLoading = false;
       },
       () =>  this.isLoading = false

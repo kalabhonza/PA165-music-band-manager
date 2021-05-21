@@ -1,0 +1,42 @@
+<div *ngIf="isLoading else musiciansList">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<ng-template #musiciansList>
+  <div class="musicians-content">
+    <h2>Musicians looking for a Band</h2>
+    <div class="musician-content" *ngFor="let musician of musicians; index as i">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{musician.name}}
+              </mat-panel-title>
+              <mat-panel-description>
+                Musician details
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="card-content">
+              <div class="musician-info">
+                <mat-form-field appearance="outline">
+                  <mat-label>Musician name</mat-label>
+                  <input [readonly]="true" matInput placeholder="Musician name" [value]="musician.name">
+                </mat-form-field>
+
+                <div>
+                  <mat-label>Musician instruments:</mat-label>
+                  <mat-selection-list>
+                    <mat-list-option [selected]="true" [disabled]="true" *ngFor="let instrument of musician.instruments">
+                      {{instrument}}
+                    </mat-list-option>
+                  </mat-selection-list>
+                </div>
+              </div>
+
+              <button mat-raised-button matTooltip="Invite musician to band" color="primary" (click)="invite(i)"><mat-icon>done_all</mat-icon></button>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+</ng-template>

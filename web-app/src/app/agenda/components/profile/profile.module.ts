@@ -4,6 +4,10 @@ import {MaterialSharedModule} from '../../../shared/components/material-shared.m
 import {ProfileRoutingModule} from './profile-routing.module';
 import {ProfileComponent} from './profile.component';
 import {SessionService} from '../../../shared/services/session.service';
+import {ManagerApiService} from '../../../api/services/manager-api.service';
+import {MusicianService} from '../../services/musician.service';
+import {MusicianApiService} from '../../../api/services/musician-api.service';
+import {ManagerService} from '../../services/manager.service';
 
 
 
@@ -14,6 +18,6 @@ import {SessionService} from '../../../shared/services/session.service';
     MaterialSharedModule,
     ProfileRoutingModule
   ],
-  providers: [SessionService]
+  providers: [SessionService, ManagerService, ManagerApiService, MusicianService, MusicianApiService]
 })
 export class ProfileModule { }

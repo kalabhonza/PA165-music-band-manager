@@ -1,12 +1,12 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BandService} from '../../services/band.service';
 import {Band} from '../../../model/band';
 import {ManagerService} from '../../services/manager.service';
 import {SessionService} from '../../../shared/services/session.service';
-import {exhaustMap, takeWhile} from 'rxjs/operators';
+import {exhaustMap} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
 import {AlertMessageService} from '../../../shared/services/message-alert.service';
-import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormControl, Validators} from '@angular/forms';
 import {Song} from '../../../model/song';
 import {Album} from '../../../model/album';
 import {Concert} from '../../../model/concert';
@@ -137,6 +137,7 @@ export class BandManageComponent implements OnInit {
     const concert = new Concert();
     concert.name = 'Name';
     this.band.tours[tourIndex].concerts.push(concert);
+    this.updateForm();
   }
 
   addTour(): void {
@@ -179,7 +180,8 @@ export class BandManageComponent implements OnInit {
   }
 
   save(): void {
-    this.managerService.updateManagerBand(this.band).subscribe(
+    this.bandManageFormGroup.setToBand(this.band);
+    this.bandsService.updateBand((this.band)).subscribe(
       (band) => {
         this.band = band;
         this.bandManageFormGroup = new BandManageFormGroup(this.band);

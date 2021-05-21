@@ -129,7 +129,7 @@
                 <div *ngFor="let member of band.members">
                   <mat-form-field appearance="outline">
                     <mat-label>Member name</mat-label>
-                    <input [disabled]="true" matInput placeholder="Member name" required value="{{member.name}}">
+                    <input [readonly]="true" matInput placeholder="Member name" required value="{{member.name}}">
                   </mat-form-field>
                 </div>
               </div>

@@ -8,6 +8,8 @@ import {ManagerMapper} from '../mappers/manager-mapper';
 import {Band} from '../../model/band';
 import {BandDTO} from '../dtos/band-dto';
 import {BandMapper} from '../mappers/band-mapper';
+import {MusicianDTO} from '../dtos/musician-dto';
+import {MusicianMapper} from '../mappers/musician-mapper';
 
 @Injectable()
 export class ManagerApiService {
@@ -30,19 +32,17 @@ export class ManagerApiService {
   }
 
   /**
-   * Updates band after manager edited it
-   * @param band
+   * Sends offer to musician
+   * @param musicianId musician id
    */
-  updateBand(band: Band): Observable<any> {
+  sendOffer(musicianId: number, bandId: number): Observable<any> {
     return this.http
-      .put<BandDTO>(
-        `${this.javaRestEndpoint}/managers/bands`,
-        BandMapper.toDTO(band),
-        { headers: ManagerApiService.createDefaultHeaders() }
-      )
-      .pipe(
-        map((response) => BandMapper.fromDTO(response))
-      );
+      .post(
+        `${this.javaRestEndpoint}/manager/${bandId}/offer/${musicianId}`,
+        {musician_id: musicianId, band_id: bandId},
+        {
+          headers: ManagerApiService.createDefaultHeaders()
+        });
   }
 
   /**
