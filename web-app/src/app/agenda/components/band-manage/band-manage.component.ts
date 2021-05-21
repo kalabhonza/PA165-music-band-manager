@@ -180,6 +180,7 @@ export class BandManageComponent implements OnInit {
 
   save(): void {
     this.bandManageFormGroup.formGroup.markAsPristine();
+    this.managerService.getManagerBand()
   }
 
   private updateForm(): void {

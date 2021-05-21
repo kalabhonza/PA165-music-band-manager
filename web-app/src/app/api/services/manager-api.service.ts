@@ -30,6 +30,22 @@ export class ManagerApiService {
   }
 
   /**
+   * Updates band after manager edited it
+   * @param band
+   */
+  updateBand(band: Band): Observable<any> {
+    return this.http
+      .put<BandDTO>(
+        `${this.javaRestEndpoint}/managers/bands`,
+        BandMapper.toDTO(band),
+        { headers: ManagerApiService.createDefaultHeaders() }
+      )
+      .pipe(
+        map((response) => BandMapper.fromDTO(response))
+      );
+  }
+
+  /**
    * Sends http request to retrieve all managers
    */
   getAll(): Observable<Manager[]> {

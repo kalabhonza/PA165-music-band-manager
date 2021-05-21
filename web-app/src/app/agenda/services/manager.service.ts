@@ -20,6 +20,15 @@ export class ManagerService {
     );
   }
 
+  updateManagerBand(band: Band): Observable<any> {
+    return this.managerApiService.updateBand(band).pipe(
+      tap(
+      _ => _,
+      err => this.errorAlertService.handleError(err)
+    )
+  );
+  }
+
   /**
    * Return all managers present in system
    */
