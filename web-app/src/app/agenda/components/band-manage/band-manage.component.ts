@@ -179,8 +179,16 @@ export class BandManageComponent implements OnInit {
   }
 
   save(): void {
-    this.bandManageFormGroup.formGroup.markAsPristine();
-    this.managerService.getManagerBand()
+    this.managerService.updateManagerBand(this.band).subscribe(
+      (band) => {
+        this.band = band;
+        this.bandManageFormGroup = new BandManageFormGroup(this.band);
+        this.setBandForms();
+        this.bandManageFormGroup.formGroup.markAsPristine();
+        this.isLoading = false;
+      },
+      () =>  this.isLoading = false
+    );
   }
 
   private updateForm(): void {
