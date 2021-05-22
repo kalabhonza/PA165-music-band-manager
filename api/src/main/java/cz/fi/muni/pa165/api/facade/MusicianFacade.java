@@ -73,6 +73,13 @@ public interface MusicianFacade {
     MusicianDTO acceptOffer(MusicianDTO musician, BandDTO band);
 
     /**
+     * Decline offer for a musician to join a band
+     * @param musician musician that will decline the offer
+     * @param band band not to join
+     */
+    void declineOffer(MusicianDTO musician, BandDTO band);
+
+    /**
      * Login musician into the system
      * @param username musician username
      * @param password musician password

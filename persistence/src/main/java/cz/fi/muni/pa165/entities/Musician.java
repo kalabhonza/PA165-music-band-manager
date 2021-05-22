@@ -60,7 +60,13 @@ public class Musician {
     }
 
     public void declineOffer(Band band) {
-        offers.remove(band);
+        if (this.offers.contains(band)) {
+            this.offers.remove(band);
+
+        } else {
+            throw new DataAccessException("Band " + band.getId() + " is not in offers of musician " + this.id) {};
+        }
+
     }
 
     public Long getId() {
