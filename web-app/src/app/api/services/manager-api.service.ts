@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {ManagerDTO} from '../dtos/manager-dto';
 import {Manager} from '../../model/manager';
 import {ManagerMapper} from '../mappers/manager-mapper';
@@ -68,6 +68,7 @@ export class ManagerApiService {
         headers: ManagerApiService.createDefaultHeaders()
       })
       .pipe(
+        tap(r => console.log(r)),
         map((response) => ManagerMapper.fromDTO(response))
       );
   }

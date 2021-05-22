@@ -7,7 +7,7 @@ export class CreateBandFormGroup {
 
   constructor(band: Band) {
     this.formGroup = new FormGroup({
-      bandName: new FormControl(band.name, Validators.required),
+      name: new FormControl(band.name, Validators.required),
       bandStyle: new FormControl(band.style, Validators.required),
     });
   }

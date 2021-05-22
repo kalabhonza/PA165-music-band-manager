@@ -38,7 +38,7 @@ public class ManagerController {
         this.bandFacade = bandFacade;
     }
 
-    @RolesAllowed({"ROLE_USER"})
+    @RolesAllowed("ROLE_ADMIN")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ManagerDTO>> getAll(){
         try {
@@ -49,7 +49,7 @@ public class ManagerController {
         }
     }
 
-    @RolesAllowed({"ROLE_USER"})
+    @RolesAllowed("ROLE_ADMIN")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ManagerDTO> getById(@PathVariable Long id){
         try {
@@ -60,7 +60,7 @@ public class ManagerController {
         }
     }
 
-    @RolesAllowed({"ROLE_USER"})
+    @RolesAllowed("ROLE_ADMIN")
     @GetMapping(value = "/{id}/bands", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BandDTO> getByBandId(@PathVariable Long id){
         try {
@@ -98,7 +98,7 @@ public class ManagerController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateManager(@RequestBody @Valid ManagerUpdateDTO managerUpdateDTO){
         try {
-            managerFacade.update(managerUpdateDTO);;
+            managerFacade.update(managerUpdateDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);
@@ -106,6 +106,7 @@ public class ManagerController {
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed("ROLE_ADMIN")
     @PostMapping(value = "/{bandId}/offers/{musicianId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     public ResponseEntity<MusicianDTO> setOffer(@PathVariable Long musicianId, @PathVariable Long bandId){

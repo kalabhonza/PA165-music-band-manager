@@ -11,7 +11,7 @@ export class ManagerMapper {
     manager.name = dto.name;
     manager.username = dto.userName;
     manager.password = dto.password;
-    manager.bandId = dto.band;
+    manager.bandId = (dto as any).band;
     return manager;
   }
 
@@ -25,7 +25,7 @@ export class ManagerMapper {
     result.name = manager.name;
     result.userName = manager.username;
     result.password = manager.password;
-    result.band = manager.bandId;
+    result.bandId = manager.bandId;
     return result;
   }
 

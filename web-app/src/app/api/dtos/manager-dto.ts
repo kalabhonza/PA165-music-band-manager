@@ -3,5 +3,5 @@ export class ManagerDTO {
   name: string;
   userName: string;
   password: string;
-  band: number;
+  bandId: number;
 }

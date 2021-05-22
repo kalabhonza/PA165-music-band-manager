@@ -19,7 +19,6 @@ export class SongMapper {
     result.id = song.id;
     result.name = song.name;
     result.duration = song.duration;
-    console.log(song.duration)
     return result;
   }
 

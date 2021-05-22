@@ -84,7 +84,7 @@ export class BandManageComponent implements OnInit {
       .pipe(
         exhaustMap(
           (manager) => {
-            if (manager.bandId) {
+            if (manager.bandId !== undefined) {
               this.managerName = manager.name;
               return this.managerService.getManagerBand(manager.bandId);
             } else {

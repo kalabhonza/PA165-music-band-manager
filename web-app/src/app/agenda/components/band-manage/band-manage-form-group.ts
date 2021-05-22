@@ -23,7 +23,7 @@ export class BandManageFormGroup {
 
   private static createAlbum(album: Album): FormGroup {
     return new FormGroup({
-      albumName: new FormControl(album.name, Validators.required),
+      name: new FormControl(album.name, Validators.required),
       songs: new FormArray(
         album.songs.map((song) => BandManageFormGroup.createSong(song))
       ),
@@ -32,14 +32,14 @@ export class BandManageFormGroup {
 
   private static createSong(song: Song): FormGroup {
     return new FormGroup({
-      songName: new FormControl(song.name, Validators.required),
-      songDuration: new FormControl(song.duration),
+      name: new FormControl(song.name, Validators.required),
+      duration: new FormControl(song.duration),
     });
   }
 
   private static createTour(tour: Tour): FormGroup {
     return new FormGroup({
-      tourName: new FormControl(tour.name, Validators.required),
+      name: new FormControl(tour.name, Validators.required),
       concerts: new FormArray(
         tour.concerts.map((concert) => BandManageFormGroup.createConcert(concert))
       ),
@@ -48,8 +48,8 @@ export class BandManageFormGroup {
 
   private static createConcert(concert: Concert): FormGroup {
     return new FormGroup({
-      concertName: new FormControl(concert.name, Validators.required),
-      concertDate: new FormControl(concert.date),
+      name: new FormControl(concert.name, Validators.required),
+      date: new FormControl(concert.date),
     });
   }
 

@@ -15,6 +15,7 @@ export class AlbumMapper {
   }
 
   static toDTO(album: Album): AlbumDTO {
+    console.log(album)
     const result = new AlbumDTO();
     result.id = album.id;
     result.name = album.name;
