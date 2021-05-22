@@ -89,6 +89,12 @@ public class MusicianFacadeImpl implements MusicianFacade {
         return musicianMapper.mapToMusicianDTO(musicianService.acceptOffer(m, b));
     }
 
+    public void declineOffer(MusicianDTO musician, BandDTO band){
+        Musician m = musicianMapper.mapToEntity(musician);
+        Band b = bandMapper.mapToEntity(band);
+        musicianService.declineOffer(m, b);
+    }
+
     @Override
     public MusicianDTO login(String username, String password) {
         Musician loggedMusician = musicianService.login(username, password);

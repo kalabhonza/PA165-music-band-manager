@@ -51,6 +51,13 @@ public class MusicianServiceImpl implements MusicianService {
     }
 
     @Override
+    public void declineOffer(Musician musician, Band band) {
+        musician.declineOffer(band);
+        musicianDAO.update(musician);
+
+    }
+
+    @Override
     public Musician findByUserName(String userName) {
         Musician musician = musicianDAO.findByUserName(userName);
         if (musician == null) {
