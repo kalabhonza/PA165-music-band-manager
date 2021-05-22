@@ -4,9 +4,10 @@ import cz.fi.muni.pa165.api.dto.band.BandCreateDTO;
 import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.dto.band.BandUpdateDTO;
 
-import cz.fi.muni.pa165.api.facade.BandFacade;
+import cz.fi.muni.pa165.api.facade.*;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.enums.Style;
+import cz.fi.muni.pa165.service.service.album.AlbumService;
 import cz.fi.muni.pa165.service.service.band.BandService;
 import cz.fi.muni.pa165.service.facade.BandFacadeImpl;
 
@@ -15,6 +16,9 @@ import cz.fi.muni.pa165.service.mapping.mapstruct.BandMapperImpl;
 import cz.fi.muni.pa165.service.mapping.mapstruct.ManagerMapperImpl;
 
 
+import cz.fi.muni.pa165.service.service.concert.ConcertService;
+import cz.fi.muni.pa165.service.service.song.SongService;
+import cz.fi.muni.pa165.service.service.tour.TourService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
@@ -30,9 +34,21 @@ import static org.testng.Assert.assertEquals;
 public class BandFacadeTest{
 
     private BandFacade bandFacade;
+    private TourFacade tourFacade;
+    private ConcertFacade concertFacade;
+    private AlbumFacade albumFacade;
+    private SongFacade songFacede;
 
     @Mock
     private BandService bandService;
+    @Mock
+    private TourService tourService;
+    @Mock
+    private ConcertService concertService;
+    @Mock
+    private AlbumService albumService;
+    @Mock
+    private SongService songService;
 
     @Mock
     private BandMapperImpl bandMapper;
@@ -52,7 +68,7 @@ public class BandFacadeTest{
     @BeforeMethod
     public void init(){
         MockitoAnnotations.initMocks(this);
-        bandFacade = new BandFacadeImpl(bandService, bandMapper,managerMapper);
+        bandFacade = new BandFacadeImpl(bandService, songService, albumService, tourService, concertService, bandMapper,managerMapper);
 
         band = new Band(1L, "Sabaton", Style.METAL);
 

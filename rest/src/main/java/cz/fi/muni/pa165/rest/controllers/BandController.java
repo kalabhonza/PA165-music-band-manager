@@ -95,13 +95,12 @@ public class BandController {
 
     @RolesAllowed("ROLE_ADMIN")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateBand(@RequestBody @Valid BandUpdateDTO bandUpdateDTO){
+    public ResponseEntity<BandDTO> updateBand(@RequestBody @Valid BandUpdateDTO bandUpdateDTO){
         try {
-            bandFacade.updateBand(bandUpdateDTO);;
+            return ResponseEntity.ok(bandFacade.updateBand(bandUpdateDTO));
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);
         }
-        return ResponseEntity.noContent().build();
     }
 }
