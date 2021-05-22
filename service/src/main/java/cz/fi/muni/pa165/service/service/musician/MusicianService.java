@@ -71,6 +71,13 @@ public interface MusicianService {
     Musician acceptOffer(Musician musician, Band band);
 
     /**
+     * Removes offer
+     * @param band band to be removed
+     * @param musician musician which will have his offer removed
+     */
+    void declineOffer(Musician musician, Band band);
+
+    /**
      *
      * @param username
      * @param password

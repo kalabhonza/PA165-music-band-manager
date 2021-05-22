@@ -21,7 +21,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public class MusicianServiceTest {
 
@@ -73,7 +73,7 @@ public class MusicianServiceTest {
 
         Band bandToAccept = new Band();
         bandToAccept.setId(666L);
-        assertEquals(lonelyMusician.getBand(), null);
+        assertNull(lonelyMusician.getBand());
 
         lonelyMusician.setOffers(new HashSet<Band>(){{
             add(bandToAccept); }});
@@ -81,6 +81,23 @@ public class MusicianServiceTest {
         given(bandDAO.update(bandToAccept)).willReturn(bandToAccept);
         musicianService.acceptOffer(lonelyMusician, bandToAccept);
         assertEquals(lonelyMusician.getBand(), bandToAccept.getId());
+    }
+
+    @Test
+    public void declineOfferTest(){
+        Musician my_musician = new Musician();
+        my_musician.setId(1111L);
+
+        Band my_band = new Band();
+        my_band.setId(3333L);
+
+        my_musician.setOffers(new HashSet<Band>(){{
+            add(my_band); }});
+
+        given(bandDAO.update(my_band)).willReturn(my_band);
+        musicianService.declineOffer(my_musician,my_band);
+        assertNotEquals(my_musician.getBand(), my_band);
+        assertNull(my_musician.getBand());
     }
 
     @Test

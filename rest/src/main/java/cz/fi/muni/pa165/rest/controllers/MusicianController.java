@@ -115,4 +115,19 @@ public class MusicianController {
                     HttpStatus.NOT_FOUND, ex.getMessage(), ex);
         }
     }
+
+    @GetMapping(value = "/{musicianID}/offers/{bandID}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    public ResponseEntity<Void> declineOffer(@PathVariable Long musicianID, @PathVariable Long bandID) {
+        try {
+            MusicianDTO musician = musicianFacade.findById(musicianID);
+            BandDTO band = bandFacade.findBandById(bandID);
+            musicianFacade.declineOffer(musician, band);
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
 }

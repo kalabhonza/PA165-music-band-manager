@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -184,4 +185,5 @@ public class MusicianFacadeTest {
         assertEquals(allMusiciansDTO, result);
         then(musicianService).should().findAllByBand(band.getId());
     }
+
 }
