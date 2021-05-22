@@ -32,12 +32,12 @@ export class CreateBandComponent implements OnInit {
     this.availableStyles = ['ROCK', 'ALTERNATIVE', 'POP', 'METAL', 'JAZZ', 'CLASSIC'];
   }
 
-  get bandName(): AbstractControl {
-    return this.createBandFormGroup.formGroup.get('bandName') as AbstractControl;
+  get name(): AbstractControl {
+    return this.createBandFormGroup.formGroup.get('name') as AbstractControl;
   }
 
-  get bandStyle(): AbstractControl {
-    return this.createBandFormGroup.formGroup.get('bandStyle') as AbstractControl;
+  get style(): AbstractControl {
+    return this.createBandFormGroup.formGroup.get('style') as AbstractControl;
   }
 
   ngOnInit(): void {

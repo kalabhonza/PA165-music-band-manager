@@ -240,6 +240,11 @@
                                 <version>9.0.45</version>
                             </artifactInstaller>
                         </container>
+                        <configuration>
+                            <properties>
+                                <cargo.servlet.port>8080</cargo.servlet.port>
+                            </properties>
+                        </configuration>
                     </configuration>
                 </plugin>
             </plugins>

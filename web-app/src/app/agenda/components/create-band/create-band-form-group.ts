@@ -8,13 +8,13 @@ export class CreateBandFormGroup {
   constructor(band: Band) {
     this.formGroup = new FormGroup({
       name: new FormControl(band.name, Validators.required),
-      bandStyle: new FormControl(band.style, Validators.required),
+      style: new FormControl(band.style, Validators.required),
     });
   }
 
   setToBand(band: Band, manager: Manager): void {
-    band.name = this.formGroup.get('bandName')?.value;
-    band.style = this.formGroup.get('bandStyle')?.value;
+    band.name = this.formGroup.get('name')?.value;
+    band.style = this.formGroup.get('style')?.value;
     band.manager = manager;
     band.members = [];
     band.albums = [];
