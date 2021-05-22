@@ -33,7 +33,6 @@ export class BandMapper {
     result.manager = ManagerMapper.toDTO(band.manager);
     result.members = MusicianMapper.toDTOs(band.members);
     result.albums = AlbumMapper.toDTOs(band.albums);
-    console.log(result)
     return result;
   }
 

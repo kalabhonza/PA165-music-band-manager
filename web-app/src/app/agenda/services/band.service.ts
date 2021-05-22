@@ -65,7 +65,7 @@ export class BandService {
    * Update band by given id
    * @param band band to be updated
    */
-  updateBand(band: Band): Observable<Band> {
+  updateBand(band: Band): Observable<any> {
     return this.bandApiService.update(band).pipe(
       tap(
         _ => _,

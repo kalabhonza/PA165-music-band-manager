@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {ManagerDTO} from '../dtos/manager-dto';
 import {Manager} from '../../model/manager';
 import {ManagerMapper} from '../mappers/manager-mapper';
 import {Band} from '../../model/band';
 import {BandDTO} from '../dtos/band-dto';
 import {BandMapper} from '../mappers/band-mapper';
-import {MusicianDTO} from '../dtos/musician-dto';
-import {MusicianMapper} from '../mappers/musician-mapper';
 
 @Injectable()
 export class ManagerApiService {
@@ -68,7 +66,6 @@ export class ManagerApiService {
         headers: ManagerApiService.createDefaultHeaders()
       })
       .pipe(
-        tap(r => console.log(r)),
         map((response) => ManagerMapper.fromDTO(response))
       );
   }

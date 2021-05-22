@@ -28,10 +28,6 @@ export class BandManageComponent implements OnInit {
   modified: boolean;
   bandManageFormGroup: BandManageFormGroup;
 
-  albumName = new FormControl(
-    '',
-    [Validators.required]);
-
   constructor(
     private bandsService: BandService,
     private managerService: ManagerService,
@@ -138,6 +134,7 @@ export class BandManageComponent implements OnInit {
     concert.name = 'Name';
     this.band.tours[tourIndex].concerts.push(concert);
     this.updateForm();
+    this.bandManageFormGroup.formGroup.markAsDirty();
   }
 
   addTour(): void {
@@ -146,6 +143,7 @@ export class BandManageComponent implements OnInit {
     tour.concerts = [];
     this.band.tours.push(tour);
     this.updateForm();
+    this.bandManageFormGroup.formGroup.markAsDirty();
   }
 
   addSong(albumIndex: number): void {
@@ -154,6 +152,7 @@ export class BandManageComponent implements OnInit {
     song.name = 'Song name';
     this.band.albums[albumIndex].songs.push(song);
     this.updateForm();
+    this.bandManageFormGroup.formGroup.markAsDirty();
   }
 
   addAlbum(): void {
@@ -162,6 +161,7 @@ export class BandManageComponent implements OnInit {
     album.songs = [];
     this.band.albums.push(album);
     this.updateForm();
+    this.bandManageFormGroup.formGroup.markAsDirty();
   }
 
   dateChange(tourIndex: number, concertIndex: number, event: any): void {
@@ -181,11 +181,12 @@ export class BandManageComponent implements OnInit {
 
   save(): void {
     this.bandManageFormGroup.setToBand(this.band);
+
     this.bandsService.updateBand((this.band)).subscribe(
-      (band) => {
-        this.band = band;
-        this.bandManageFormGroup = new BandManageFormGroup(this.band);
-        this.setBandForms();
+      (_) => {
+        // this.band = band;
+        // this.bandManageFormGroup = new BandManageFormGroup(this.band);
+        // this.setBandForms();
         this.bandManageFormGroup.formGroup.markAsPristine();
         this.isLoading = false;
       },
