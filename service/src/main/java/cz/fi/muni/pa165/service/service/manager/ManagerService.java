@@ -26,6 +26,13 @@ public interface ManagerService {
     Band getManagerBand(Long bandId);
 
     /**
+     *
+     * @param managerId
+     * @param bandID
+     */
+    void setManagerBand(Long managerId, Long bandID);
+
+    /**
      * Find all Managers
      * @return List of all Managers
      */

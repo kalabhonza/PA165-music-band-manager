@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.dto.band.BandUpdateDTO;
 import cz.fi.muni.pa165.api.dto.manager.ManagerDTO;
 import cz.fi.muni.pa165.api.facade.BandFacade;
+import cz.fi.muni.pa165.api.facade.ManagerFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -25,10 +26,12 @@ import java.util.List;
 public class BandController {
 
     private BandFacade bandFacade;
+    private ManagerFacade managerFacade;
 
     @Autowired
-    public BandController(BandFacade bandFacade) {
+    public BandController(BandFacade bandFacade, ManagerFacade managerFacade) {
         this.bandFacade = bandFacade;
+        this.managerFacade = managerFacade;
     }
 
     @RolesAllowed({"ROLE_USER"})
@@ -69,7 +72,9 @@ public class BandController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createBand(@RequestBody @Valid BandCreateDTO bandCreateDTO){
         try {
-            return ResponseEntity.ok(bandFacade.createBand(bandCreateDTO));
+            Long bandId = bandFacade.createBand(bandCreateDTO);
+            managerFacade.setManagerBand(bandCreateDTO.getManager(), bandId);
+            return ResponseEntity.ok(bandId);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, ex.getMessage(), ex);
@@ -80,7 +85,7 @@ public class BandController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteBand(@RequestBody @Valid BandDTO bandDTO){
         try {
-            bandFacade.deleteBand(bandDTO);;
+            bandFacade.deleteBand(bandDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);

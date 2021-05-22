@@ -53,6 +53,12 @@ public class ManagerServiceImpl implements ManagerService{
     }
 
     @Override
+    public void setManagerBand(Long managerId, Long bandID) {
+        Manager manager = managerDAO.findById(managerId);
+        manager.setBand(bandID);
+    }
+
+    @Override
     public List<Manager> findAll() {
         return managerDAO.findAll();
     }
