@@ -70,6 +70,11 @@ public class MusicianServiceImpl implements MusicianService {
     }
 
     @Override
+    public List<Musician> findAllWithoutBand() {
+        return musicianDAO.findAllWithoutBand();
+    }
+
+    @Override
     public Long create(Musician musician) {
         return musicianDAO.create(musician);
     }

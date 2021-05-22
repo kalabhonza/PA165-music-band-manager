@@ -4,8 +4,6 @@ import cz.fi.muni.pa165.api.dto.band.BandDTO;
 import cz.fi.muni.pa165.api.dto.musician.MusicianCreateDTO;
 import cz.fi.muni.pa165.api.dto.musician.MusicianDTO;
 import cz.fi.muni.pa165.api.dto.musician.MusicianUpdateDTO;
-import cz.fi.muni.pa165.entities.Band;
-import cz.fi.muni.pa165.entities.Musician;
 
 import java.util.List;
 
@@ -39,6 +37,12 @@ public interface MusicianFacade {
      * @return Musicians of given band
      */
     List<MusicianDTO> findAllByBand(Long bandId);
+
+    /**
+     * Finds all musicians who don't have a band
+     * @return musicians without a band
+     */
+    List<MusicianDTO> findAllWithoutBand();
 
     /**
      * Creates a new musician
