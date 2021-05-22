@@ -52,6 +52,10 @@ public class ManagerFacadeImpl implements ManagerFacade {
         return bandMapper.mapToBandDTO(band);
     }
 
+    @Override public void setManagerBand(ManagerDTO manager, Long bandID) {
+        managerService.setManagerBand(manager.getId(), bandID);
+    }
+
     @Override
     public Long create(ManagerCreateDTO manager) {
         Manager createdManager = managerMapper.mapToEntity(manager);

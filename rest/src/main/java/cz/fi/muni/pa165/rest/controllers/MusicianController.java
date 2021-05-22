@@ -116,7 +116,8 @@ public class MusicianController {
         }
     }
 
-    @GetMapping(value = "/{musicianID}/offers/{bandID}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed("ROLE_USER")
+    @PutMapping(value = "/{musicianID}/offers/{bandID}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     public ResponseEntity<Void> declineOffer(@PathVariable Long musicianID, @PathVariable Long bandID) {
         try {

@@ -50,8 +50,8 @@ export class CreateBandComponent implements OnInit {
     this.bandService.createBand(this.band).subscribe(
       _ => {
         this.alertService.display('Band was created an registered to you');
-        this.createBandFormGroup = new CreateBandFormGroup(new Band());
         this.isLoading = false;
+        this.ngOnInit();
       },
       _ => this.isLoading = false
     );

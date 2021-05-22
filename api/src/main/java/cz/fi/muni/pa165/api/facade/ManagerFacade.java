@@ -33,6 +33,13 @@ public interface ManagerFacade {
     BandDTO getManagerBand(Long bandId);
 
     /**
+     *
+     * @param manager
+     * @param bandID
+     */
+    void setManagerBand(ManagerDTO manager, Long bandID);
+
+    /**
      * Stores new manager
      * @param manager to be created
      * @return id of manager

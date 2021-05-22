@@ -71,9 +71,6 @@ public class BandFacadeTest{
         bandUpdateDTO.setId(band.getId());
         bandUpdateDTO.setName(band.getName());
         bandUpdateDTO.setStyle(band.getStyle());
-
-
-
     }
 
     @Test
@@ -123,5 +120,4 @@ public class BandFacadeTest{
         bandFacade.deleteBand(bandDTO);
         then(bandService).should().deleteBand(bandMapper.mapToEntity(bandDTO));
     }
-
 }

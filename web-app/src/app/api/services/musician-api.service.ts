@@ -79,7 +79,7 @@ export class MusicianApiService {
   decline(musicianId: number, bandId: number): Observable<any> {
     return this.http
       .put(
-        `${this.javaRestEndpoint}/musicians/offer`,
+        `${this.javaRestEndpoint}/musicians/${musicianId}/offers/${bandId}`,
         {musician_id: musicianId, band_id: bandId},
         {
           headers: MusicianApiService.createDefaultHeaders()
