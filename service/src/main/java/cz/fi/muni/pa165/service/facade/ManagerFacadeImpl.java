@@ -66,6 +66,11 @@ public class ManagerFacadeImpl implements ManagerFacade {
     }
 
     @Override
+    public void setOffer(Long musicianID, Long bandID) {
+        managerService.setOffer(musicianID, bandID);
+    }
+
+    @Override
     public void remove(ManagerDTO manager) {
         Manager deletedManager = managerMapper.mapToEntity(manager);
         managerService.remove(deletedManager);

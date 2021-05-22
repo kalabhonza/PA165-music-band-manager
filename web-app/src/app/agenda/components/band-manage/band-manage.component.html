@@ -3,7 +3,7 @@
 </div>
 
 <ng-template #loaded>
-  <form [formGroup]="bandManageFormGroup.formGroup">
+  <form *ngIf="band else noBand" [formGroup]="bandManageFormGroup.formGroup">
     <div class="band-container">
       <div class="band-content">
         <div class="band-info">
@@ -37,7 +37,7 @@
 
                 <mat-form-field appearance="fill">
                   <mat-label>{{bandStyle.value}}</mat-label>
-                  <mat-select required (selectionChange)="bandStyle.setValue($event.value)">
+                  <mat-select [formControl]="bandStyle" required (selectionChange)="bandStyle.setValue($event.value)">
                     <mat-option *ngFor="let style of availableStyles" [value]="style">
                       {{style}}
                     </mat-option>
@@ -57,7 +57,7 @@
               <mat-expansion-panel [expanded]="true">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    {{albumGroup.get('albumName').value}}
+                    {{albumGroup.get('name').value}}
                   </mat-panel-title>
                   <mat-panel-description>
                     Album details
@@ -66,8 +66,8 @@
                 <div class="card-content">
                   <mat-form-field appearance="outline">
                     <mat-label>Album name</mat-label>
-                    <input matInput [formControl]="albumGroup.get('albumName')" placeholder="Album name" required>
-                    <mat-error *ngIf="albumGroup.get('albumName').hasError('required')">Album name is required</mat-error>
+                    <input matInput [formControl]="albumGroup.get('name')" placeholder="Album name" required>
+                    <mat-error *ngIf="albumGroup.get('name').hasError('required')">Album name is required</mat-error>
                   </mat-form-field>
 
                   <mat-label class="song-label">Songs:</mat-label>
@@ -83,14 +83,14 @@
                           <div class="song-content">
                             <mat-form-field appearance="outline">
                               <mat-label>Song name</mat-label>
-                              <input matInput [formControl]="song.get('songName')" placeholder="Song name" required>
-                              <mat-error *ngIf="song.get('songName').hasError('required')">Song name is required</mat-error>
+                              <input matInput [formControl]="song.get('name')" placeholder="Song name" required>
+                              <mat-error *ngIf="song.get('name').hasError('required')">Song name is required</mat-error>
                             </mat-form-field>
 
                             <mat-form-field appearance="outline">
                               <mat-label>Song duration</mat-label>
-                              <input matInput [formControl]="song.get('songDuration')" placeholder="Song duration" required>
-                              <mat-error *ngIf="song.get('songDuration').hasError('required')">Song duration is required</mat-error>
+                              <input matInput [formControl]="song.get('duration')" placeholder="Song duration" required>
+                              <mat-error *ngIf="song.get('duration').hasError('required')">Song duration is required</mat-error>
                             </mat-form-field>
 
                             <button class="remove-button" mat-button color="warn" matTooltip="Remove song from album" (click)="removeSong(albumIndex, songIndex)">Remove</button>
@@ -148,7 +148,7 @@
             <mat-expansion-panel [expanded]="false">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{tourGroup.get('tourName').value}}
+                  {{tourGroup.get('name').value}}
                 </mat-panel-title>
                 <mat-panel-description>
                   Tour details
@@ -157,8 +157,8 @@
               <div class="card-content">
                 <mat-form-field appearance="outline">
                   <mat-label>Tour name</mat-label>
-                  <input matInput [formControl]="tourGroup.get('tourName')" placeholder="Tour name" required>
-                  <mat-error *ngIf="tourGroup.get('tourName').hasError('required')">Tour name is required</mat-error>
+                  <input matInput [formControl]="tourGroup.get('name')" placeholder="Tour name" required>
+                  <mat-error *ngIf="tourGroup.get('name').hasError('required')">Tour name is required</mat-error>
                 </mat-form-field>
 
                 <mat-label class="song-label">Concerts:</mat-label>
@@ -174,14 +174,14 @@
                         <div class="song-content">
                           <mat-form-field appearance="outline">
                             <mat-label>Concert name</mat-label>
-                            <input matInput [formControl]="concert.get('concertName')" placeholder="Concert name" required>
-                            <mat-error *ngIf="concert.get('concertName').hasError('required')">Concert name is required</mat-error>
+                            <input matInput [formControl]="concert.get('name')" placeholder="Concert name" required>
+                            <mat-error *ngIf="concert.get('name').hasError('required')">Concert name is required</mat-error>
                           </mat-form-field>
 
                           <mat-form-field appearance="fill">
                             <mat-label>Choose a date</mat-label>
-                            <input matInput [matDatepicker]="picker" [formControl]="concert.get('concertDate')" (dateChange)="dateChange(tourIndex, concertIndex, $event)" required>
-                            <mat-error *ngIf="concert.get('concertDate').hasError('required')">Concert date is required</mat-error>
+                            <input matInput [matDatepicker]="picker" [formControl]="concert.get('date')" (dateChange)="dateChange(tourIndex, concertIndex, $event)" required>
+                            <mat-error *ngIf="concert.get('date').hasError('required')">Concert date is required</mat-error>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                           </mat-form-field>
@@ -202,5 +202,10 @@
       <button id="add-tour" class="add-button" mat-button mat-raised-button color="primary" matTooltip="Add Tour" (click)="addTour()">Add</button>
     </div>
   </form>
+  <ng-template #noBand >
+    <div class="band">
+      <h2>You are currently not managing any band</h2>
+    </div>
+  </ng-template>
 </ng-template>
 

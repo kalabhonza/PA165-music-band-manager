@@ -10,6 +10,7 @@ export class BandManageFormGroup {
 
   constructor(band: Band) {
     this.formGroup = new FormGroup({
+      id: new FormControl(band.id),
       bandName: new FormControl(band.name, Validators.required),
       bandStyle: new FormControl(band.style, Validators.required),
       albums: new FormArray(
@@ -23,7 +24,8 @@ export class BandManageFormGroup {
 
   private static createAlbum(album: Album): FormGroup {
     return new FormGroup({
-      albumName: new FormControl(album.name, Validators.required),
+      id: new FormControl(album.id),
+      name: new FormControl(album.name, Validators.required),
       songs: new FormArray(
         album.songs.map((song) => BandManageFormGroup.createSong(song))
       ),
@@ -32,14 +34,16 @@ export class BandManageFormGroup {
 
   private static createSong(song: Song): FormGroup {
     return new FormGroup({
-      songName: new FormControl(song.name, Validators.required),
-      songDuration: new FormControl(song.duration),
+      id: new FormControl(song.id),
+      name: new FormControl(song.name, Validators.required),
+      duration: new FormControl(song.duration),
     });
   }
 
   private static createTour(tour: Tour): FormGroup {
     return new FormGroup({
-      tourName: new FormControl(tour.name, Validators.required),
+      id: new FormControl(tour.id),
+      name: new FormControl(tour.name, Validators.required),
       concerts: new FormArray(
         tour.concerts.map((concert) => BandManageFormGroup.createConcert(concert))
       ),
@@ -48,8 +52,9 @@ export class BandManageFormGroup {
 
   private static createConcert(concert: Concert): FormGroup {
     return new FormGroup({
-      concertName: new FormControl(concert.name, Validators.required),
-      concertDate: new FormControl(concert.date),
+      id: new FormControl(concert.id),
+      name: new FormControl(concert.name, Validators.required),
+      date: new FormControl(concert.date),
     });
   }
 

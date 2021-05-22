@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @author Aleš Paroulek
  */
-@CrossOrigin(origins = "*")
+@CrossOrigin()
 @RestController
 @RequestMapping("/rest/musicians")
 public class MusicianController {
@@ -102,7 +102,8 @@ public class MusicianController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value = "/{musicianID}/offers/{bandID}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed("ROLE_USER")
+    @PostMapping(value = "/{musicianID}/offers/{bandID}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     public ResponseEntity<MusicianDTO> acceptOffer(@PathVariable Long musicianID, @PathVariable Long bandID){
         try {

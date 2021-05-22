@@ -44,6 +44,13 @@ public interface ManagerService {
     Manager update(Manager manager);
 
     /**
+     *
+     * @param musicianID
+     * @param bandID
+     */
+    void setOffer(Long musicianID, Long bandID);
+
+    /**
      * Removes Manager
      * @param manager to be deleted
      */

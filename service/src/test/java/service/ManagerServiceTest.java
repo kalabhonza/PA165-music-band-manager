@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.entities.Manager;
 import cz.fi.muni.pa165.enums.Style;
 import cz.fi.muni.pa165.persistence.interfaces.BandDAO;
 import cz.fi.muni.pa165.persistence.interfaces.ManagerDAO;
+import cz.fi.muni.pa165.persistence.interfaces.MusicianDAO;
 import cz.fi.muni.pa165.service.service.manager.ManagerService;
 import cz.fi.muni.pa165.service.service.manager.ManagerServiceImpl;
 import org.mockito.Mock;
@@ -39,11 +40,13 @@ public class ManagerServiceTest {
     private ManagerDAO managerDAO;
     @Mock
     private BandDAO bandDAO;
+    @Mock
+    private MusicianDAO musicianDAO;
 
     @BeforeMethod
     private void init() {
         MockitoAnnotations.initMocks(this);
-        managerService = new ManagerServiceImpl(managerDAO, bandDAO);
+        managerService = new ManagerServiceImpl(managerDAO, bandDAO, musicianDAO);
 
         band = new Band(2L, "Labeled", Style.ALTERNATIVE);
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MusicianService} from '../../services/musician.service';
 import {Musician} from '../../../model/musician';
 import {ManagerService} from '../../services/manager.service';
-import {exhaustMap} from 'rxjs/operators';
+import {catchError, exhaustMap} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
 import {SessionService} from '../../../shared/services/session.service';
 import {AlertMessageService} from '../../../shared/services/message-alert.service';
@@ -44,7 +44,6 @@ export class MusiciansComponent implements OnInit {
         exhaustMap(
           (manager) => {
             if (manager.bandId) {
-              this.isLoading = false;
               return this.managerService.sendOffer(this.musicians[index].id, manager.bandId);
             } else {
               this.alertMessageService.display('You are not managing any band currently');
@@ -54,7 +53,10 @@ export class MusiciansComponent implements OnInit {
           }
         )
       ).subscribe(
-        _ => this.alertMessageService.display('Your offer was send')
+        () => {
+          this.alertMessageService.display('Your offer was send');
+          this.ngOnInit();
+        }
     );
   }
 }

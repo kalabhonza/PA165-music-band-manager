@@ -47,6 +47,11 @@ public interface ManagerFacade {
     ManagerDTO update(ManagerUpdateDTO manager);
 
     /**
+     *
+     */
+    void setOffer(Long musicianID, Long bandID);
+
+    /**
      * Removes Manager
      * @param manager to be deleted
      */

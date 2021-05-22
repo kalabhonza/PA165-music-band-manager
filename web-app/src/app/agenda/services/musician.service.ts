@@ -36,7 +36,7 @@ export class MusicianService {
   }
 
   getAllMusicians(): Observable<Musician[]> {
-    return this.musicianApiService.getAll()
+    return this.musicianApiService.getAllWithoutBand()
       .pipe(
         tap(
           _ => _,

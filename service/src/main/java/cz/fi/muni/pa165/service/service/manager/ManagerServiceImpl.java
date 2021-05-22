@@ -4,8 +4,10 @@ import cz.fi.muni.pa165.api.exceptions.BandManagerServiceException;
 import cz.fi.muni.pa165.api.exceptions.ErrorStatus;
 import cz.fi.muni.pa165.entities.Band;
 import cz.fi.muni.pa165.entities.Manager;
+import cz.fi.muni.pa165.entities.Musician;
 import cz.fi.muni.pa165.persistence.interfaces.BandDAO;
 import cz.fi.muni.pa165.persistence.interfaces.ManagerDAO;
+import cz.fi.muni.pa165.persistence.interfaces.MusicianDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,16 +19,19 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ManagerServiceImpl implements ManagerService{
 
     private ManagerDAO managerDAO;
     private BandDAO bandDAO;
+    private MusicianDAO musicianDAO;
 
-    public ManagerServiceImpl(ManagerDAO managerDAO, BandDAO bandDAO){
+    public ManagerServiceImpl(ManagerDAO managerDAO, BandDAO bandDAO, MusicianDAO musicianDAO){
         this.managerDAO = managerDAO;
         this.bandDAO = bandDAO;
+        this.musicianDAO = musicianDAO;
     }
 
     @Override
@@ -67,6 +72,15 @@ public class ManagerServiceImpl implements ManagerService{
             throw new DataAccessException("Manager with id: " + manager.getId() + "was not updated") {};
         }
         return updatedManager;
+    }
+
+    @Override
+    public void setOffer(Long musicianID, Long bandID) {
+        Musician musician = musicianDAO.findById(musicianID);
+        Band band = bandDAO.findBandById(bandID);
+        Set<Band> offers = musician.getOffers();
+        offers.add(band);
+        musician.setOffers(offers);
     }
 
     @Override

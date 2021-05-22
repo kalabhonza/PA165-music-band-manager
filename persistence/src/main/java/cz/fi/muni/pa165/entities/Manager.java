@@ -94,7 +94,7 @@ public class Manager {
                 ", name='" + name + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", band=" + bandId +
+                ", bandId=" + bandId +
                 '}';
     }
 }

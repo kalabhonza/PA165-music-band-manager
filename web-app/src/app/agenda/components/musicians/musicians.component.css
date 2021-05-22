@@ -5,6 +5,7 @@
 
 .musician-content {
   width: 600px;
+  margin-bottom: 20px;
 }
 
 .musician-info {
@@ -15,4 +16,8 @@
 
 mat-selection-list {
   width: 300px;
+}
+
+mat-list-option {
+  margin-bottom: 5px;
 }

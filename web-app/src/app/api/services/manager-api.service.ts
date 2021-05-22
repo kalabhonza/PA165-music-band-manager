@@ -8,8 +8,6 @@ import {ManagerMapper} from '../mappers/manager-mapper';
 import {Band} from '../../model/band';
 import {BandDTO} from '../dtos/band-dto';
 import {BandMapper} from '../mappers/band-mapper';
-import {MusicianDTO} from '../dtos/musician-dto';
-import {MusicianMapper} from '../mappers/musician-mapper';
 
 @Injectable()
 export class ManagerApiService {
@@ -38,7 +36,7 @@ export class ManagerApiService {
   sendOffer(musicianId: number, bandId: number): Observable<any> {
     return this.http
       .post(
-        `${this.javaRestEndpoint}/manager/${bandId}/offer/${musicianId}`,
+        `${this.javaRestEndpoint}/managers/${bandId}/offers/${musicianId}`,
         {musician_id: musicianId, band_id: bandId},
         {
           headers: ManagerApiService.createDefaultHeaders()

@@ -6,7 +6,6 @@ import {SessionService} from './session.service';
 @Injectable()
 export class InterceptorService implements HttpInterceptor {
 
-
   constructor(private auth: SessionService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
