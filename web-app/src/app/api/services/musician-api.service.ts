@@ -30,6 +30,19 @@ export class MusicianApiService {
   }
 
   /**
+   * Sends http request to retrieve all musicians with no band
+   */
+  getAllWithoutBand(): Observable<Musician[]> {
+    return this.http
+      .get<MusicianDTO[]>(`${this.javaRestEndpoint}/musicians/free`, {
+        headers: MusicianApiService.createDefaultHeaders()
+      })
+      .pipe(
+        map((response) => MusicianMapper.fromDTOs(response))
+      );
+  }
+
+  /**
    * Sends http request to retrieve musician by given id
    * @param id id of searched musician
    */

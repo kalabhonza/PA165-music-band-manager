@@ -38,6 +38,12 @@ public class MusicianDAOImpl implements MusicianDAO {
                 .getResultList();
     }
 
+    @Override
+    public List<Musician> findAllWithoutBand() {
+        return em.createQuery("SELECT m FROM musicians m WHERE m.bandId = null", Musician.class)
+                .getResultList();
+    }
+
     public Long create(Musician musician) {
         em.persist(musician);
         return musician.getId();

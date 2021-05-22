@@ -34,6 +34,7 @@ public class MusicianServiceTest {
 
     @Mock
     private MusicianDAO musicianDAO;
+    @Mock
     private BandDAO bandDAO;
 
     @BeforeMethod
@@ -63,6 +64,23 @@ public class MusicianServiceTest {
         this.band.setMembers(new HashSet<>(allMusicians));
         this.musician1.setBand(this.band.getId());
         this.musician2.setBand(this.band.getId());
+    }
+
+    @Test
+    public void acceptOfferTest() {
+        Musician lonelyMusician = new Musician();
+        lonelyMusician.setId(555L);
+
+        Band bandToAccept = new Band();
+        bandToAccept.setId(666L);
+        assertEquals(lonelyMusician.getBand(), null);
+
+        lonelyMusician.setOffers(new HashSet<Band>(){{
+            add(bandToAccept); }});
+
+        given(bandDAO.update(bandToAccept)).willReturn(bandToAccept);
+        musicianService.acceptOffer(lonelyMusician, bandToAccept);
+        assertEquals(lonelyMusician.getBand(), bandToAccept.getId());
     }
 
     @Test

@@ -46,6 +46,17 @@ public class MusicianController {
     }
 
     @RolesAllowed({"ROLE_USER"})
+    @GetMapping(value = "/free", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<MusicianDTO>> getAllWithoutBand(){
+        try {
+            return ResponseEntity.ok(musicianFacade.findAllWithoutBand());
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
+    }
+
+    @RolesAllowed({"ROLE_USER"})
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     public ResponseEntity<MusicianDTO> getById(@PathVariable Long id){
