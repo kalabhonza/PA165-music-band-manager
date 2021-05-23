@@ -24,7 +24,8 @@ public class Band {
     @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(columnDefinition="clob")
+    @Lob
     private String logo;
 
     @Column

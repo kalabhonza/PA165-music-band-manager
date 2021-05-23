@@ -121,7 +121,6 @@ public class PresentationDataServiceImpl implements PresentationDataService {
         musician.setOffers(bands);
 
         manager.setBand(band.getId());
-        System.out.println(manager);
 
         //band with musicians
         Manager manager3 = new Manager();
