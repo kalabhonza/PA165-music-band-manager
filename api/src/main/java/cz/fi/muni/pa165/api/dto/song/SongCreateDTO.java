@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class SongCreateDTO {
     private String name;
-    private Time duration;
+    private String duration;
 
     public String getName() {
         return name;
@@ -15,11 +15,11 @@ public class SongCreateDTO {
         this.name = name;
     }
 
-    public Time getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(Time duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

@@ -11,7 +11,7 @@ public class SongUpdateDTO {
     @NotEmpty(message = "Name can not be empty")
     private String name;
     @NotNull(message = "Duration can no be null")
-    private Time duration;
+    private String duration;
 
     public Long getId() {
         return id;
@@ -29,11 +29,11 @@ public class SongUpdateDTO {
         this.name = name;
     }
 
-    public Time getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(Time duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

@@ -53,18 +53,6 @@ public class SongController {
         }
     }
 
-//    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<EntityModel<SongDTO>> getByName(@PathVariable String name){
-//        List<SongDTO> songs = songFacade.findSongByName(name);
-//        List<EntityModel<SongDTO>> songsResource = new ArrayList<>();
-//        for (SongDTO songDTO : songs){
-//            songsResource.add(songResourceAssembler.toModel(songDTO));
-//        }
-//        CollectionModel<EntityModel<SongDTO>> resultResources = new CollectionModel<>(songsResource);
-//        resultResources.add(linkTo(SongController.class).withSelfRel().withType("GET"));
-//        return new ResponseEntity<>(resultResources, HttpStatus.OK);
-//    }
-
     @RolesAllowed("ROLE_ADMIN")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createSong(@RequestBody @Valid SongCreateDTO songCreateDTO) {

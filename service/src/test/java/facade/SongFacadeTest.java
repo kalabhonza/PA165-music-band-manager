@@ -52,12 +52,12 @@ public class SongFacadeTest {
         songA = new Song();
         songA.setId(1L);
         songA.setName("A");
-        songA.setDuration(new Time(60));
+        songA.setDuration("00:03:34");
 
         songB = new Song();
         songB.setId(2L);
         songB.setName("B");
-        songB.setDuration(new Time(60));
+        songB.setDuration("00:05:31");
 
         songs = new ArrayList<>();
         songs.add(songA);
@@ -79,12 +79,12 @@ public class SongFacadeTest {
 
         songCreateDTO = new SongCreateDTO();
         songCreateDTO.setName("A");
-        songCreateDTO.setDuration(new Time(60));
+        songCreateDTO.setDuration("00:03:34");
 
         songUpdateDTO = new SongUpdateDTO();
         songUpdateDTO.setId(1L);
         songUpdateDTO.setName("A");
-        songUpdateDTO.setDuration(new Time(60));
+        songUpdateDTO.setDuration("00:04:31");
     }
 
     @Test

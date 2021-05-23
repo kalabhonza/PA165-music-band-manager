@@ -46,12 +46,12 @@ public class ManagerDAOTest extends AbstractTestNGSpringContextTests {
         manager.setUserName("joseph12");
 
         Song song = new Song();
-        song.setDuration(new Time(1500));
+        song.setDuration("00:03:34");
         song.setName("Song 1");
         em.persist(song);
 
         Song song2 = new Song();
-        song2.setDuration(new Time(1500));
+        song2.setDuration("00:03:54");
         song2.setName("Song 1");
         em.persist(song2);
 
