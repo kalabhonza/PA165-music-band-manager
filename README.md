@@ -21,7 +21,7 @@ Team members can login to the system and see the offers made by the band manager
      * install angular-cli: `npm install -g @angular/cli`
      * run client: `ng serve`
      
- * After loading the web page, you need to click on "create template data".
+ * After loading the web page and before login, you need to click on "create template data".
 
 # Login Credentials 
 * Admin accounts
