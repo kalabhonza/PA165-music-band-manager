@@ -43,6 +43,8 @@ Team members can login to the system and see the offers made by the band manager
     * Musician with band. 
         * Username: freddie
         * Password: freddie
+        
+# README file with instructions about how to test the REST interface (e.g. CURL commands for the command line) you can find in folder /rest.
 
 ## Use Case Diagram
 
