@@ -21,7 +21,7 @@ public class BandUpdateDTO {
     @NotNull(message = "Manager can not be empty")
     private ManagerDTO manager;
     private Style style;
-    private byte[] logo;
+    private String logo;
     private Set<MusicianDTO> members = new HashSet<>();
     private Set<AlbumDTO> albums = new HashSet<>();
     private Set<TourDTO> tours = new HashSet<>();
@@ -58,11 +58,11 @@ public class BandUpdateDTO {
         this.style = style;
     }
 
-    public byte[] getLogo() {
+    public String getLogo() {
         return logo;
     }
 
-    public void setLogo(byte[] logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
     }
 
@@ -110,7 +110,7 @@ public class BandUpdateDTO {
                 ", name='" + name + '\'' +
                 ", manager=" + manager.getName() +
                 ", style=" + style +
-                ", logo=" + Arrays.toString(logo) +
+                ", logo=" + logo +
                 ", members=" + members +
                 ", albums=" + albums +
                 ", tours=" + tours +

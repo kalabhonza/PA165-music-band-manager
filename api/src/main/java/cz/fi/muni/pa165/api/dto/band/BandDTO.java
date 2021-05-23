@@ -18,7 +18,7 @@ import java.util.Set;
 public class BandDTO {
     private Long id;
     private String name;
-    private byte[] logo;
+    private String logo;
     private Style style;
     private ManagerDTO manager;
     private Set<MusicianDTO> members = new HashSet<>();
@@ -33,7 +33,7 @@ public class BandDTO {
         return name;
     }
 
-    public byte[] getLogo() {
+    public String getLogo() {
         return logo;
     }
 
@@ -65,7 +65,7 @@ public class BandDTO {
         this.name = name;
     }
 
-    public void setLogo(byte[] logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
     }
 

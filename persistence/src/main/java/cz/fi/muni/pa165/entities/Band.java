@@ -25,7 +25,7 @@ public class Band {
     private String name;
 
     @Column
-    private byte[] logo;
+    private String logo;
 
     @Column
     private Style style;
@@ -66,11 +66,11 @@ public class Band {
         this.name = name;
     }
 
-    public byte[] getLogo() {
+    public String getLogo() {
         return logo;
     }
 
-    public void setLogo(byte[] logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
     }
 
@@ -125,8 +125,8 @@ public class Band {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(name, style, members, albums, tours, manager);
-        result = 31 * result + Arrays.hashCode(logo);
+        int result = Objects.hash(name, style, members, albums, tours, manager, logo);
+        result = 31 * result;
         return result;
     }
 
@@ -135,7 +135,7 @@ public class Band {
         return "Band{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", logo=" + Arrays.toString(logo) +
+                ", logo=" + logo +
                 ", style=" + style +
                 ", members=" + members +
                 ", albums=" + albums +
