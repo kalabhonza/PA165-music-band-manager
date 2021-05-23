@@ -18,11 +18,11 @@ public class Song {
     private String name;
 
     @Column(nullable = false)
-    private Time duration;
+    private String duration;
 
     public Song() {}
 
-    public Song(Long id, String name, Time duration) {
+    public Song(Long id, String name, String duration) {
         this.id = id;
         this.name = name;
         this.duration = duration;
@@ -44,11 +44,11 @@ public class Song {
         this.name = name;
     }
 
-    public Time getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(Time duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

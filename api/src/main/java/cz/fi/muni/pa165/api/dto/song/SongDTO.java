@@ -13,7 +13,7 @@ public class SongDTO {
 
     private Long id;
     private String name;
-    private Time duration;
+    private String duration;
 
     public Long getId() {
         return id;
@@ -31,11 +31,11 @@ public class SongDTO {
         this.name = name;
     }
 
-    public Time getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(Time duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

@@ -39,11 +39,11 @@ public class AlbumServiceTest {
 
         songA = new Song();
         songA.setName("A");
-        songA.setDuration(new Time(60));
+        songA.setDuration("00:03:34");
 
         songB = new Song();
         songB.setName("B");
-        songB.setDuration(new Time(60));
+        songB.setDuration("00:05:32");
 
         albumA = new Album();
         albumA.setName("A");

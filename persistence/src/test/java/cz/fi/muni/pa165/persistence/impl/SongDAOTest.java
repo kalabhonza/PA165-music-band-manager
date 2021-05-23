@@ -41,17 +41,17 @@ public class SongDAOTest extends AbstractTestNGSpringContextTests {
     public void beforeTest() {
         songA = new Song();
         songA.setName("A");
-        songA.setDuration(new Time(60));
+        songA.setDuration("00:03:34");
         em.persist(songA);
 
         songB = new Song();
         songB.setName("B");
-        songB.setDuration(new Time(60));
+        songB.setDuration("00:02:31");
         em.persist(songB);
 
         songC = new Song();
         songC.setName("C");
-        songC.setDuration(new Time(60));
+        songC.setDuration("00:05:12");
         em.persist(songC);
     }
 
@@ -76,7 +76,7 @@ public class SongDAOTest extends AbstractTestNGSpringContextTests {
     public void createSong() {
         Song songD = new Song();
         songD.setName("D");
-        songD.setDuration(new Time(60));
+        songD.setDuration("00:01:34");
 
         songDAO.create(songD);
 

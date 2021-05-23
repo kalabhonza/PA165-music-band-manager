@@ -7,12 +7,9 @@ import cz.fi.muni.pa165.enums.Instrument;
 import cz.fi.muni.pa165.enums.Style;
 import cz.fi.muni.pa165.persistence.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,9 +23,6 @@ public class PresentationDataServiceImpl implements PresentationDataService {
     private SongDAO songDAO;
     private AlbumDAO albumDAO;
     private BandDAO bandDAO;
-
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public PresentationDataServiceImpl(MusicianDAO musicianDAO, ManagerDAO managerDAO, BandDAO bandDAO, SongDAO songDAO, AlbumDAO albumDAO) {
@@ -86,12 +80,12 @@ public class PresentationDataServiceImpl implements PresentationDataService {
 
         Song song1 = new Song();
         song1.setName("In the End");
-        song1.setDuration(new Time(217));
+        song1.setDuration("00:03:34");
         songDAO.create(song1);
 
         Song song2 = new Song();
         song2.setName("Numb");
-        song2.setDuration(new Time(186));
+        song2.setDuration("00:04:12");
         songDAO.create(song2);
 
         Set<Song> songs = new HashSet<>();
@@ -105,7 +99,7 @@ public class PresentationDataServiceImpl implements PresentationDataService {
 
         Song song3 = new Song();
         song3.setName("Song 3");
-        song3.setDuration(new Time(65));
+        song3.setDuration("00:02:23");
         songDAO.create(song3);
 
         Set<Song> songs2 = new HashSet<>();
@@ -130,8 +124,6 @@ public class PresentationDataServiceImpl implements PresentationDataService {
         System.out.println(manager);
 
         //band with musicians
-
-
         Manager manager3 = new Manager();
         manager3.setName("Henry James Beach");
         manager3.setUserName("admin3");
@@ -184,32 +176,32 @@ public class PresentationDataServiceImpl implements PresentationDataService {
 
         Song song5 = new Song();
         song5.setName("Death on two legs");
-        song5.setDuration(new Time(1));
+        song5.setDuration("00:02:13");
         songDAO.create(song5);
 
         Song song6 = new Song();
         song6.setName("Lazing on a sunday afternoon");
-        song6.setDuration(new Time(2));
+        song6.setDuration("00:03:34");
         songDAO.create(song6);
 
         Song song7 = new Song();
         song7.setName("Im in love with my car");
-        song7.setDuration(new Time(217));
+        song7.setDuration("00:05:39");
         songDAO.create(song7);
 
         Song song8 = new Song();
         song8.setName("You are my best friend");
-        song8.setDuration(new Time(217));
+        song8.setDuration("00:07:33");
         songDAO.create(song8);
 
         Song song9 = new Song();
         song9.setName("Sweet lady");
-        song9.setDuration(new Time(217));
+        song9.setDuration("00:09:34");
         songDAO.create(song9);
 
         Song song10 = new Song();
         song10.setName("Seaside rendezvous");
-        song10.setDuration(new Time(217));
+        song10.setDuration("00:02:14");
         songDAO.create(song10);
 
         Set<Song> songs5 = new HashSet<>();
@@ -228,6 +220,7 @@ public class PresentationDataServiceImpl implements PresentationDataService {
         Album album6 = new Album();
         album6.setName("A day at the races");
         albumDAO.create(album6);
+
 
         Set<Album> albums5 = new HashSet<>();
         albums5.add(album5);
@@ -248,14 +241,6 @@ public class PresentationDataServiceImpl implements PresentationDataService {
         musician8.setBand(band5.getId());
         band5.setManager(manager3);
         manager3.setBand(band5.getId());
-
-//        musicianDAO.update(musician5);
-//        musicianDAO.update(musician6);
-//        musicianDAO.update(musician7);
-//        musicianDAO.update(musician8);
-//        managerDAO.update(manager3);
-
-
 
     }
 
