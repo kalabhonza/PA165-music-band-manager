@@ -25,7 +25,6 @@ export class BandManageComponent implements OnInit {
   band: Band;
   availableStyles: string[];
   managerName: string;
-  modified: boolean;
   bandManageFormGroup: BandManageFormGroup;
 
   constructor(
@@ -60,7 +59,6 @@ export class BandManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.modified = false;
     this.managerId = this.sessionService.getUserId();
     this.availableStyles = ['ROCK', 'ALTERNATIVE', 'POP', 'METAL', 'JAZZ', 'CLASSIC'];
     this.loadBand();
@@ -189,6 +187,7 @@ export class BandManageComponent implements OnInit {
         // this.setBandForms();
         this.bandManageFormGroup.formGroup.markAsPristine();
         this.isLoading = false;
+        this.ngOnInit();
       },
       () =>  this.isLoading = false
     );

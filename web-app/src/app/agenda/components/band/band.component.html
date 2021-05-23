@@ -42,7 +42,6 @@
           </mat-accordion>
         </div>
 
-
         <div class="albums-content">
           <div class="album-content" *ngFor="let album of band.albums; index as albumIndex">
             <mat-accordion>
@@ -110,6 +109,10 @@
                     <mat-label>Member name</mat-label>
                     <input [readonly]="true" matInput placeholder="Member name" value="{{member.name}}">
                   </mat-form-field>
+                  <mat-form-field id="instruments" appearance="fill">
+                    <mat-label>Instruments</mat-label>
+                      <input *ngFor="let instrument of member.instruments" [readonly]="true" matInput placeholder="Member instruments" value="{{instrument}}">
+                  </mat-form-field>
                 </div>
               </div>
               <ng-template #noMembers>
@@ -122,54 +125,70 @@
 
 
       <div class="tour-content">
-        <div class="tour-content" *ngFor="let tour of band.tours; index as tourIndex">
+        <div *ngIf="band.tours.length > 0 else noTours">
+          <div class="tour-content" *ngFor="let tour of band.tours; index as tourIndex">
+            <mat-accordion>
+              <mat-expansion-panel [expanded]="false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{tour.name}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Tour details
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="card-content">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Tour name</mat-label>
+                    <input [readonly]="true" matInput placeholder="Tour name" [value]="tour.name">
+                  </mat-form-field>
+
+                  <mat-label class="song-label">Concerts:</mat-label>
+                  <mat-accordion>
+                    <mat-expansion-panel [expanded]="false">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Tour Concerts
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="card-content">
+                        <div *ngFor="let concert of tour.concerts; index as concertIndex">
+                          <div class="song-content">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Concert name</mat-label>
+                              <input [readonly]="true" matInput placeholder="Concert name" [value]="concert.name">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                              <mat-label>Choose a date</mat-label>
+                              <input [readonly]="true" matInput [matDatepicker]="picker" [value]="concert.date">
+                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+        <ng-template #noTours>
           <mat-accordion>
             <mat-expansion-panel [expanded]="false">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{tour.name}}
+                  No planned tours
                 </mat-panel-title>
                 <mat-panel-description>
-                  Tour details
+                  No planned tours
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <div class="card-content">
-                <mat-form-field appearance="outline">
-                  <mat-label>Tour name</mat-label>
-                  <input [readonly]="true" matInput placeholder="Tour name" [value]="tour.name">
-                </mat-form-field>
-
-                <mat-label class="song-label">Concerts:</mat-label>
-                <mat-accordion>
-                  <mat-expansion-panel [expanded]="false">
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        Tour Concerts
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <div class="card-content">
-                      <div *ngFor="let concert of tour.concerts; index as concertIndex">
-                        <div class="song-content">
-                          <mat-form-field appearance="outline">
-                            <mat-label>Concert name</mat-label>
-                            <input [readonly]="true" matInput placeholder="Concert name" [value]="concert.name">
-                          </mat-form-field>
-
-                          <mat-form-field appearance="fill">
-                            <mat-label>Choose a date</mat-label>
-                            <input [readonly]="true" matInput [matDatepicker]="picker" [value]="concert.date">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                          </mat-form-field>
-                        </div>
-                      </div>
-                    </div>
-                  </mat-expansion-panel>
-                </mat-accordion>
-              </div>
             </mat-expansion-panel>
           </mat-accordion>
-        </div>
+        </ng-template>
       </div>
     </div>
   <ng-template #noBand>
