@@ -26,25 +26,23 @@ Team members can login to the system and see the offers made by the band manager
 # Login Credentials 
 * Admin accounts
     * Manager with an already created band without members. For test invite musicians.
-    * Username: admin
-    * Password: admin
-    
+        * Username: admin
+        * Password: admin
     * Manager without band. For test create band.
-    * Username: admin2
-    * Password: admin2
-    
+        * Username: admin2
+        * Password: admin2
     * Manager with an already created band. The band includes members, albums, songs, tours, concerts.
-    * Username: admin3
-    * Password: admin3
+        * Username: admin3
+        * Password: admin3
 
 * Regular account
     * Musician with no band. For test accept or decline offers.
-    * Username: user
-    * Password: user
+        * Username: user
+        * Password: user
     
     * Musician with band. 
-    * Username: freddie
-    * Password: freddie
+        * Username: freddie
+        * Password: freddie
 
 ## Use Case Diagram
 
