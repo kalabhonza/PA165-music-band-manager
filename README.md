@@ -28,15 +28,15 @@ Team members can login to the system and see the offers made by the band manager
     * Manager with an already created band without members. For testing of musician invitation.
         * Username: admin
         * Password: admin
-    * Manager without band. For test create band.
+    * Manager without band. For testing of band creation.
         * Username: admin2
         * Password: admin2
-    * Manager with an already created band. The band includes members, albums, songs, tours, concerts.
+    * Manager with an already created band. The band includes members, albums, songs, tours and concerts.
         * Username: admin3
         * Password: admin3
 
-* Regular account
-    * Musician with no band. For test accept or decline offers.
+* Regular accounts
+    * Musician with no band. For testing of accepting and declining offers.
         * Username: user
         * Password: user
     
