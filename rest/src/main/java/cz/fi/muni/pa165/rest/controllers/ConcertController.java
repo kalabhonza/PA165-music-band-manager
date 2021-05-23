@@ -72,7 +72,7 @@ public class ConcertController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteConcert(@RequestBody @Valid ConcertDTO concertDTO){
         try {
-            concertFacade.remove(concertDTO);;
+            concertFacade.remove(concertDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);
@@ -85,7 +85,7 @@ public class ConcertController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateConcert(@RequestBody @Valid ConcertUpdateDTO concertUpdateDTO){
         try {
-            concertFacade.update(concertUpdateDTO);;
+            concertFacade.update(concertUpdateDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);

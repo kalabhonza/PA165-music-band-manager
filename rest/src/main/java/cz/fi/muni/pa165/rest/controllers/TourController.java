@@ -67,7 +67,7 @@ public class TourController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteTour(@RequestBody @Valid TourDTO tourDTO){
         try {
-            tourFacade.remove(tourDTO);;
+            tourFacade.remove(tourDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);
@@ -78,7 +78,7 @@ public class TourController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateTour(@RequestBody @Valid TourUpdateDTO tourUpdateDTO){
         try {
-            tourFacade.update(tourUpdateDTO);;
+            tourFacade.update(tourUpdateDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);
