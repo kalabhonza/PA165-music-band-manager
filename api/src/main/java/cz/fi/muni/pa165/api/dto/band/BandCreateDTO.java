@@ -9,6 +9,7 @@ public class BandCreateDTO {
     private String name;
     private Style style;
     private ManagerDTO manager;
+    private String logo;
 
 
     public String getName() {
@@ -33,6 +34,14 @@ public class BandCreateDTO {
 
     public void setManager(ManagerDTO manager) {
         this.manager = manager;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     @Override
