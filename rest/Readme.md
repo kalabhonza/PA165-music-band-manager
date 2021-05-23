@@ -13,7 +13,7 @@ REST API for Musician band manager. In order to test this API, test date need to
 ## Get all musicians withou band
 `curl -i -X GET http://localhost:8080/pa165/rest/musicians/free`
 
-# Send invite to band as Manager
+## Send invite to band as Manager
 `curl -i -X POST http://localhost:8080/pa165/rest/managers/{bandId}/offers/{musicianId}`
 
 ## Accept invitation to band 
@@ -21,3 +21,6 @@ REST API for Musician band manager. In order to test this API, test date need to
 
 ## Decline invitation to band 
 `curl -i -X PUT http://localhost:8080/pa165/rest/musicians/{name}/{musicianID}/offers/{bandID}`
+
+## Get band by id
+`curl -i -X GET http://localhost:8080/pa165/rest/bands/{bandID}`
