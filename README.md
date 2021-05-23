@@ -20,15 +20,31 @@ Team members can login to the system and see the offers made by the band manager
      * install client: `npm install`
      * install angular-cli: `npm install -g @angular/cli`
      * run client: `ng serve`
+     
+ * After loading the web page, you need to click on "create template data".
 
 # Login Credentials 
-* Admin account 
+* Admin accounts
+    * Manager with an already created band without members. For test invite musicians.
     * Username: admin
     * Password: admin
+    
+    * Manager without band. For test create band.
+    * Username: admin2
+    * Password: admin2
+    
+    * Manager with an already created band. The band includes members, albums, songs, tours, concerts.
+    * Username: admin3
+    * Password: admin3
 
 * Regular account
+    * Musician with no band. For test accept or decline offers.
     * Username: user
     * Password: user
+    
+    * Musician with band. 
+    * Username: freddie
+    * Password: freddie
 
 ## Use Case Diagram
 
