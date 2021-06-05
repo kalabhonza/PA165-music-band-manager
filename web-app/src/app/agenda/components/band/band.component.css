@@ -41,7 +41,7 @@
   margin-bottom: 5px;
 }
 
-.tour-content, .albums-content{
+.tour-content, .albums-content {
   display: flex;
   flex-direction: column;
 }
@@ -55,7 +55,7 @@
   margin-bottom: 10px;
 }
 
-.song-content {
+.song-content, .member-content {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -67,6 +67,10 @@
   width: 650px;
 }
 
-#instruments {
-  margin-left: 70px;
+.instruments-content {
+  width: 280px;
+}
+
+.instruments-content mat-list-option {
+  margin-bottom: 5px;
 }

@@ -86,7 +86,7 @@ public class ManagerController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteManager(@RequestBody @Valid ManagerDTO managerDTO){
         try {
-            managerFacade.remove(managerDTO);;
+            managerFacade.remove(managerDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);

@@ -104,15 +104,19 @@
             </mat-expansion-panel-header>
             <div class="card-content">
               <div *ngIf="band.members.length > 0 else noMembers">
-                <div *ngFor="let member of band.members">
+                <div class="member-content" *ngFor="let member of band.members">
                   <mat-form-field appearance="outline">
                     <mat-label>Member name</mat-label>
                     <input [readonly]="true" matInput placeholder="Member name" value="{{member.name}}">
                   </mat-form-field>
-                  <mat-form-field id="instruments" appearance="fill">
-                    <mat-label>Instruments</mat-label>
-                      <input *ngFor="let instrument of member.instruments" [readonly]="true" matInput placeholder="Member instruments" value="{{instrument}}">
-                  </mat-form-field>
+                  <div class="instruments-content">
+                    <mat-label>Instruments:</mat-label>
+                    <mat-selection-list>
+                      <mat-list-option [selected]="true" [disabled]="true" *ngFor="let instrument of member.instruments">
+                        {{instrument}}
+                      </mat-list-option>
+                    </mat-selection-list>
+                  </div>
                 </div>
               </div>
               <ng-template #noMembers>

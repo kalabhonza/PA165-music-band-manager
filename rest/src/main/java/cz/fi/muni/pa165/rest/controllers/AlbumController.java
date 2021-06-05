@@ -68,7 +68,7 @@ public class AlbumController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteAlbum(@RequestBody @Valid AlbumDTO albumDTO){
         try {
-            albumFacade.remove(albumDTO);;
+            albumFacade.remove(albumDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);
@@ -80,7 +80,7 @@ public class AlbumController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateAlbum(@RequestBody @Valid AlbumUpdateDTO albumUpdateDTO){
         try {
-            albumFacade.update(albumUpdateDTO);;
+            albumFacade.update(albumUpdateDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);

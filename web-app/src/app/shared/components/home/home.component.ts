@@ -3,6 +3,8 @@ import {RedirectService} from '../../services/redirect.service';
 import {SessionService} from '../../services/session.service';
 import {AlertMessageService} from '../../services/message-alert.service';
 import {ErrorAlertService} from '../../services/error-alert.service';
+import {Observable} from 'rxjs';
+import {Session} from '../../models/session';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +13,7 @@ import {ErrorAlertService} from '../../services/error-alert.service';
 })
 export class HomeComponent implements OnInit {
 
-  disablePopulate = false;
+  activeSession$: Observable<Session>;
   isLoading: boolean;
 
   constructor(
@@ -21,6 +23,7 @@ export class HomeComponent implements OnInit {
     private errorAlertService: ErrorAlertService) { }
 
   ngOnInit(): void {
+    this.activeSession$ = this.sessionService.activeSession$;
   }
 
   navigateTo(route: string): void {
@@ -32,7 +35,6 @@ export class HomeComponent implements OnInit {
     this.sessionService.populateSession().subscribe(
       _ => {
         this.alertMessageService.display('Created template data for application');
-        this.disablePopulate = true;
         this.isLoading = false;
       },
       err => {

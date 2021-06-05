@@ -1,4 +1,4 @@
-<div class="content">
+<div *ngIf="(activeSession$ | async).sessionLoggedIn" class="content">
   <button mat-button (click)="navigateTo('/pa165')">Home</button>
   <button *ngIf="!(activeSession$ | async).commonUser" mat-button (click)="navigateTo('band-manage')">Manage Band</button>
   <button *ngIf="(activeSession$ | async).commonUser" mat-button (click)="navigateTo('band')">My band</button>

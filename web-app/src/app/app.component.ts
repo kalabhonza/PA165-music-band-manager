@@ -3,8 +3,6 @@ import {RedirectService} from './shared/services/redirect.service';
 import {MatDialog} from '@angular/material/dialog';
 import {LoginDialogComponent} from './shared/components/login-dialog/login-dialog.component';
 import {AuthService} from './shared/services/auth.service';
-import {SessionService} from './shared/services/session.service';
-import {AlertMessageService} from './shared/services/message-alert.service';
 import {ErrorAlertService} from './shared/services/error-alert.service';
 
 @Component({

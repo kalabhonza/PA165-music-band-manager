@@ -82,7 +82,7 @@ public class MusicianController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteMusician(@RequestBody @Valid MusicianDTO musicianDTO){
         try {
-            musicianFacade.remove(musicianDTO);;
+            musicianFacade.remove(musicianDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);
@@ -94,7 +94,7 @@ public class MusicianController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateMusician(@RequestBody @Valid MusicianUpdateDTO musicianUpdateDTO){
         try {
-            musicianFacade.update(musicianUpdateDTO);;
+            musicianFacade.update(musicianUpdateDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NO_CONTENT, ex.getMessage(), ex);
