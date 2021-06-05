@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,14 +24,18 @@ public class PresentationDataServiceImpl implements PresentationDataService {
     private SongDAO songDAO;
     private AlbumDAO albumDAO;
     private BandDAO bandDAO;
+    private ConcertDAO concertDAO;
+    private TourDAO tourDAO;
 
     @Autowired
-    public PresentationDataServiceImpl(MusicianDAO musicianDAO, ManagerDAO managerDAO, BandDAO bandDAO, SongDAO songDAO, AlbumDAO albumDAO) {
+    public PresentationDataServiceImpl(MusicianDAO musicianDAO, ManagerDAO managerDAO, BandDAO bandDAO, SongDAO songDAO, AlbumDAO albumDAO, ConcertDAO concertDAO, TourDAO tourDAO) {
         this.musicianDAO = musicianDAO;
         this.managerDAO = managerDAO;
         this.bandDAO = bandDAO;
         this.songDAO = songDAO;
         this.albumDAO = albumDAO;
+        this.concertDAO = concertDAO;
+        this.tourDAO = tourDAO;
     }
     @Override
     public void createData() {
@@ -93,7 +98,7 @@ public class PresentationDataServiceImpl implements PresentationDataService {
         songs.add(song2);
 
         Album album1 = new Album();
-        album1.setName("Album 1");
+        album1.setName("Xero");
         album1.setSongs(songs);
         albumDAO.create(album1);
 
@@ -106,7 +111,7 @@ public class PresentationDataServiceImpl implements PresentationDataService {
         songs2.add(song3);
 
         Album album2 = new Album();
-        album2.setName("Album 2");
+        album2.setName("One More Light");
         album2.setSongs(songs2);
         albumDAO.create(album2);
 
@@ -224,6 +229,36 @@ public class PresentationDataServiceImpl implements PresentationDataService {
         Set<Album> albums5 = new HashSet<>();
         albums5.add(album5);
         albums5.add(album6);
+
+        Concert concert1 = new Concert();
+        concert1.setName("Prague O2 Arena");
+        concert1.setDate(LocalDate.of(2021, 7, 10));
+        concertDAO.create(concert1);
+
+        Concert concert2 = new Concert();
+        concert2.setName("London Royal Albert Hall");
+        concert2.setDate(LocalDate.of(2021, 7, 15));
+        concertDAO.create(concert2);
+
+        Concert concert3 = new Concert();
+        concert3.setName("Paris Accor Arena");
+        concert3.setDate(LocalDate.of(2021, 7, 20));
+        concertDAO.create(concert3);
+
+        Set<Concert> allConcerts = new HashSet<>();
+        allConcerts.add(concert1);
+        allConcerts.add(concert2);
+        allConcerts.add(concert3);
+
+        Tour tour1 = new Tour();
+        tour1.setName("Europe Summer Tour 2021");
+        tour1.setConcerts(allConcerts);
+        tourDAO.create(tour1);
+
+        Set<Tour> allTours = new HashSet<>();
+        allTours.add(tour1);
+
+        band5.setTours(allTours);
 
         band5.setAlbums(albums5);
 

@@ -20,15 +20,32 @@ Team members can login to the system and see the offers made by the band manager
      * install client: `npm install`
      * install angular-cli: `npm install -g @angular/cli`
      * run client: `ng serve`
+     
+ * After loading the web page and before login, you need to click on "create template data".
 
 # Login Credentials 
-* Admin account 
-    * Username: admin
-    * Password: admin
+* Admin accounts
+    * Manager with an already created band without members. For testing of musician invitation.
+        * Username: admin
+        * Password: admin
+    * Manager without band. For testing of band creation.
+        * Username: admin2
+        * Password: admin2
+    * Manager with an already created band. The band includes members, albums, songs, tours and concerts.
+        * Username: admin3
+        * Password: admin3
 
-* Regular account
-    * Username: user
-    * Password: user
+* Regular accounts
+    * Musician with no band. For testing of accepting and declining offers.
+        * Username: user
+        * Password: user
+    
+    * Musician with band. 
+        * Username: freddie
+        * Password: freddie
+        
+# REST README file
+* README file with instructions about how to test the REST interface (e.g. CURL commands for the command line) you can find in folder /rest.
 
 ## Use Case Diagram
 
