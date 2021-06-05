@@ -2,7 +2,6 @@
   <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
   <div class="about-content">
     <h3>Music band manager</h3>
-<!--    <button class="login-button" mat-button color="primary" (click)="navigateTo('login')">Login</button>-->
-    <button [disabled]="disablePopulate" class="register-button" mat-button color="primary" (click)="populateData()">Create template data</button>
+    <button [disabled]="(activeSession$ | async).sessionLoggedIn" class="register-button" mat-button color="primary" (click)="populateData()">Create template data</button>
   </div>
 </div>
