@@ -93,19 +93,19 @@
                               <mat-error *ngIf="song.get('duration').hasError('required')">Song duration is required</mat-error>
                             </mat-form-field>
 
-                            <button class="remove-button" mat-button color="warn" matTooltip="Remove song from album" (click)="removeSong(albumIndex, songIndex)">Remove</button>
+                            <button class="remove-button" mat-button color="warn" matTooltip="Remove song from album" (click)="removeSong(albumIndex, songIndex)">Remove song</button>
                           </div>
                         </div>
-                        <button class="add-button" matTooltip="Add song to album" mat-raised-button color="primary" (click)="addSong(albumIndex)">Add</button>
+                        <button class="add-button" matTooltip="Add song to album" mat-raised-button color="primary" (click)="addSong(albumIndex)">Add song</button>
                       </div>
                     </mat-expansion-panel>
                   </mat-accordion>
-                  <button class="remove-button" mat-button color="warn" matTooltip="Remove album from band" (click)="removeAlbum(albumIndex)">Remove</button>
+                  <button class="remove-button" mat-button color="warn" matTooltip="Remove album from band" (click)="removeAlbum(albumIndex)">Remove album</button>
                 </div>
               </mat-expansion-panel>
             </mat-accordion>
           </div>
-          <button class="add-button" mat-button mat-raised-button color="primary" matTooltip="Add album" (click)="addAlbum()">Add</button>
+          <button class="add-button" mat-button mat-raised-button color="primary" matTooltip="Add album" (click)="addAlbum()">Add album</button>
         </div>
         <div class="save-content">
           <button [disabled]="!bandManageFormGroup.formGroup.dirty || !bandManageFormGroup.formGroup.valid" id="save-button" mat-button mat-raised-button color="primary" matTooltip="Save changes" (click)="save()">Save</button>
@@ -186,20 +186,20 @@
                             <mat-datepicker #picker></mat-datepicker>
                           </mat-form-field>
 
-                          <button class="remove-button" mat-button color="warn" matTooltip="Remove concert from album" (click)="removeConcert(tourIndex, concertIndex)">Remove</button>
+                          <button class="remove-button" mat-button color="warn" matTooltip="Remove concert from album" (click)="removeConcert(tourIndex, concertIndex)">Remove concert</button>
                         </div>
                       </div>
-                      <button class="add-button" matTooltip="Add concert to tour" mat-raised-button color="primary" (click)="addConcert(tourIndex)">Add</button>
+                      <button class="add-button" matTooltip="Add concert to tour" mat-raised-button color="primary" (click)="addConcert(tourIndex)">Add concert</button>
                     </div>
                   </mat-expansion-panel>
                 </mat-accordion>
-                <button class="remove-button" mat-button color="warn" matTooltip="Remove tour from band" (click)="removeTour(tourIndex)">Remove</button>
+                <button class="remove-button" mat-button color="warn" matTooltip="Remove tour from band" (click)="removeTour(tourIndex)">Remove tour</button>
               </div>
             </mat-expansion-panel>
           </mat-accordion>
         </div>
       </div>
-      <button id="add-tour" class="add-button" mat-button mat-raised-button color="primary" matTooltip="Add Tour" (click)="addTour()">Add</button>
+      <button id="add-tour" class="add-button" mat-button mat-raised-button color="primary" matTooltip="Add Tour" (click)="addTour()">Add tour</button>
     </div>
   </form>
   <ng-template #noBand >

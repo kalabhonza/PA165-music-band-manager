@@ -36,7 +36,7 @@ export class BreadcrumbsComponent implements OnInit {
   }
 
   register(): void {
-    this.userRegister.emit();
+    //this.userRegister.emit();
   }
 
   login(): void {
