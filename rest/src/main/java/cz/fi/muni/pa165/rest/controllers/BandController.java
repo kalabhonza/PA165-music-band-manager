@@ -77,7 +77,7 @@ public class BandController {
             return ResponseEntity.ok(bandId);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
     }
 
@@ -100,7 +100,7 @@ public class BandController {
             return ResponseEntity.ok(bandFacade.updateBand(bandUpdateDTO));
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
     }
 }

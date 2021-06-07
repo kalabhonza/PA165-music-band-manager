@@ -123,7 +123,7 @@ public class PresentationDataServiceImpl implements PresentationDataService {
 
         band.setAlbums(albums);
         band.setManager(manager);
-        musician.setOffers(bands);
+        //musician.setOffers(bands);
 
         manager.setBand(band.getId());
 

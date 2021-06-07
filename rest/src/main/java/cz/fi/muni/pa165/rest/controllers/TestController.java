@@ -1,7 +1,9 @@
 package cz.fi.muni.pa165.rest.controllers;
 
 import cz.fi.muni.pa165.api.facade.PresentationDataFacade;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Testing rest controller
@@ -27,6 +29,10 @@ public class TestController {
      */
     @PostMapping
     public void createTestData() {
-        presentationDataFacade.createData();
+        try{
+            presentationDataFacade.createData();
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
+        }
     }
 }

@@ -78,7 +78,7 @@ public class ManagerController {
             return ResponseEntity.ok(managerFacade.create(managerCreateDTO));
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
     }
 
@@ -101,21 +101,21 @@ public class ManagerController {
             managerFacade.update(managerUpdateDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
         return ResponseEntity.noContent().build();
     }
 
     @RolesAllowed("ROLE_ADMIN")
     @PostMapping(value = "/{bandId}/offers/{musicianId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ResponseEntity<MusicianDTO> setOffer(@PathVariable Long musicianId, @PathVariable Long bandId){
         try {
             managerFacade.setOffer(musicianId, bandId);
             return ResponseEntity.noContent().build();
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
     }
 }

@@ -60,7 +60,7 @@ public class AlbumController {
             return ResponseEntity.ok(albumFacade.create(albumCreateDTO));
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
     }
 
@@ -83,7 +83,7 @@ public class AlbumController {
             albumFacade.update(albumUpdateDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
         return ResponseEntity.noContent().build();
     }

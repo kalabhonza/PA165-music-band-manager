@@ -74,7 +74,7 @@ public class MusicianController {
             return ResponseEntity.ok(musicianFacade.create(musicianCreateDTO));
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
     }
 
@@ -97,14 +97,14 @@ public class MusicianController {
             musicianFacade.update(musicianUpdateDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
         return ResponseEntity.noContent().build();
     }
 
     @RolesAllowed("ROLE_USER")
     @PostMapping(value = "/{musicianID}/offers/{bandID}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ResponseEntity<MusicianDTO> acceptOffer(@PathVariable Long musicianID, @PathVariable Long bandID){
         try {
             MusicianDTO musician = musicianFacade.findById(musicianID);
@@ -112,13 +112,13 @@ public class MusicianController {
             return ResponseEntity.ok(musicianFacade.acceptOffer(musician, band));
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
     }
 
     @RolesAllowed("ROLE_USER")
     @PutMapping(value = "/{musicianID}/offers/{bandID}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ResponseEntity<Void> declineOffer(@PathVariable Long musicianID, @PathVariable Long bandID) {
         try {
             MusicianDTO musician = musicianFacade.findById(musicianID);
@@ -126,7 +126,7 @@ public class MusicianController {
             musicianFacade.declineOffer(musician, band);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
         return ResponseEntity.noContent().build();
     }

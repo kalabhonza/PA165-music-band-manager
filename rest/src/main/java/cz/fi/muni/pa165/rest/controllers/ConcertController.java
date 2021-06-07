@@ -65,7 +65,7 @@ public class ConcertController {
             return ResponseEntity.ok(concertFacade.create(concertCreateDTO));
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }    }
 
     @RolesAllowed("ROLE_ADMIN")
@@ -88,7 +88,7 @@ public class ConcertController {
             concertFacade.update(concertUpdateDTO);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.NO_CONTENT, ex.getMessage(), ex);
+                    HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
         return ResponseEntity.noContent().build();
     }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -37,8 +38,12 @@ public class UserAuthController {
      */
     @GetMapping("/user-login/{name}/password/{pass}")
     public ResponseEntity<MusicianDTO> loginUser(@PathVariable String name, @PathVariable String pass){
-        MusicianDTO musicianDTO = musicianFacade.login(name, pass);
-        return new ResponseEntity<>(musicianDTO, HttpStatus.OK);
+        try {
+            MusicianDTO musicianDTO = musicianFacade.login(name, pass);
+            return new ResponseEntity<>(musicianDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage(), e);
+        }
     }
 
     /**
@@ -50,8 +55,12 @@ public class UserAuthController {
      */
     @GetMapping("/manager-login/{name}/password/{pass}")
     public ResponseEntity<ManagerDTO> loginManager(@PathVariable String name, @PathVariable String pass){
-        ManagerDTO managerDTO = managerFacade.login(name, pass);
-        return new ResponseEntity<>(managerDTO, HttpStatus.OK);
+        try {
+            ManagerDTO managerDTO = managerFacade.login(name, pass);
+            return new ResponseEntity<>(managerDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage(), e);
+        }
     }
 
     /**
