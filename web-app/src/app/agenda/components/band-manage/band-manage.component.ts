@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BandService} from '../../services/band.service';
 import {Band} from '../../../model/band';
 import {ManagerService} from '../../services/manager.service';
 import {SessionService} from '../../../shared/services/session.service';
-import {exhaustMap} from 'rxjs/operators';
-import {EMPTY} from 'rxjs';
+import {exhaustMap, takeUntil} from 'rxjs/operators';
+import {EMPTY, ReplaySubject} from 'rxjs';
 import {AlertMessageService} from '../../../shared/services/message-alert.service';
 import {AbstractControl, FormArray, FormControl, Validators} from '@angular/forms';
 import {Song} from '../../../model/song';
@@ -18,7 +18,7 @@ import {BandManageFormGroup} from './band-manage-form-group';
   templateUrl: './band-manage.component.html',
   styleUrls: ['./band-manage.component.css']
 })
-export class BandManageComponent implements OnInit {
+export class BandManageComponent implements OnInit, OnDestroy {
 
   isLoading: boolean;
   managerId: number;
@@ -26,6 +26,8 @@ export class BandManageComponent implements OnInit {
   availableStyles: string[];
   managerName: string;
   bandManageFormGroup: BandManageFormGroup;
+
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(
     private bandsService: BandService,
@@ -64,6 +66,11 @@ export class BandManageComponent implements OnInit {
     this.loadBand();
   }
 
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
+  }
+
   /**
    *
    * @param event
@@ -87,7 +94,8 @@ export class BandManageComponent implements OnInit {
               return EMPTY;
             }
           }
-        )
+        ),
+        takeUntil(this.destroyed$)
       ).subscribe(
       (band) => {
         this.band = band;
@@ -180,11 +188,8 @@ export class BandManageComponent implements OnInit {
   save(): void {
     this.bandManageFormGroup.setToBand(this.band);
 
-    this.bandsService.updateBand((this.band)).subscribe(
+    this.bandsService.updateBand((this.band)).pipe(takeUntil(this.destroyed$)).subscribe(
       (_) => {
-        // this.band = band;
-        // this.bandManageFormGroup = new BandManageFormGroup(this.band);
-        // this.setBandForms();
         this.bandManageFormGroup.formGroup.markAsPristine();
         this.isLoading = false;
         this.ngOnInit();
@@ -195,7 +200,7 @@ export class BandManageComponent implements OnInit {
 
   private updateForm(): void {
     this.bandManageFormGroup = new BandManageFormGroup(this.band);
-    this.bandManageFormGroup.formGroup.valueChanges.subscribe(() => {
+    this.bandManageFormGroup.formGroup.valueChanges.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.bandManageFormGroup.setToBand(this.band);
     });
   }

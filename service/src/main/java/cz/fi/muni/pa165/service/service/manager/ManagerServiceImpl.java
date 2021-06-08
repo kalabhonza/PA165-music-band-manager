@@ -13,10 +13,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -123,24 +122,10 @@ public class ManagerServiceImpl implements ManagerService{
         return manager;
     }
 
-    private void passwordCheck(String passwordHash, String password){
-        String hash = hashPassword(password);
-        if (!hash.equals(passwordHash))
+    private void passwordCheck(String encodedPassword, String rawPassword){
+        Argon2PasswordEncoder argon2PasswordEncoder = new Argon2PasswordEncoder();
+        if (!argon2PasswordEncoder.matches(rawPassword, encodedPassword))
             throw new BandManagerServiceException("Wrong password/login combination", ErrorStatus.BAD_LOGIN);
-    }
-
-    private String hashPassword(String password){
-        try{
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hash) {
-                sb.append(String.format("%02X ", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException ex){
-            throw new BandManagerServiceException("Error while hashing password.", ErrorStatus.INTERNAL);
-        }
     }
 
     private void setSecurityContext(String name, String password){

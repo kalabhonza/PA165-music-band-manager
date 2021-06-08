@@ -14,6 +14,7 @@ export class LoginDialogComponent {
 
   isLoading: boolean;
   managerLogin: boolean;
+  hidden = true;
   state = 'visibility';
 
   username = new FormControl(
@@ -55,10 +56,10 @@ export class LoginDialogComponent {
 
   show(): void {
     if (this.state === 'visibility') {
-      document.getElementsByClassName('password-input')[0].setAttribute('type', 'text');
+      this.hidden = false;
       this.state = 'visibility_off';
     } else {
-      document.getElementsByClassName('password-input')[0].setAttribute('type', 'password');
+      this.hidden = true;
       this.state = 'visibility';
     }
   }

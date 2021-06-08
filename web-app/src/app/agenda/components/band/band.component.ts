@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BandService} from '../../services/band.service';
 import {Band} from '../../../model/band';
 import {SessionService} from '../../../shared/services/session.service';
-import {concat, EMPTY} from 'rxjs';
+import {concat, EMPTY, ReplaySubject} from 'rxjs';
 import {MusicianService} from '../../services/musician.service';
-import {exhaustMap} from 'rxjs/operators';
+import {exhaustMap, takeUntil} from 'rxjs/operators';
 import {AlertMessageService} from '../../../shared/services/message-alert.service';
 
 @Component({
@@ -12,11 +12,13 @@ import {AlertMessageService} from '../../../shared/services/message-alert.servic
   templateUrl: './band.component.html',
   styleUrls: ['./band.component.css']
 })
-export class BandComponent implements OnInit {
+export class BandComponent implements OnInit, OnDestroy {
 
   isLoading: boolean;
   band: Band;
   musicianId: number;
+
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(
     private bandService: BandService,
@@ -28,6 +30,11 @@ export class BandComponent implements OnInit {
   ngOnInit(): void {
     this.musicianId = this.sessionService.getUserId();
     this.getBand();
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 
   private getBand(): void {
@@ -44,7 +51,8 @@ export class BandComponent implements OnInit {
               return EMPTY;
             }
           }
-        )
+        ),
+        takeUntil(this.destroyed$)
     ).subscribe(
       (band) => {
         this.band = band;

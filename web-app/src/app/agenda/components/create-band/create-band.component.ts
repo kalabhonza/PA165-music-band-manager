@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BandService} from '../../services/band.service';
 import {AbstractControl} from '@angular/forms';
 import {Band} from '../../../model/band';
@@ -7,19 +7,23 @@ import {Manager} from '../../../model/manager';
 import {ManagerService} from '../../services/manager.service';
 import {SessionService} from '../../../shared/services/session.service';
 import {AlertMessageService} from '../../../shared/services/message-alert.service';
+import {takeUntil} from 'rxjs/operators';
+import {ReplaySubject} from 'rxjs';
 
 @Component({
   selector: 'app-create-band',
   templateUrl: './create-band.component.html',
   styleUrls: ['./create-band.component.css']
 })
-export class CreateBandComponent implements OnInit {
+export class CreateBandComponent implements OnInit, OnDestroy {
 
   isLoading: boolean;
   createBandFormGroup: CreateBandFormGroup;
   availableStyles: string[];
   manager: Manager;
   band: Band;
+
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(
     private bandService: BandService,
@@ -44,10 +48,15 @@ export class CreateBandComponent implements OnInit {
     this.loadManager();
   }
 
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
+  }
+
   create(): void {
     this.isLoading = true;
     this.createBandFormGroup.setToBand(this.band, this.manager);
-    this.bandService.createBand(this.band).subscribe(
+    this.bandService.createBand(this.band).pipe(takeUntil(this.destroyed$)).subscribe(
       _ => {
         this.alertService.display('Band was created an registered to you');
         this.isLoading = false;
@@ -70,7 +79,7 @@ export class CreateBandComponent implements OnInit {
 
   private loadManager(): void {
     this.isLoading = true;
-    this.managerService.getManagerById(this.sessionService.getUserId()).subscribe(
+    this.managerService.getManagerById(this.sessionService.getUserId()).pipe(takeUntil(this.destroyed$)).subscribe(
       (user) => {
         this.manager = user;
         this.isLoading = false;

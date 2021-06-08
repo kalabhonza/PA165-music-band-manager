@@ -26,8 +26,14 @@ export class ErrorAlertService {
         });
         break;
       case 401:
-      case 409:
         this.snackBar.open('Authorization error: ' + error.error.serverInternalMessage, 'Close', {
+
+            duration: 4000,
+          panelClass: ['snackbar-design', 'snackbar-error']
+        });
+        break;
+      case 409:
+        this.snackBar.open('Template data were already created', 'Close', {
           duration: 4000,
           panelClass: ['snackbar-design', 'snackbar-error']
         });

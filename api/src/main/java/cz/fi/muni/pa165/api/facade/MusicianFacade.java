@@ -86,4 +86,9 @@ public interface MusicianFacade {
      * @return musician object
      */
     MusicianDTO login(String username, String password);
+
+    /**
+     * Logout user out of the system
+     */
+    void logout();
 }

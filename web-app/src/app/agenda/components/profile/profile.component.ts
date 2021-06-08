@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SessionService} from '../../../shared/services/session.service';
 import {AlertMessageService} from '../../../shared/services/message-alert.service';
 import {AuthService} from '../../../shared/services/auth.service';
@@ -7,16 +7,20 @@ import {ManagerService} from '../../services/manager.service';
 import {MusicianService} from '../../services/musician.service';
 import {Musician} from '../../../model/musician';
 import {Manager} from '../../../model/manager';
+import {takeUntil} from 'rxjs/operators';
+import {ReplaySubject} from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
   isLoading: boolean;
   activeUser: Musician | Manager;
+
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(private sessionService: SessionService,
               private alertMessageService: AlertMessageService,
@@ -28,7 +32,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     if (this.sessionService.getUser().commonUser) {
-      this.musicianService.getMusicianById(this.sessionService.getUserId()).subscribe(
+      this.musicianService.getMusicianById(this.sessionService.getUserId())
+        .pipe(takeUntil(this.destroyed$)).subscribe(
         (user) => {
           this.activeUser = user as Musician;
           this.isLoading = false;
@@ -36,7 +41,8 @@ export class ProfileComponent implements OnInit {
         _ => this.isLoading = false
       );
     } else {
-      this.managerService.getManagerById(this.sessionService.getUserId()).subscribe(
+      this.managerService.getManagerById(this.sessionService.getUserId())
+        .pipe(takeUntil(this.destroyed$)).subscribe(
         (user) => {
           this.activeUser = user as Manager;
           this.isLoading = false;
@@ -44,5 +50,10 @@ export class ProfileComponent implements OnInit {
         _ => this.isLoading = false
       );
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 }

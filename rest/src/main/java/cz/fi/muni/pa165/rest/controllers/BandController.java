@@ -11,10 +11,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class BandController {
         this.managerFacade = managerFacade;
     }
 
-    @RolesAllowed({"ROLE_USER"})
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<BandDTO>> getAll(){
         try {
@@ -45,7 +45,7 @@ public class BandController {
         }
     }
 
-    @RolesAllowed({"ROLE_USER"})
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BandDTO> getById(@PathVariable Long id){
         try {
@@ -57,7 +57,7 @@ public class BandController {
     }
 
 
-    @RolesAllowed({"ROLE_USER"})
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(value = "/{id}/managers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BandDTO> getByManager(@RequestBody @Valid ManagerDTO managerDTO){
         try {
@@ -68,7 +68,7 @@ public class BandController {
         }
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createBand(@RequestBody @Valid BandCreateDTO bandCreateDTO){
         try {
@@ -81,7 +81,7 @@ public class BandController {
         }
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteBand(@RequestBody @Valid BandDTO bandDTO){
         try {
@@ -93,7 +93,7 @@ public class BandController {
         return ResponseEntity.noContent().build();
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BandDTO> updateBand(@RequestBody @Valid BandUpdateDTO bandUpdateDTO){
         try {
