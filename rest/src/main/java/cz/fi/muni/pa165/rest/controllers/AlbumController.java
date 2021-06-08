@@ -10,10 +10,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class AlbumController {
 
     }
 
-    @RolesAllowed({"ROLE_USER"})
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AlbumDTO>> getAll(){
         try {
@@ -42,7 +42,7 @@ public class AlbumController {
         }
     }
 
-    @RolesAllowed({"ROLE_USER"})
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AlbumDTO> getById(@PathVariable Long id){
         try {
@@ -53,7 +53,7 @@ public class AlbumController {
         }
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createAlbum(@RequestBody @Valid AlbumCreateDTO albumCreateDTO){
         try {
@@ -64,7 +64,7 @@ public class AlbumController {
         }
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteAlbum(@RequestBody @Valid AlbumDTO albumDTO){
         try {
@@ -76,7 +76,7 @@ public class AlbumController {
         return ResponseEntity.noContent().build();
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateAlbum(@RequestBody @Valid AlbumUpdateDTO albumUpdateDTO){
         try {

@@ -1,7 +1,6 @@
 package cz.fi.muni.pa165.rest.controllers;
 
 
-
 import cz.fi.muni.pa165.api.dto.tour.TourCreateDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourDTO;
 import cz.fi.muni.pa165.api.dto.tour.TourUpdateDTO;
@@ -10,15 +9,12 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -31,7 +27,7 @@ public class TourController {
         this.tourFacade = tourFacade;
     }
 
-    @RolesAllowed({"ROLE_USER"})
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TourDTO>> getAll(){
         try {
@@ -42,7 +38,7 @@ public class TourController {
         }
     }
 
-    @RolesAllowed({"ROLE_USER"})
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TourDTO> getById(@PathVariable Long id){
         try {
@@ -53,7 +49,7 @@ public class TourController {
         }
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createTour(@RequestBody @Valid TourCreateDTO tourCreateDTO){
         try {
@@ -63,7 +59,7 @@ public class TourController {
                     HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }    }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteTour(@RequestBody @Valid TourDTO tourDTO){
         try {
@@ -74,7 +70,7 @@ public class TourController {
         }
         return ResponseEntity.noContent().build();
     }
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateTour(@RequestBody @Valid TourUpdateDTO tourUpdateDTO){
         try {

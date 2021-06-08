@@ -11,10 +11,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class MusicianController {
         this.bandFacade = bandFacade;
     }
 
-    @RolesAllowed({"ROLE_USER"})
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MusicianDTO>> getAll(){
         try {
@@ -45,7 +45,7 @@ public class MusicianController {
         }
     }
 
-    @RolesAllowed({"ROLE_USER"})
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(value = "/free", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MusicianDTO>> getAllWithoutBand(){
         try {
@@ -56,7 +56,7 @@ public class MusicianController {
         }
     }
 
-    @RolesAllowed({"ROLE_USER"})
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     public ResponseEntity<MusicianDTO> getById(@PathVariable Long id){
@@ -67,7 +67,7 @@ public class MusicianController {
                     HttpStatus.NOT_FOUND, ex.getMessage(), ex);
         }
     }
-    @RolesAllowed("ROLE_USER")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createMusician(@RequestBody @Valid MusicianCreateDTO musicianCreateDTO){
         try {
@@ -78,7 +78,7 @@ public class MusicianController {
         }
     }
 
-    @RolesAllowed("ROLE_USER")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteMusician(@RequestBody @Valid MusicianDTO musicianDTO){
         try {
@@ -90,7 +90,7 @@ public class MusicianController {
         return ResponseEntity.noContent().build();
     }
 
-    @RolesAllowed("ROLE_USER")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateMusician(@RequestBody @Valid MusicianUpdateDTO musicianUpdateDTO){
         try {
@@ -102,7 +102,7 @@ public class MusicianController {
         return ResponseEntity.noContent().build();
     }
 
-    @RolesAllowed("ROLE_USER")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping(value = "/{musicianID}/offers/{bandID}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ResponseEntity<MusicianDTO> acceptOffer(@PathVariable Long musicianID, @PathVariable Long bandID){
@@ -116,7 +116,7 @@ public class MusicianController {
         }
     }
 
-    @RolesAllowed("ROLE_USER")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping(value = "/{musicianID}/offers/{bandID}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ResponseEntity<Void> declineOffer(@PathVariable Long musicianID, @PathVariable Long bandID) {

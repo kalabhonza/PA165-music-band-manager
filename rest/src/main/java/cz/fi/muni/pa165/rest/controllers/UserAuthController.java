@@ -7,11 +7,10 @@ import cz.fi.muni.pa165.api.facade.MusicianFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.annotation.security.RolesAllowed;
 
 /**
  * @author Igor Ignác
@@ -33,7 +32,7 @@ public class UserAuthController {
      * User login
      *
      * @param name username of user
-     * @param pass password of hero
+     * @param pass password of user
      * @return Resource<UserDTO>
      */
     @GetMapping("/user-login/{name}/password/{pass}")
@@ -50,7 +49,7 @@ public class UserAuthController {
      * User login
      *
      * @param name username of user
-     * @param pass password of hero
+     * @param pass password of user
      * @return Resource<UserDTO>
      */
     @GetMapping("/manager-login/{name}/password/{pass}")
@@ -66,10 +65,10 @@ public class UserAuthController {
     /**
      * User logout
      */
-    @RolesAllowed({"ROLE_USER"})
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/logout")
     public ResponseEntity<Void> logout(){
-        SecurityContextHolder.clearContext();
+        musicianFacade.logout();
         return ResponseEntity.noContent().build();
     }
 }

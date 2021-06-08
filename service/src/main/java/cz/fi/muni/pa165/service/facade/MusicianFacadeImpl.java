@@ -100,4 +100,9 @@ public class MusicianFacadeImpl implements MusicianFacade {
         Musician loggedMusician = musicianService.login(username, password);
         return musicianMapper.mapToMusicianDTO(loggedMusician);
     }
+
+    @Override
+    public void logout() {
+        musicianService.logout();
+    }
 }

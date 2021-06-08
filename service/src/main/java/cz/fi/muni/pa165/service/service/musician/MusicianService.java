@@ -84,4 +84,9 @@ public interface MusicianService {
      * @return
      */
     Musician login(String username, String password);
+
+    /**
+     * Logout user
+     */
+    void logout();
 }

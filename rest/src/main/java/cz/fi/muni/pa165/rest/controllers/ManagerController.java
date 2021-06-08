@@ -13,13 +13,12 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +37,7 @@ public class ManagerController {
         this.bandFacade = bandFacade;
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ManagerDTO>> getAll(){
         try {
@@ -49,7 +48,7 @@ public class ManagerController {
         }
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ManagerDTO> getById(@PathVariable Long id){
         try {
@@ -60,7 +59,7 @@ public class ManagerController {
         }
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/{id}/bands", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BandDTO> getByBandId(@PathVariable Long id){
         try {
@@ -71,7 +70,7 @@ public class ManagerController {
         }
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createManager(@RequestBody @Valid ManagerCreateDTO managerCreateDTO){
         try {
@@ -82,7 +81,7 @@ public class ManagerController {
         }
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteManager(@RequestBody @Valid ManagerDTO managerDTO){
         try {
@@ -94,7 +93,7 @@ public class ManagerController {
         return ResponseEntity.noContent().build();
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateManager(@RequestBody @Valid ManagerUpdateDTO managerUpdateDTO){
         try {
@@ -106,7 +105,7 @@ public class ManagerController {
         return ResponseEntity.noContent().build();
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value = "/{bandId}/offers/{musicianId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ResponseEntity<MusicianDTO> setOffer(@PathVariable Long musicianId, @PathVariable Long bandId){
