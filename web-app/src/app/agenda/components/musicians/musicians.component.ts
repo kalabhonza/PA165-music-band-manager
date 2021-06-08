@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MusicianService} from '../../services/musician.service';
 import {Musician} from '../../../model/musician';
 import {ManagerService} from '../../services/manager.service';
-import {catchError, exhaustMap} from 'rxjs/operators';
-import {EMPTY} from 'rxjs';
+import {exhaustMap, takeUntil} from 'rxjs/operators';
+import {EMPTY, ReplaySubject} from 'rxjs';
 import {SessionService} from '../../../shared/services/session.service';
 import {AlertMessageService} from '../../../shared/services/message-alert.service';
 
@@ -12,10 +12,12 @@ import {AlertMessageService} from '../../../shared/services/message-alert.servic
   templateUrl: './musicians.component.html',
   styleUrls: ['./musicians.component.css']
 })
-export class MusiciansComponent implements OnInit {
+export class MusiciansComponent implements OnInit, OnDestroy {
 
   musicians: Musician[];
   isLoading: boolean;
+
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(
     private musicianService: MusicianService,
@@ -27,9 +29,14 @@ export class MusiciansComponent implements OnInit {
     this.getMusicians();
   }
 
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
+  }
+
   private getMusicians(): void {
     this.isLoading = true;
-    this.musicianService.getAllMusicians().subscribe(
+    this.musicianService.getAllMusicians().pipe(takeUntil(this.destroyed$)).subscribe(
       (musicians) => {
         this.musicians = musicians;
         this.isLoading = false;
@@ -51,7 +58,8 @@ export class MusiciansComponent implements OnInit {
               return EMPTY;
             }
           }
-        )
+        ),
+        takeUntil(this.destroyed$)
       ).subscribe(
         () => {
           this.alertMessageService.display('Your offer was send');

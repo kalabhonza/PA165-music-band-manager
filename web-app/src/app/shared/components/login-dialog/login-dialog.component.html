@@ -12,7 +12,7 @@
 
   <div class="password-content">
     <mat-form-field>
-      <input class="password-input" type="password" matInput placeholder="Password" [formControl]="password" required>
+      <input class="password-input" [type]="hidden ? 'password' : 'text'" matInput placeholder="Password" [formControl]="password" required>
       <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
     </mat-form-field>
     <button mat-button (click)="show()"><mat-icon [innerHTML]="state"></mat-icon></button>

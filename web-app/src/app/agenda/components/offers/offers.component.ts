@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MusicianService} from '../../services/musician.service';
 import {SessionService} from '../../../shared/services/session.service';
 import {Band} from '../../../model/band';
+import {ReplaySubject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-offers',
   templateUrl: './offers.component.html',
   styleUrls: ['./offers.component.scss']
 })
-export class OffersComponent implements OnInit {
+export class OffersComponent implements OnInit, OnDestroy {
 
   isLoading: boolean;
   musicianId: number;
   offers: Band[];
+
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(private musicianService: MusicianService, private sessionService: SessionService) { }
 
@@ -21,9 +25,15 @@ export class OffersComponent implements OnInit {
     this.getCurrentOffers();
   }
 
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
+  }
+
   decline(offerIndex: number): void {
     this.isLoading = true;
-    this.musicianService.declineOffer(this.musicianId, this.offers[offerIndex].id).subscribe(
+    this.musicianService.declineOffer(this.musicianId, this.offers[offerIndex].id)
+      .pipe(takeUntil(this.destroyed$)).subscribe(
       () => {
         this.isLoading = false;
         this.ngOnInit();
@@ -34,7 +44,8 @@ export class OffersComponent implements OnInit {
 
   accept(offerIndex: number): void {
     this.isLoading = true;
-    this.musicianService.acceptOffer(this.musicianId, this.offers[offerIndex].id).subscribe(
+    this.musicianService.acceptOffer(this.musicianId, this.offers[offerIndex].id)
+      .pipe(takeUntil(this.destroyed$)).subscribe(
       () => {
         this.isLoading = false;
         this.ngOnInit();
@@ -45,7 +56,8 @@ export class OffersComponent implements OnInit {
 
   private getCurrentOffers(): void {
     this.isLoading = true;
-    this.musicianService.getOffers(this.musicianId).subscribe(
+    this.musicianService.getOffers(this.musicianId)
+      .pipe(takeUntil(this.destroyed$)).subscribe(
       (offers) => {
         this.offers = offers;
       }

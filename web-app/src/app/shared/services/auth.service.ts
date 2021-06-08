@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {SessionService} from './session.service';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {map, tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {UserCredentials} from '../models/user-credentials';
 import {MusicianDTO} from '../../api/dtos/musician-dto';
 import {MusicianMapper} from '../../api/mappers/musician-mapper';
@@ -74,7 +74,11 @@ export class AuthService {
       .pipe(
         tap(
           session => this.sessionService.endSession()
-        )
+        ),
+        catchError(error => {
+          this.sessionService.endSession();
+          return error;
+        })
       );
   }
 }
