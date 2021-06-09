@@ -6,7 +6,7 @@
       <div matTooltip="Band logo" class="offer-box">
         <mat-icon *ngIf="!offer.logo else logo">email</mat-icon>
         <ng-template #logo>
-          <img [src]="offer.logo">
+          <img class="logo-content" [src]="offer.logo">
         </ng-template>
       </div>
       <div>
