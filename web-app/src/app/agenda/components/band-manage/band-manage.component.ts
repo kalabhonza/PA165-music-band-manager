@@ -180,6 +180,7 @@ export class BandManageComponent implements OnInit, OnDestroy {
 
       reader.onload = (event: any) => {
         this.band.logo = event.target.result;
+        this.bandManageFormGroup.formGroup.markAsDirty();
       };
       reader.readAsDataURL(imgEvent.target.files[0]);
     }

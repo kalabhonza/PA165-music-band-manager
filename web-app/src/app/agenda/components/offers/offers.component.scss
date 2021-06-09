@@ -34,8 +34,8 @@
 .offer-box {
   border: 2px solid #f9f9f9;
   margin: 3px;
-  width: 200px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
 }
 
 #offer-worth {
@@ -45,7 +45,7 @@
   justify-content: flex-end;
   padding-top: 25px;
   margin-bottom: 10px;
-  padding-left: 30px;
+  //padding-left: 30px;
 }
 
 #offer-worth mat-icon {
@@ -59,4 +59,8 @@
 h4 {
   color: lightslategrey;
   padding-left: 20px
+}
+
+.logo-content {
+  max-width: 100px;
 }
